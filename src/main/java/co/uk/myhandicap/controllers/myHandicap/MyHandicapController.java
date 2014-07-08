@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * Description Here
+ * My Handicap Controller
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 08/07/2014

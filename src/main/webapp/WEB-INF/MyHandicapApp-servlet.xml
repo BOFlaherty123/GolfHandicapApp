@@ -21,13 +21,22 @@
         p:location="/WEB-INF/jdbc.properties" />
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+        <!--<property name="configLocation" value="classpath:hibernate.cfg.xml"/>-->
         <property name="dataSource" ref="dataSource"/>
         <property name="annotatedClasses">
             <list>
-                <value>main.java.co.uk.myhandicap.dto.User</value>
-                <value>main.java.co.uk.myhandicap.dto.Address</value>
+                <value>main.java.co.uk.myhandicap.dto.user.User</value>
+                <value>main.java.co.uk.myhandicap.dto.user.Address</value>
+                <value>main.java.co.uk.myhandicap.dto.user.HomeAddress</value>
+                <value>main.java.co.uk.myhandicap.dto.user.WorkAddress</value>
             </list>
+        </property>
+        <property name="hibernateProperties">
+            <value>
+                hibernate.hbm2ddl.auto=create
+                hibernate.show_sql=true
+                hibernate.dialect=org.hibernate.dialect.PostgresPlusDialect
+            </value>
         </property>
     </bean>
 
@@ -37,5 +46,7 @@
         <property name = "username" value = "${jdbc.username}" />
         <property name = "password" value = "${jdbc.password}" />
     </bean>
+
+    <mvc:resources mapping="/resources/**" location="/resources/" />
 
 </beans>

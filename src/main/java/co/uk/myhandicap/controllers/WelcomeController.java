@@ -1,18 +1,19 @@
 package main.java.co.uk.myhandicap.controllers;
 
-import main.java.co.uk.myhandicap.dto.Address;
-import main.java.co.uk.myhandicap.dto.User;
-import main.java.co.uk.myhandicap.dto.UserRole;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import main.java.co.uk.myhandicap.dto.user.HomeAddress;
+import main.java.co.uk.myhandicap.dto.user.User;
+import main.java.co.uk.myhandicap.dto.user.UserRole;
+import main.java.co.uk.myhandicap.dto.user.WorkAddress;
+import main.java.co.uk.myhandicap.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
 
 /**
- * Welcome Page
+ * Welcome Controller
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 02/07/14
@@ -22,10 +23,25 @@ import java.util.Date;
 public class WelcomeController {
 
     @Autowired
-    private SessionFactory sessionFactory;
+    private UserService userService;
 
+    /**
+     * Display the 'welcome' page to the application
+     *
+     * @return
+     */
     @RequestMapping(value="/")
     public String welcomePage() {
+        return "welcome";
+    }
+
+    /**
+     * Save a new user to the database
+     *
+     * @return
+     */
+    @RequestMapping(value="/saveUser")
+    public ModelAndView saveUser() {
 
         User user = new User();
         user.setCreatedDate(new Date());
@@ -47,41 +63,40 @@ public class WelcomeController {
         user.getUserRoles().add(role1);
         user.getUserRoles().add(role2);
 
-        Address address = new Address();
-        address.setAddress1("131 The Lock, Building 72, London");
-        address.setPostCode("E15 2QG");
+        HomeAddress homeAddress = new HomeAddress();
+        homeAddress.setAddress1("131 The Lock, Building 72, London");
+        homeAddress.setPostCode("E15 2QG");
+        homeAddress.setHomeTelephone("02085550707");
 
-        user.setAddress(address);
+        WorkAddress workAddress = new WorkAddress();
+        workAddress.setAddress1("28 Dingwall Road, Croydon");
+        workAddress.setPostCode("CR0 2NH");
+        workAddress.setWorkTelephone("02082564881");
+        workAddress.setWorkFaxNumber("00000000000");
 
-        Session session = sessionFactory.openSession();
+        user.getAddress().add(homeAddress);
+        user.getAddress().add(workAddress);
 
-        // Create a session transaction (usually within a try block)
-        session.beginTransaction();
+        userService.saveUser(user);
 
-        // Save User object
-        session.save(user);
+        return new ModelAndView("welcome");
+    }
 
-        // Commit and close the transaction
-        session.getTransaction().commit();
+    /**
+     * Retrieve a user from the database
+     *
+     * @param mav
+     * @return
+     */
+    @RequestMapping(value="/retrieveUser")
+    public ModelAndView getUser(ModelAndView mav) {
 
-        // Close the session (usually within a finally block)
-        session.close();
+        User user = userService.retrieveUser(1L);
 
-        user = null;
+        mav.setViewName("retrieveUser");
+        mav.addObject(user);
 
-        Session session2 = sessionFactory.openSession();
-        session2.beginTransaction();
-
-//        // Retrieve a User object from the Database
-//        try{
-//            user = (User) session2.get(User.class, 1L);
-//            System.out.println(user.toString());
-//
-//        } catch (RuntimeException e){
-//            System.out.println(e.toString());
-//        }
-//
-        return "welcome";
+        return mav;
     }
 
 }

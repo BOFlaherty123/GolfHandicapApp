@@ -64,17 +64,31 @@
                     <fieldset>
                         <legend>Round Score</legend>
 
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <field:input id="input-dateOfPlay" divClass="col-lg-10" placeholder="Date of Visit" label="Date:"/>
+                                </div>
+                                <div class="form-group">
+                                    <field:input id="input-course-name" divClass="col-lg-10" placeholder="Name of Golf Course" label="Course Name:"/>
+                                </div>
+                                <div class="form-group">
+                                    <field:input id="input-course-par" divClass="col-lg-10" placeholder="Par of Golf Course" label="Course Par:"/>
+                                </div>
+                            </div>
+                        </div>
+
                         <c:forEach var="i" begin="1" end="18">
 
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <field:input id="input-hole1-par" divClass="col-lg-10" placeholder="Par" label="${i}"/>
+                                        <field:input id="input-hole${i}-par" divClass="col-lg-10" placeholder="Par" label="${i}"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <field:input id="input-hole${i}-yards" divClass="col-lg-10" placeholder="Yards"/>
+                                        <field:input id="input-hole${i}-yards" divClass="col-lg-10" placeholder="Yards" inputAddon="${true}" addonText="yds"/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -90,6 +104,13 @@
                             </div>
 
                         </c:forEach>
+
+                        <!-- Submit Form -->
+                        <div class="form-group">
+                            <div class="col-lg-10 col-lg-offset-2">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
 
                     </fieldset>
                 </form>

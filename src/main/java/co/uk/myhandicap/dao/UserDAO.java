@@ -4,6 +4,7 @@ import main.java.co.uk.myhandicap.dto.user.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.exception.GenericJDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,43 +27,57 @@ public class UserDAO {
 
         Session session = sessionFactory.openSession();
 
-        // Create a session transaction (usually within a try block)
-        session.beginTransaction();
+        try {
 
-        // Save User object
-        session.save(user);
+            // Create a session transaction (usually within a try block)
+            session.beginTransaction();
 
-        // Commit and close the transaction
-        session.getTransaction().commit();
+            // Save User object
+            session.save(user);
 
-        // Close the session (usually within a finally block)
-        session.close();
+            // Commit and close the transaction
+            session.getTransaction().commit();
+
+            // Close the session (usually within a finally block)
+            session.close();
+
+        } catch(GenericJDBCException ex) {
+            System.out.println("Database Exception! Add Logging");
+        }
+
     }
 
     public User retrieveUser(Long userId) {
 
-        Session session2 = sessionFactory.openSession();
-        session2.beginTransaction();
+        Session session = sessionFactory.openSession();
 
-        // Retrieve a User object from the Database
         User user = null;
-        try{
-            user = (User) session2.get(User.class, 1L);
-            System.out.println(user.toString());
-        } catch (RuntimeException e){
-            System.out.println("error: " + e.toString());
+        try {
+
+            session.beginTransaction();
+
+            // Retrieve a User object from the Database
+            try{
+                user = (User) session.get(User.class, 1L);
+                System.out.println(user.toString());
+            } catch (RuntimeException e){
+                System.out.println("error: " + e.toString());
+            }
+
+            // Basic HQL query example, not you do not need to specify "Select * ..."
+            // We use class/field names for HQL queries, instead of the database information (Table & Column name etc)
+            Query allUsersQuery = session.createQuery("from User");
+            List<User> users = allUsersQuery.list();
+
+            for(User aUser : users) {
+                System.out.print("Username: " + aUser.getUsername());
+            }
+
+            session.close();
+
+        } catch(GenericJDBCException ex) {
+            System.out.println("Database Exception! Add Logging");
         }
-
-        // Basic HQL query example, not you do not need to specify "Select * ..."
-        // We use class/field names for HQL queries, instead of the database information (Table & Column name etc)
-        Query allUsersQuery = session2.createQuery("from User");
-        List<User> users = allUsersQuery.list();
-
-        for(User aUser : users) {
-            System.out.print("Username: " + aUser.getUsername());
-        }
-
-        session2.close();
 
         return user;
     }

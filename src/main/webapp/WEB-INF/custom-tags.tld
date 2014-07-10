@@ -32,5 +32,14 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>inputAddon</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>addonText</name>
+            <required>false</required>
+        </attribute>
     </tag>
 </taglib>

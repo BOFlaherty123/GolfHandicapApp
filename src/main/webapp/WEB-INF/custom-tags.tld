@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+        version="2.1">
+    <tlib-version >1.1</tlib-version >
+    <short-name>customFieldTags</short-name>
+    <description>MyHandicapApp Custom Tag Library</description>
+    <uri>http://localhost:8080/MyHandicapApp/custom-tags.tld</uri>
+    <tag>
+        <name>input</name>
+        <tag-class>main.java.co.uk.myhandicap.tags.fields.InputFieldTag</tag-class>
+        <attribute>
+            <name>id</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>placeholder</name>
+            <required>true</required>
+        </attribute>
+        <attribute>
+            <name>divClass</name>
+            <required>true</required>
+        </attribute>
+        <attribute>
+            <name>inputClass</name>
+            <required>false</required>
+        </attribute>
+        <attribute>
+            <name>label</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+</taglib>

@@ -1,5 +1,7 @@
 package main.java.co.uk.myhandicap.dto.user;
 
+import main.java.co.uk.myhandicap.dto.user.address.Address;
+
 import javax.persistence.*;
 import java.util.*;
 

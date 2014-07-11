@@ -44,9 +44,9 @@
                              <li class="dropdown">
                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
                                  <ul class="dropdown-menu">
-                                     <li class="active"><a href="${pageContext.request.contextPath}/myAccount/personalInformation">Personal Information</a></li>
-                                     <li><a href="#">Change Password</a></li>
-                                     <li><a href="#">Delete Account</a></li>
+                                     <li><a href="${pageContext.request.contextPath}/myAccount/personalInformation">Personal Information</a></li>
+                                     <li><a href="${pageContext.request.contextPath}/myAccount/changeAccountPassword">Change Password</a></li>
+                                     <li><a href="${pageContext.request.contextPath}/myAccount/deleteUserAccount">Delete Account</a></li>
                                  </ul>
                              </li>
                              <li><a href="#">Logout</a></li>

@@ -26,9 +26,9 @@
         <property name="annotatedClasses">
             <list>
                 <value>main.java.co.uk.myhandicap.dto.user.User</value>
-                <value>main.java.co.uk.myhandicap.dto.user.Address</value>
-                <value>main.java.co.uk.myhandicap.dto.user.HomeAddress</value>
-                <value>main.java.co.uk.myhandicap.dto.user.WorkAddress</value>
+                <value>main.java.co.uk.myhandicap.dto.user.address.Address</value>
+                <value>main.java.co.uk.myhandicap.dto.user.address.HomeAddress</value>
+                <value>main.java.co.uk.myhandicap.dto.user.address.WorkAddress</value>
             </list>
         </property>
         <property name="hibernateProperties">

@@ -1,10 +1,10 @@
 package main.java.co.uk.myhandicap.controllers;
 
-import main.java.co.uk.myhandicap.dto.user.HomeAddress;
+import main.java.co.uk.myhandicap.dto.user.address.HomeAddress;
 import main.java.co.uk.myhandicap.dto.user.User;
 import main.java.co.uk.myhandicap.dto.user.UserRole;
-import main.java.co.uk.myhandicap.dto.user.WorkAddress;
-import main.java.co.uk.myhandicap.service.UserService;
+import main.java.co.uk.myhandicap.dto.user.address.WorkAddress;
+import main.java.co.uk.myhandicap.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +23,7 @@ import java.util.Date;
 public class WelcomeController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     /**
      * Display the 'welcome' page to the application
@@ -77,7 +77,7 @@ public class WelcomeController {
         user.getAddress().add(homeAddress);
         user.getAddress().add(workAddress);
 
-        userService.saveUser(user);
+        userService.save(user);
 
         return new ModelAndView("welcome");
     }
@@ -91,7 +91,7 @@ public class WelcomeController {
     @RequestMapping(value="/retrieveUser")
     public ModelAndView getUser(ModelAndView mav) {
 
-        User user = userService.retrieveUser(1L);
+        User user = userService.retrieveUserById(1L);
 
         mav.setViewName("retrieveUser");
         mav.addObject(user);

@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="userService" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="main.java.co.uk.myhandicap.service.UserService"/>
+        <constructor-arg value="main.java.co.uk.myhandicap.service.UserServiceImpl"/>
     </bean>
 
 </beans>

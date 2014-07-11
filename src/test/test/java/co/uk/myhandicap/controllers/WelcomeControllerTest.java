@@ -1,6 +1,6 @@
 package test.java.co.uk.myhandicap.controllers;
 
-import main.java.co.uk.myhandicap.service.UserService;
+import main.java.co.uk.myhandicap.service.UserServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +34,7 @@ public class WelcomeControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Autowired
     private WebApplicationContext webApplicationContext;

@@ -1,14 +1,15 @@
 <%--
   Created by IntelliJ IDEA.
   User: BO034731
-  Date: 02/07/14
-  Time: 14:44
+  Date: 11/07/14
+  Time: 11:37
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="field" uri="http://localhost:8080/MyHandicapApp/custom-tags.tld" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
-        <title>Welcome!</title>
+        <title>My Account: Change Password</title>
 
         <!-- JQuery -->
         <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -17,14 +18,13 @@
 
         <!-- Bootstrap -->
         <link href="${pageContext.request.contextPath}/resources/style/bootstrap/bootstrap.css" rel="stylesheet">
-    </head>
 
+    </head>
     <body>
 
         <div class="container">
 
             <div class="row">
-
                 <!-- Navigation -->
                 <div class="navbar navbar-inverse">
                     <div class="navbar-header">
@@ -39,8 +39,8 @@
                     </div>
                     <div class="navbar-collapse collapse navbar-inverse-collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="${pageContext.request.contextPath}/">Home</a></li>
-                            <li><a href="${pageContext.request.contextPath}/myHandicap/history">My Handicap</a></li>
+                            <li><a href="${pageContext.request.contextPath}/">Home</a></li>
+                            <li class="active"><a href="${pageContext.request.contextPath}/myHandicap/history">My Handicap</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
@@ -53,40 +53,39 @@
                         </ul>
                     </div>
                 </div>
+            </div>
 
-                <div class="jumbotron">
-                    <h1>Large Header</h1>
-                    <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-                    <p><a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/myHandicap/calculate">Calculate Handicap</a></p>
+            <div class="row" style="background-color: #ecf0f1">
+
+                <div class="col-md-2"></div>
+
+                <div class="col-md-8">
+                    <fieldset>
+                        <legend>Change Password</legend>
+
+                        <form class="form-horizontal">
+
+                            <div class="form-group">
+                                <field:input id="input-password" divClass="col-lg-10" placeholder="Enter New Password Here" label="Password:"/>
+                            </div>
+                            <div class="form-group">
+                                <field:input id="input-confirmPassword" divClass="col-lg-10" placeholder="Confirm New Password Here" label="Confirm Password:"/>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-10 col-lg-offset-2">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </fieldset>
                 </div>
 
-            </div>
-
-            <div class="row">
-
-                <h2>Testing Header</h2>
-
-                <p>
-                    Test Test Test TestTest TestTest TestTest TestTest TestTest TestTest TestTest TestTest TestTest Test
-                    Test TestTest Test Test TestTest TestTest TestTest TestTest TestTest TestTest TestTest TestTest Test
-                    Test TestTest Test Test TestTest TestTest TestTest TestTest TestTest TestTest TestTest TestTest Test
-                    Test TestTest Test Test TestTest TestTest TestTest TestTest TestTest TestTest TestTest TestTest Test
-                    Test TestTest Test Test TestTest TestTest TestTest TestTest TestTest TestTest TestTest TestTest Test
-                </p>
-
-                <blockquote class="pull-right">
-                    <p>I have a tip that can take five strokes off anyone's game: It's called an eraser.</p>
-                    <footer>Arnold Palmer</footer>
-                </blockquote>
+                <div class="col-md-2"></div>
 
             </div>
-
-            <a href="/MyHandicapApp/saveUser">Save User</a>
-            <br/>
-            <a href="/MyHandicapApp/retrieveUser">Get User</a>
 
         </div>
 
     </body>
-
 </html>

@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
-        <title>Calculate Handicap </title>
+        <title>Calculate Handicap</title>
 
         <!-- JQuery -->
         <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -47,8 +47,8 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="${pageContext.request.contextPath}/myAccount/personalInformation">Personal Information</a></li>
-                                    <li><a href="#">Change Password</a></li>
-                                    <li><a href="#">Delete Account</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/myAccount/changeAccountPassword">Change Password</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/myAccount/deleteUserAccount">Delete Account</a></li>
                                 </ul>
                             </li>
                             <li><a href="#">Logout</a></li>

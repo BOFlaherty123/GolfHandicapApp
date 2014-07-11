@@ -1,6 +1,6 @@
 package main.java.co.uk.myhandicap.service;
 
-import main.java.co.uk.myhandicap.dao.UserDAOImpl;
+import main.java.co.uk.myhandicap.dao.UserDaoImpl;
 import main.java.co.uk.myhandicap.dto.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDAOImpl userDAO;
+    private UserDaoImpl userDAO;
 
     @Override
     public void save(User user) {

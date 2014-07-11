@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  * @project MyHandicapApp
  */
 @Component
-public class UserDAOImpl implements UserDao {
+public class UserDaoImpl implements UserDao {
 
     @Autowired
     private SessionFactory sessionFactory;

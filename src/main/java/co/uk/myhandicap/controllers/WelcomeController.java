@@ -1,6 +1,5 @@
 package main.java.co.uk.myhandicap.controllers;
 
-import main.java.co.uk.myhandicap.dao.ScoreCardDaoImpl;
 import main.java.co.uk.myhandicap.dto.handicap.Hole;
 import main.java.co.uk.myhandicap.dto.handicap.Round;
 import main.java.co.uk.myhandicap.dto.handicap.ScoreCard;
@@ -8,6 +7,7 @@ import main.java.co.uk.myhandicap.dto.user.User;
 import main.java.co.uk.myhandicap.dto.user.UserRole;
 import main.java.co.uk.myhandicap.dto.user.address.HomeAddress;
 import main.java.co.uk.myhandicap.dto.user.address.WorkAddress;
+import main.java.co.uk.myhandicap.service.ScoreCardServiceImpl;
 import main.java.co.uk.myhandicap.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +32,7 @@ public class WelcomeController {
     private UserServiceImpl userService;
 
     @Autowired
-    private ScoreCardDaoImpl scoreCardDao;
+    private ScoreCardServiceImpl scoreCardService;
 
     /**
      * Display the 'welcome' page to the application
@@ -119,7 +119,7 @@ public class WelcomeController {
 
         scoreCard.setGolfRounds(golfRounds);
 
-        scoreCardDao.save(scoreCard);
+        scoreCardService.save(scoreCard);
 
         return new ModelAndView("welcome");
     }
@@ -133,7 +133,7 @@ public class WelcomeController {
     @RequestMapping(value="/retrieveUser")
     public ModelAndView getUser(ModelAndView mav) {
 
-        User user = userService.retrieveUserById(2L);
+        User user = userService.retrieveUserById(1L);
 
         mav.setViewName("retrieveUser");
 

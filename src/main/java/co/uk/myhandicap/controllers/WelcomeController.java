@@ -1,8 +1,12 @@
 package main.java.co.uk.myhandicap.controllers;
 
-import main.java.co.uk.myhandicap.dto.user.address.HomeAddress;
+import main.java.co.uk.myhandicap.dao.ScoreCardDaoImpl;
+import main.java.co.uk.myhandicap.dto.handicap.Hole;
+import main.java.co.uk.myhandicap.dto.handicap.Round;
+import main.java.co.uk.myhandicap.dto.handicap.ScoreCard;
 import main.java.co.uk.myhandicap.dto.user.User;
 import main.java.co.uk.myhandicap.dto.user.UserRole;
+import main.java.co.uk.myhandicap.dto.user.address.HomeAddress;
 import main.java.co.uk.myhandicap.dto.user.address.WorkAddress;
 import main.java.co.uk.myhandicap.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Welcome Controller
@@ -24,6 +30,9 @@ public class WelcomeController {
 
     @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    private ScoreCardDaoImpl scoreCardDao;
 
     /**
      * Display the 'welcome' page to the application
@@ -42,6 +51,8 @@ public class WelcomeController {
      */
     @RequestMapping(value="/saveUser")
     public ModelAndView saveUser() {
+
+        // Mockup and Save a User
 
         User user = new User();
         user.setCreatedDate(new Date());
@@ -79,6 +90,37 @@ public class WelcomeController {
 
         userService.save(user);
 
+        // Mockup and Save a ScoreCard (+ Rounds & Holes)
+
+        ScoreCard scoreCard = new ScoreCard();
+        scoreCard.setPlayerId(user.getId());
+        scoreCard.setSubmittedDate(new Date());
+
+        List<Round> golfRounds = new ArrayList<>();
+
+        Round roundOfGolf = new Round();
+        roundOfGolf.setCourseName("Testing Course Name");
+        roundOfGolf.setCoursePar("12");
+        roundOfGolf.setPlayDate(new Date());
+
+        List<Hole> holes = new ArrayList<>();
+
+        Hole holeOne = new Hole();
+        holeOne.setHolePar("3");
+        holeOne.setHoleScore("4");
+        holeOne.setSSI("3");
+        holeOne.setYards("160");
+
+        holes.add(holeOne);
+
+        roundOfGolf.setHoles(holes);
+
+        golfRounds.add(roundOfGolf);
+
+        scoreCard.setGolfRounds(golfRounds);
+
+        scoreCardDao.save(scoreCard);
+
         return new ModelAndView("welcome");
     }
 
@@ -91,10 +133,13 @@ public class WelcomeController {
     @RequestMapping(value="/retrieveUser")
     public ModelAndView getUser(ModelAndView mav) {
 
-        User user = userService.retrieveUserById(1L);
+        User user = userService.retrieveUserById(2L);
 
         mav.setViewName("retrieveUser");
-        mav.addObject(user);
+
+        if(user != null) {
+            mav.addObject(user);
+        }
 
         return mav;
     }

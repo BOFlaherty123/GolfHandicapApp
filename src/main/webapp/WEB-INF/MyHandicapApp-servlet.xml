@@ -29,6 +29,9 @@
                 <value>main.java.co.uk.myhandicap.dto.user.address.Address</value>
                 <value>main.java.co.uk.myhandicap.dto.user.address.HomeAddress</value>
                 <value>main.java.co.uk.myhandicap.dto.user.address.WorkAddress</value>
+                <value>main.java.co.uk.myhandicap.dto.handicap.ScoreCard</value>
+                <value>main.java.co.uk.myhandicap.dto.handicap.Round</value>
+                <value>main.java.co.uk.myhandicap.dto.handicap.Hole</value>
             </list>
         </property>
         <property name="hibernateProperties">

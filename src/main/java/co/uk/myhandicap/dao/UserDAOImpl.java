@@ -1,14 +1,12 @@
 package main.java.co.uk.myhandicap.dao;
 
 import main.java.co.uk.myhandicap.dto.user.User;
-import org.hibernate.Query;
+import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.exception.GenericJDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 /**
  * User Dao
@@ -24,11 +22,10 @@ public class UserDAOImpl implements UserDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public void save(User saveObj) {
+    public void save(User user) {
 
         Session session = sessionFactory.openSession();
 
-        User user = (User) saveObj;
         try {
             // Create a session transaction (usually within a try block)
             session.beginTransaction();
@@ -51,6 +48,15 @@ public class UserDAOImpl implements UserDao {
     @Override
     public void update(User updateObj) {
 
+        // Basic HQL query example, not you do not need to specify "Select * ..."
+        // We use class/field names for HQL queries, instead of the database information (Table & Column name etc)
+//        Query allUsersQuery = session.createQuery("from User");
+//        List<User> users = allUsersQuery.list();
+//
+//        for(User aUser : users) {
+//            System.out.print("Username: " + aUser.getUsername());
+//        }
+
     }
 
     @Override
@@ -69,18 +75,14 @@ public class UserDAOImpl implements UserDao {
 
             // Retrieve a User object from the Database
             try{
-                user = (User) session.get(User.class, 1L);
-            } catch (RuntimeException e){
-                System.out.println("error: " + e.toString());
-            }
+                user = (User) session.get(User.class, userId);
 
-            // Basic HQL query example, not you do not need to specify "Select * ..."
-            // We use class/field names for HQL queries, instead of the database information (Table & Column name etc)
-            Query allUsersQuery = session.createQuery("from User");
-            List<User> users = allUsersQuery.list();
+                if(user == null) {
+                    throw new UserNotFoundException("user[id=" + userId + "] not found.");
+                }
 
-            for(User aUser : users) {
-                System.out.print("Username: " + aUser.getUsername());
+            } catch (UserNotFoundException e){
+                System.out.println("error: " + e.getMessage());
             }
 
             session.close();

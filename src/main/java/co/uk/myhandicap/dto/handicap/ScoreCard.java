@@ -2,6 +2,7 @@ package main.java.co.uk.myhandicap.dto.handicap;
 
 import main.java.co.uk.myhandicap.dto.user.User;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -12,18 +13,36 @@ import java.util.List;
  * @date Created on: 08/07/2014
  * @project MyHandicapApp
  */
+@Entity
+@Table(name="SCORE_CARDS")
 public class ScoreCard {
 
-    private User player;
+    @Id
+    @Column(name="ID")
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
+    @Column(name="PLAYER")
+    private Long playerId;
+    @Column(name="SUBMITTED_DATE")
     private Date submittedDate;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(joinColumns = @JoinColumn(name="SCORE_CARD_ID"), inverseJoinColumns = @JoinColumn(name="ROUND_ID"))
     private List<Round> golfRounds;
 
-    public User getPlayer() {
-        return player;
+    public Long getId() {
+        return id;
     }
 
-    public void setPlayer(User player) {
-        this.player = player;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(Long playerId) {
+        this.playerId = playerId;
     }
 
     public Date getSubmittedDate() {
@@ -45,7 +64,8 @@ public class ScoreCard {
     @Override
     public String toString() {
         return "ScoreCard{" +
-                "player=" + player +
+                "id=" + id +
+                ", playerId=" + playerId +
                 ", submittedDate=" + submittedDate +
                 ", golfRounds=" + golfRounds +
                 '}';

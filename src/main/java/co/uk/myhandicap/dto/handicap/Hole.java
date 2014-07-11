@@ -1,5 +1,7 @@
 package main.java.co.uk.myhandicap.dto.handicap;
 
+import javax.persistence.*;
+
 /**
  * Hole Object
  *
@@ -7,12 +9,29 @@ package main.java.co.uk.myhandicap.dto.handicap;
  * @date Created on: 08/07/2014
  * @project MyHandicapApp
  */
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Hole {
 
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
+    @Column(name="HOLE_PAR")
     private String holePar;
+    @Column(name="HOLE_SCORE")
     private String holeScore;
+    @Column(name="HOLE_SSI")
     private String SSI;
+    @Column(name="HOLE_YARDS")
     private String yards;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getHolePar() {
         return holePar;
@@ -49,7 +68,8 @@ public class Hole {
     @Override
     public String toString() {
         return "Hole{" +
-                "holePar='" + holePar + '\'' +
+                "id=" + id +
+                ", holePar='" + holePar + '\'' +
                 ", holeScore='" + holeScore + '\'' +
                 ", SSI='" + SSI + '\'' +
                 ", yards='" + yards + '\'' +

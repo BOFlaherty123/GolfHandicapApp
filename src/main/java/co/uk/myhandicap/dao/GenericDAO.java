@@ -1,5 +1,8 @@
 package main.java.co.uk.myhandicap.dao;
 
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
+
 import java.io.Serializable;
 
 /**
@@ -10,6 +13,9 @@ import java.io.Serializable;
  * @project MyHandicapApp
  */
 public interface GenericDAO <T, PK extends Serializable> {
+
+    public final XLogger logger = XLoggerFactory.getXLogger(GenericDAO.class
+            .getName());
 
     public void save(T saveObj);
 

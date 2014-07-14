@@ -1,6 +1,6 @@
 package main.java.co.uk.myhandicap.dao;
 
-import main.java.co.uk.myhandicap.dto.user.User;
+import main.java.co.uk.myhandicap.model.user.User;
 
 /**
  * User Dao Interface

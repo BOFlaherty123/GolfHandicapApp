@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="field" uri="http://localhost:8080/MyHandicapApp/custom-tags.tld" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -59,21 +61,26 @@
 
             <div class="container">
                 <!-- Round  -->
-                <form class="form-horizontal">
-
+                <form:form method="post" action="${pageContext.request.contextPath}/myHandicap/submitRound" commandName="scoreCardDto" class="form-horizontal">
                     <fieldset>
                         <legend>Round Score</legend>
 
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <field:input id="input-dateOfPlay" divClass="col-lg-10" placeholder="Date of Visit" label="Date:"/>
+                                    <div class="col-lg-10">
+                                        <form:input id="input-dateOfPlay" path="playDate" class="form-control" placeholder="Date of Visit"/>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <field:input id="input-course-name" divClass="col-lg-10" placeholder="Name of Golf Course" label="Course Name:"/>
+                                    <div class="col-lg-10">
+                                        <form:input id="input-course-name" path="courseName" class="form-control" placeholder="Name of Golf Course"/>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <field:input id="input-course-par" divClass="col-lg-10" placeholder="Par of Golf Course" label="Course Par:"/>
+                                    <div class="col-lg-10">
+                                        <form:input id="input-course-par" path="coursePar" class="form-control" placeholder="Par of Golf Course"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -83,22 +90,31 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <field:input id="input-hole${i}-par" divClass="col-lg-10" placeholder="Par" label="${i}"/>
+                                        <div class="col-lg-10">
+                                            <form:input id="input-hole${i}-par" path="holes[${i-1}].holePar" class="form-control" placeholder="Par"/>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <field:input id="input-hole${i}-yards" divClass="col-lg-10" placeholder="Yards" inputAddon="${true}" addonText="yds"/>
+                                        <div class="input-group">
+                                            <form:input id="input-hole${i}-yards" path="holes[${i-1}].holeYards" class="form-control" placeholder="Yards"/>
+                                            <span class="input-group-addon">yds</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <field:input id="input-hole${i}-score" divClass="col-lg-10" placeholder="Your Score"/>
+                                        <div class="col-lg-10">
+                                            <form:input id="input-hole${i}-score" path="holes[${i-1}].holeScore" class="form-control" placeholder="Your Score"/>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <field:input id="input-hole${i}-ssi" divClass="col-lg-10" placeholder="SSI"/>
+                                        <div class="col-lg-10">
+                                            <form:input id="input-hole${i}-ssi" path="holes[${i-1}].holeSSI" class="form-control" placeholder="SSI"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +129,7 @@
                         </div>
 
                     </fieldset>
-                </form>
+                </form:form>
             </div>
         </div>
     </body>

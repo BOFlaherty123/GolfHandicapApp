@@ -1,6 +1,6 @@
 package main.java.co.uk.myhandicap.dao;
 
-import main.java.co.uk.myhandicap.dto.user.User;
+import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,6 +23,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void save(User user) {
+        logger.entry(user);
 
         Session session = sessionFactory.openSession();
 
@@ -40,9 +41,10 @@ public class UserDaoImpl implements UserDao {
             session.close();
 
         } catch(GenericJDBCException ex) {
-            System.out.println("Database Exception! Add Logging");
+            logger.error("class[" + this.getClass().getName() + "] method=[.save()]", ex);
         }
 
+        logger.exit();
     }
 
     @Override
@@ -65,6 +67,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     public User retrieveUserById(Long userId) {
+        logger.entry(userId);
 
         Session session = sessionFactory.openSession();
 
@@ -88,8 +91,10 @@ public class UserDaoImpl implements UserDao {
             session.close();
 
         } catch(GenericJDBCException ex) {
-            System.out.println("Database Exception! Add Logging");
+            logger.error("class[" + this.getClass().getName() + "] method=[.retrieveUserById()]", ex);
         }
+
+        logger.exit();
 
         return user;
     }

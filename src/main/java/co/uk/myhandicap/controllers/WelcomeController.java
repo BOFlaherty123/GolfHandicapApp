@@ -1,12 +1,12 @@
 package main.java.co.uk.myhandicap.controllers;
 
-import main.java.co.uk.myhandicap.dto.handicap.Hole;
-import main.java.co.uk.myhandicap.dto.handicap.Round;
-import main.java.co.uk.myhandicap.dto.handicap.ScoreCard;
-import main.java.co.uk.myhandicap.dto.user.User;
-import main.java.co.uk.myhandicap.dto.user.UserRole;
-import main.java.co.uk.myhandicap.dto.user.address.HomeAddress;
-import main.java.co.uk.myhandicap.dto.user.address.WorkAddress;
+import main.java.co.uk.myhandicap.model.handicap.Hole;
+import main.java.co.uk.myhandicap.model.handicap.Round;
+import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
+import main.java.co.uk.myhandicap.model.user.User;
+import main.java.co.uk.myhandicap.model.user.UserRole;
+import main.java.co.uk.myhandicap.model.user.address.HomeAddress;
+import main.java.co.uk.myhandicap.model.user.address.WorkAddress;
 import main.java.co.uk.myhandicap.service.ScoreCardServiceImpl;
 import main.java.co.uk.myhandicap.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

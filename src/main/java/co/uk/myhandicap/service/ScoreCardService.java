@@ -1,6 +1,6 @@
 package main.java.co.uk.myhandicap.service;
 
-import main.java.co.uk.myhandicap.dto.handicap.ScoreCard;
+import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
 
 /**
  * ScoreCard Interface

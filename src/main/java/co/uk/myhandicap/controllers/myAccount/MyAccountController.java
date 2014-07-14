@@ -1,6 +1,6 @@
 package main.java.co.uk.myhandicap.controllers.myAccount;
 
-import main.java.co.uk.myhandicap.dto.user.User;
+import main.java.co.uk.myhandicap.model.user.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

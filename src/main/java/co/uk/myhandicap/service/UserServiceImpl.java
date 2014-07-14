@@ -1,7 +1,7 @@
 package main.java.co.uk.myhandicap.service;
 
 import main.java.co.uk.myhandicap.dao.UserDaoImpl;
-import main.java.co.uk.myhandicap.dto.user.User;
+import main.java.co.uk.myhandicap.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

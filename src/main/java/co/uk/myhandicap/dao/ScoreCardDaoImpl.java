@@ -1,6 +1,6 @@
 package main.java.co.uk.myhandicap.dao;
 
-import main.java.co.uk.myhandicap.dto.handicap.ScoreCard;
+import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.exception.GenericJDBCException;
@@ -22,6 +22,7 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
 
     @Override
     public void save(ScoreCard scoreCard) {
+        logger.entry(scoreCard);
 
         Session session = sessionFactory.openSession();
 
@@ -39,9 +40,10 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
             session.close();
 
         } catch(GenericJDBCException ex) {
-            System.out.println("Database Exception! Add Logging");
+            logger.error("class[" + this.getClass().getName() + "] method=[.save()]", ex);
         }
 
+        logger.exit();
     }
 
     @Override

@@ -16,6 +16,7 @@ public class InputFieldTag extends TagSupport {
 
     // tag attributes
     private String id;
+    private String path;
     private String placeholder;
     private String divClass;
     private String inputClass;
@@ -47,7 +48,7 @@ public class InputFieldTag extends TagSupport {
                 out.println("<div class=\"input-group\">");
             }
 
-            out.println("<input type=\"text\" class=\"form-control\" id=\"" + id + "\" placeholder=\"" + placeholder +"\"></input>");
+            out.println("<input type=\"text\" path=\"" + path +  "\" class=\"form-control\" id=\"" + id + "\" placeholder=\"" + placeholder +"\"></input>");
 
             // appends an 'input type' to the end of an input field if required
             if(inputAddon) {
@@ -68,6 +69,14 @@ public class InputFieldTag extends TagSupport {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getPlaceholder() {

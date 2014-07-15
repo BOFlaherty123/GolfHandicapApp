@@ -13,7 +13,7 @@ import main.java.co.uk.myhandicap.validation.annotation.HoleValid;
         @HoleValid(holePar = "holePar", holeScore = "holeScore", holeSSI = "holeSSI", holeYards = "holeYards",
         message = "Please ensure that all fields per hole have been completed.")
 })
-class HoleDto {
+public class HoleDto {
 
     private String holePar;
     private String holeScore;

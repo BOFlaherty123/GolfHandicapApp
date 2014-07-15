@@ -7,4 +7,15 @@
         <constructor-arg value="main.java.co.uk.myhandicap.service.UserServiceImpl"/>
     </bean>
 
+    <bean id="scoreCardService" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="main.java.co.uk.myhandicap.service.ScoreCardServiceImpl"/>
+    </bean>
+
+    <bean id="mapper" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="org.dozer.Mapper"/>
+    </bean>
+
+    <bean id="HoleValidator" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="main.java.co.uk.myhandicap.validation.validator.HoleValidator"/>
+    </bean>
 </beans>

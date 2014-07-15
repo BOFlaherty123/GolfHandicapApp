@@ -5,7 +5,6 @@
   Time: 11:37
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib prefix="field" uri="http://localhost:8080/MyHandicapApp/custom-tags.tld" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
@@ -66,11 +65,15 @@
                         <form class="form-horizontal">
 
                             <div class="form-group">
-                                <field:input id="input-password" divClass="col-lg-10" placeholder="Enter New Password Here" label="Password:"/>
-                            </div>
+                                <label for="inputPassword" class="col-lg-2 control-label">New Password</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" id="inputPassword">
+                                </div>                            </div>
                             <div class="form-group">
-                                <field:input id="input-confirmPassword" divClass="col-lg-10" placeholder="Confirm New Password Here" label="Confirm Password:"/>
-                            </div>
+                                <label for="inputConfirmPassword" class="col-lg-2 control-label">Confirm Password</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" id="inputConfirmPassword" placeholder="Please Confirm Your Password">
+                                </div>                            </div>
                             <div class="form-group">
                                 <div class="col-lg-10 col-lg-offset-2">
                                     <button type="submit" class="btn btn-primary">Submit</button>

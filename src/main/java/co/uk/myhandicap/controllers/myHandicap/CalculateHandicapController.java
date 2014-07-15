@@ -6,7 +6,7 @@ import main.java.co.uk.myhandicap.service.ScoreCardServiceImpl;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.Errors;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,13 +42,13 @@ public class CalculateHandicapController {
 
         mav.addObject(scoreCardDto);
 
-
-
         return mav;
     }
 
     @RequestMapping(value="/submitRound", method = RequestMethod.POST)
-    public ModelAndView submitRoundOfGolf(ModelAndView mav, @Valid ScoreCardDto scoreCardDto, Errors errors) {
+    public ModelAndView submitRoundOfGolf(ModelAndView mav, @Valid ScoreCardDto scoreCardDto,  BindingResult errors) {
+
+        System.out.println("controller: " + scoreCardDto.toString());
 
         if(errors.hasErrors()) {
             mav.setViewName("myHandicap/calculate");

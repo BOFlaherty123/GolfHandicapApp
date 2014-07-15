@@ -3,8 +3,6 @@ package main.java.co.uk.myhandicap.form;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,10 +12,10 @@ import java.util.List;
  * @date Created on: 14/07/14
  * @project MyHandicapApp
  */
-class RoundDto {
+public class RoundDto {
 
-    @NotNull(message = "Date of Visit is required.")
-    private Date playDate;
+    @NotBlank(message = "Date of Visit is required.")
+    private String playDate;
     @NotBlank(message = "Course Name is required.")
     private String courseName;
     @NotBlank(message = "Course Par is required.")
@@ -25,11 +23,11 @@ class RoundDto {
     @Valid
     private List<HoleDto> holes;
 
-    public Date getPlayDate() {
+    public String getPlayDate() {
         return playDate;
     }
 
-    public void setPlayDate(Date playDate) {
+    public void setPlayDate(String playDate) {
         this.playDate = playDate;
     }
 

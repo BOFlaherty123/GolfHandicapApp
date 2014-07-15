@@ -101,7 +101,7 @@ public class WelcomeController {
         Round roundOfGolf = new Round();
         roundOfGolf.setCourseName("Testing Course Name");
         roundOfGolf.setCoursePar("12");
-        roundOfGolf.setPlayDate(new Date());
+        roundOfGolf.setPlayDate("12/05/2014");
 
         List<Hole> holes = new ArrayList<>();
 

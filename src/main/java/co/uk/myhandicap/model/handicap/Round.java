@@ -19,8 +19,7 @@ public class Round {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     @Column(name="DATE_OF_PLAY")
-    @Temporal(TemporalType.DATE)
-    private Date playDate;
+    private String playDate;
     @Column(name="COURSE_NAME")
     private String courseName;
     @Column(name="COURSE_PAR")
@@ -38,11 +37,11 @@ public class Round {
         this.id = id;
     }
 
-    public Date getPlayDate() {
+    public String getPlayDate() {
         return playDate;
     }
 
-    public void setPlayDate(Date playDate) {
+    public void setPlayDate(String playDate) {
         this.playDate = playDate;
     }
 

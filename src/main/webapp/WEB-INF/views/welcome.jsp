@@ -81,9 +81,9 @@
 
             </div>
 
-            <a href="/MyHandicapApp/saveUser">Save User</a>
+            <a href="${pageContext.request.contextPath}/saveUser">Save User</a>
             <br/>
-            <a href="/MyHandicapApp/retrieveUser">Get User</a>
+            <a href="${pageContext.request.contextPath}/retrieveUser">Get User</a>
 
         </div>
 

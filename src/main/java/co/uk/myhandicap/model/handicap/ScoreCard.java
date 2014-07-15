@@ -22,7 +22,7 @@ public class ScoreCard {
     @Column(name="PLAYER")
     private Long playerId;
     @Column(name="SUBMITTED_DATE")
-    private Date submittedDate;
+    private String submittedDate;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(joinColumns = @JoinColumn(name="SCORE_CARD_ID"), inverseJoinColumns = @JoinColumn(name="ROUND_ID"))
     private List<Round> golfRounds;
@@ -43,11 +43,11 @@ public class ScoreCard {
         this.playerId = playerId;
     }
 
-    public Date getSubmittedDate() {
+    public String getSubmittedDate() {
         return submittedDate;
     }
 
-    public void setSubmittedDate(Date submittedDate) {
+    public void setSubmittedDate(String submittedDate) {
         this.submittedDate = submittedDate;
     }
 
@@ -68,4 +68,5 @@ public class ScoreCard {
                 ", golfRounds=" + golfRounds +
                 '}';
     }
+
 }

@@ -67,19 +67,25 @@
 
                         <div class="row">
                             <div class="col-md-8">
+                                <form:hidden id="input-playerId" path="playerId" class="form-control" disabled="true"/>
+                                <form:hidden id="input-submittedDate" path="submittedDate" class="form-control" disabled="true"/>
+
                                 <div class="form-group">
+                                    <label for="input-dateOfPlay" class="col-lg-2 control-label">Date of Play</label>
                                     <div class="col-lg-10">
-                                        <form:input id="input-dateOfPlay" path="playDate" class="form-control" placeholder="Date of Visit"/>
+                                        <form:input id="input-dateOfPlay" path="golfRounds[0].playDate" class="form-control" placeholder="Date of Visit"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label for="input-course-name" class="col-lg-2 control-label">Course Name</label>
                                     <div class="col-lg-10">
-                                        <form:input id="input-course-name" path="courseName" class="form-control" placeholder="Name of Golf Course"/>
+                                        <form:input id="input-course-name" path="golfRounds[0].courseName" class="form-control" placeholder="Name of Golf Course"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label for="input-course-par" class="col-lg-2 control-label">Course Par</label>
                                     <div class="col-lg-10">
-                                        <form:input id="input-course-par" path="coursePar" class="form-control" placeholder="Par of Golf Course"/>
+                                        <form:input id="input-course-par" path="golfRounds[0].coursePar" class="form-control" placeholder="Par of Golf Course"/>
                                     </div>
                                 </div>
                             </div>
@@ -91,14 +97,14 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <div class="col-lg-10">
-                                            <form:input id="input-hole${i}-par" path="holes[${i-1}].holePar" class="form-control" placeholder="Par"/>
+                                            <form:input id="input-hole${i}-par" path="golfRounds[0].holes[${i-1}].holePar" class="form-control" placeholder="Par"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <form:input id="input-hole${i}-yards" path="holes[${i-1}].holeYards" class="form-control" placeholder="Yards"/>
+                                            <form:input id="input-hole${i}-yards" path="golfRounds[0].holes[${i-1}].holeYards" class="form-control" placeholder="Yards"/>
                                             <span class="input-group-addon">yds</span>
                                         </div>
                                     </div>
@@ -106,14 +112,14 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <div class="col-lg-10">
-                                            <form:input id="input-hole${i}-score" path="holes[${i-1}].holeScore" class="form-control" placeholder="Your Score"/>
+                                            <form:input id="input-hole${i}-score" path="golfRounds[0].holes[${i-1}].holeScore" class="form-control" placeholder="Your Score"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <div class="col-lg-10">
-                                            <form:input id="input-hole${i}-ssi" path="holes[${i-1}].holeSSI" class="form-control" placeholder="SSI"/>
+                                            <form:input id="input-hole${i}-ssi" path="golfRounds[0].holes[${i-1}].holeSSI" class="form-control" placeholder="SSI"/>
                                         </div>
                                     </div>
                                 </div>

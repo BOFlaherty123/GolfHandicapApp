@@ -7,7 +7,7 @@ package main.java.co.uk.myhandicap.exceptions;
  * @date Created on: 11/07/14
  * @project MyHandicapApp
  */
-public class ScoreCardNotFoundException extends Exception {
+class ScoreCardNotFoundException extends Exception {
 
     public ScoreCardNotFoundException(String message) {
         super(message);

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+    <mapping>
+        <class-a>main.java.co.uk.myhandicap.form.ScoreCardDto</class-a>
+        <class-b>main.java.co.uk.myhandicap.model.handicap.ScoreCard</class-b>
+        <field>
+            <a>playerId</a>
+            <b>playerId</b>
+        </field>
+        <field>
+            <a>submittedDate</a>
+            <b>submittedDate</b>
+        </field>
+        <field>
+            <a>golfRounds</a>
+            <b>golfRounds</b>
+        </field>
+    </mapping>
+
+</mappings>

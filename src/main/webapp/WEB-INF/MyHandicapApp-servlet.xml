@@ -52,4 +52,12 @@
 
     <mvc:resources mapping="/resources/**" location="/resources/" />
 
+    <bean id="mapper" class="org.dozer.DozerBeanMapper">
+        <property name="mappingFiles">
+            <list>
+                <value>dozer-bean-mappings.xml</value>
+            </list>
+        </property>
+    </bean>
+
 </beans>

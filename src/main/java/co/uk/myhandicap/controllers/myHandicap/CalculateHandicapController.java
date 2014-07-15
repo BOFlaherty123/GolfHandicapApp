@@ -1,8 +1,13 @@
 package main.java.co.uk.myhandicap.controllers.myHandicap;
 
-import main.java.co.uk.myhandicap.dto.ScoreCardDto;
+import main.java.co.uk.myhandicap.form.ScoreCardDto;
+import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
+import main.java.co.uk.myhandicap.service.ScoreCardServiceImpl;
+import org.dozer.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,27 +25,50 @@ import javax.validation.Valid;
 @RequestMapping(value="/myHandicap")
 public class CalculateHandicapController {
 
+    @Autowired
+    private Mapper mapper;
+
+    @Autowired
+    private ScoreCardServiceImpl scoreCardService;
+
     @RequestMapping(value="/calculate")
     public ModelAndView displayMyHandicapHistory(ModelAndView mav) {
         mav.setViewName("myHandicap/calculate");
-        mav.addObject(new ScoreCardDto());
+
+        // Mock Initial ScoreCard values (User) TODO - Remove once redundant
+        ScoreCardDto scoreCardDto = new ScoreCardDto();
+        scoreCardDto.setPlayerId(1L);
+        scoreCardDto.setSubmittedDate("15/07/2014");
+
+        mav.addObject(scoreCardDto);
+
+
 
         return mav;
     }
 
-    // POST method to accept submitted form data
-    // Validate the form data entered by the user
-    // Output errors (if any) to the view
-    // Call the Service Method to save the data
     @RequestMapping(value="/submitRound", method = RequestMethod.POST)
-    public void submitRoundOfGolf(@Valid ScoreCardDto scoreCard, Errors errors) {
+    public ModelAndView submitRoundOfGolf(ModelAndView mav, @Valid ScoreCardDto scoreCardDto, Errors errors) {
 
         if(errors.hasErrors()) {
-            System.out.println("has errors");
+            mav.setViewName("myHandicap/calculate");
+
+            for(ObjectError error : errors.getAllErrors()) {
+                System.out.println(error.getDefaultMessage());
+            }
+
+        } else {
+
+            mav.setViewName("myHandicap/history");
+
+            // Dozer object mapping
+            ScoreCard scoreCard = mapper.map(scoreCardDto, ScoreCard.class);
+
+            scoreCardService.save(scoreCard);
+
         }
 
-        System.out.println(scoreCard.toString());
-
+        return mav;
     }
 
 }

@@ -94,7 +94,7 @@ public class WelcomeController {
 
         ScoreCard scoreCard = new ScoreCard();
         scoreCard.setPlayerId(user.getId());
-        scoreCard.setSubmittedDate(new Date());
+        scoreCard.setSubmittedDate("15/07/2014");
 
         List<Round> golfRounds = new ArrayList<>();
 
@@ -108,8 +108,8 @@ public class WelcomeController {
         Hole holeOne = new Hole();
         holeOne.setHolePar("3");
         holeOne.setHoleScore("4");
-        holeOne.setSSI("3");
-        holeOne.setYards("160");
+        holeOne.setHoleSSI("3");
+        holeOne.setHoleYards("160");
 
         holes.add(holeOne);
 

@@ -36,13 +36,12 @@ public class HoleValidator implements ConstraintValidator<HoleValid, Object> {
     public boolean isValid(final Object holeValues, ConstraintValidatorContext constraintValidatorContext) {
 
         try {
-
             String par = getUserInputProperty(holeValues, holePar);
             String score = getUserInputProperty(holeValues, holeScore);
             String ssi = getUserInputProperty(holeValues, holeSSI);
             String yards = getUserInputProperty(holeValues, holeYards);
 
-            if(!par.isEmpty() && !score.isEmpty() && !ssi.isEmpty() && !yards.isEmpty()) {
+            if(isHoleFieldNotEmpty(par, score, ssi, yards)) {
 
                 List<String> formVals = new ArrayList<>(
                     Arrays.asList(par, score, ssi, yards)
@@ -61,6 +60,10 @@ public class HoleValidator implements ConstraintValidator<HoleValid, Object> {
         }
 
         return true;
+    }
+
+    private boolean isHoleFieldNotEmpty(String par, String score, String ssi, String yards) {
+        return !par.isEmpty() || !score.isEmpty() || !ssi.isEmpty() || !yards.isEmpty();
     }
 
     private String getUserInputProperty(Object holeValues, String property) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {

@@ -36,6 +36,7 @@ public class HoleValidator implements ConstraintValidator<HoleValid, Object> {
     public boolean isValid(final Object holeValues, ConstraintValidatorContext constraintValidatorContext) {
 
         try {
+
             String par = getUserInputProperty(holeValues, holePar);
             String score = getUserInputProperty(holeValues, holeScore);
             String ssi = getUserInputProperty(holeValues, holeSSI);
@@ -48,9 +49,9 @@ public class HoleValidator implements ConstraintValidator<HoleValid, Object> {
                 );
 
                 for(String value : formVals) {
-                    if(value.isEmpty()) {
+                    if(value == null) {
                         return false;
-                    }
+                     }
                 }
 
             }
@@ -67,7 +68,15 @@ public class HoleValidator implements ConstraintValidator<HoleValid, Object> {
     }
 
     private String getUserInputProperty(Object holeValues, String property) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-        return BeanUtils.getProperty(holeValues, property).trim();
+
+        String value = BeanUtils.getProperty(holeValues, property);
+
+        if(value != null) {
+            value.trim();
+        }
+
+        return value;
+
     }
 
 }

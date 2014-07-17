@@ -26,7 +26,7 @@ import java.util.List;
  * @project MyHandicapApp
  */
 @Controller
-public class WelcomeController {
+public class WelcomeController implements AppController {
 
     @Autowired
     private UserServiceImpl userService;
@@ -39,9 +39,11 @@ public class WelcomeController {
      *
      * @return
      */
+    @Override
     @RequestMapping(value="/")
-    public String welcomePage() {
-        return "welcome";
+    public ModelAndView handleRequest(ModelAndView mav) {
+        mav.setViewName("welcome");
+        return mav;
     }
 
     /**

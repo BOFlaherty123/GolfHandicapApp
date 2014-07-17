@@ -1,6 +1,9 @@
 package main.java.co.uk.myhandicap.dao;
 
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
+import main.java.co.uk.myhandicap.model.user.User;
+
+import java.util.List;
 
 /**
  * ScoreCard Dao Interface
@@ -11,5 +14,6 @@ import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
  */
 public interface ScoreCardDao extends GenericDAO<ScoreCard, Long> {
 
+    List<ScoreCard> retrieveUserScoreCardById(User user);
 
 }

@@ -54,7 +54,7 @@ public class CalculateHandicapControllerTest {
     }
 
     /**
-     * Scenario: ScoreCardDto, RoundDto and HoleDto are all valid.
+     * Case: ScoreCardDto, RoundDto and HoleDto are all valid.
      * Result:
      *      .hasNoErrors()
      * View:
@@ -63,7 +63,7 @@ public class CalculateHandicapControllerTest {
      * @throws Exception
      */
     @Test
-    public void myHandicapControllerSubmitRoundPassValidation() throws Exception {
+    public void myHandicapControllerSubmitRoundShouldPassValidation() throws Exception {
 
         mockMvc.perform(post("/myHandicap/submitRound")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -79,7 +79,7 @@ public class CalculateHandicapControllerTest {
     }
 
     /**
-     * Scenario: ScoreCardDto is missing playerId.
+     * Case: ScoreCardDto is missing playerId.
      * Result:
      *      .hasErrors()
      *      .errorCount(1)
@@ -89,7 +89,7 @@ public class CalculateHandicapControllerTest {
      * @throws Exception
      */
     @Test
-    public void myHandicapControllerSubmitRoundMissingPlayerIdFailValidation() throws Exception {
+    public void myHandicapControllerSubmitRoundMissingPlayerIdShouldFailValidation() throws Exception {
 
         mockMvc.perform(post("/myHandicap/submitRound")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -97,6 +97,61 @@ public class CalculateHandicapControllerTest {
                 .param("golfRounds[0].playDate", "15/07/2014")
                 .param("golfRounds[0].courseName", "Testing Course Name")
                 .param("golfRounds[0].coursePar", "72")
+        )
+                .andExpect(status().isOk())
+                .andExpect(model().hasErrors())
+                .andExpect(model().errorCount(1))
+                .andExpect(view().name("myHandicap/calculate"));
+
+    }
+
+
+    /**
+     * Case: ScoreCardDto is missing submittedDate & playerId
+     * Result:
+     *      .hasErrors()
+     *      .errorCount(2)
+     *
+     * View:
+     *      "myHandicap/calculate"
+     *
+     */
+    @Test
+    public void  myHandicapControllerSubmitRoundScoreCardDTOMissingFieldsShouldFailValidation() throws Exception {
+
+        mockMvc.perform(post("/myHandicap/submitRound")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("golfRounds[0].playDate", "15/07/2014")
+                .param("golfRounds[0].courseName", "Testing Course Name")
+                .param("golfRounds[0].coursePar", "72")
+        )
+                .andExpect(status().isOk())
+                .andExpect(model().hasErrors())
+                .andExpect(model().errorCount(2))
+                .andExpect(view().name("myHandicap/calculate"));
+
+    }
+
+    /**
+     * Case: ScoreCard Submitted with only the holePar submitted by the user.
+     * Result:
+     *      .hasErrors()
+     *      .errorCount(1)
+     * View:
+     *      "myHandicap/calculate"
+     *
+     */
+    @Test
+    public void myHandicapControllerSubmitRoundHoleDTOMissingFieldsShouldFailValidation() throws Exception {
+
+        mockMvc.perform(post("/myHandicap/submitRound")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("playerId", "1")
+                .param("submittedDate", "15/07/2014")
+                .param("golfRounds[0].playDate", "15/07/2014")
+                .param("golfRounds[0].courseName", "Testing Course Name")
+                .param("golfRounds[0].coursePar", "72")
+                .param("golfRounds[0].holes[0].holePar", "3")
         )
                 .andExpect(status().isOk())
                 .andExpect(model().hasErrors())

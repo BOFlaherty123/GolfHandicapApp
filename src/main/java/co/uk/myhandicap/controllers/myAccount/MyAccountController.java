@@ -1,9 +1,14 @@
 package main.java.co.uk.myhandicap.controllers.myAccount;
 
+import main.java.co.uk.myhandicap.controllers.AppController;
+import main.java.co.uk.myhandicap.controllers.AppFormController;
 import main.java.co.uk.myhandicap.model.user.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 /**
  * My Account Controller
@@ -14,14 +19,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping(value="/myAccount")
-public class MyAccountController {
+public class MyAccountController implements AppController, AppFormController<User> {
 
+    @Override
     @RequestMapping(value="/personalInformation")
-    public String displayPersonalInformation(Model model) {
+    public ModelAndView handleRequest(ModelAndView mav) {
+        mav.setViewName("myAccount/personal");
 
-        model.addAttribute(new User());
+        mav.addObject(new User());
 
-        return "myAccount/personal";
+        return mav;
+    }
+
+    @Override
+    public ModelAndView submitFormRequest(ModelAndView mav, @Valid User user, BindingResult errors) {
+        return null;
     }
 
 }

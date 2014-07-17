@@ -67,8 +67,8 @@
 
                         <div class="row">
                             <div class="col-md-8">
-                                <form:hidden id="input-playerId" path="playerId" class="form-control" disabled="true"/>
-                                <form:hidden id="input-submittedDate" path="submittedDate" class="form-control" disabled="true"/>
+                                <form:hidden id="input-playerId" path="playerId" class="form-control"/>
+                                <form:hidden id="input-submittedDate" path="submittedDate" class="form-control"/>
 
                                 <div class="form-group">
                                     <label for="input-dateOfPlay" class="col-lg-2 control-label">Date of Play</label>

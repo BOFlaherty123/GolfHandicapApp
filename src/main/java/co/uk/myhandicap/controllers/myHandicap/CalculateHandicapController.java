@@ -1,5 +1,7 @@
 package main.java.co.uk.myhandicap.controllers.myHandicap;
 
+import main.java.co.uk.myhandicap.controllers.AppController;
+import main.java.co.uk.myhandicap.controllers.AppFormController;
 import main.java.co.uk.myhandicap.form.ScoreCardDto;
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
 import main.java.co.uk.myhandicap.service.ScoreCardServiceImpl;
@@ -23,7 +25,7 @@ import javax.validation.Valid;
  */
 @Controller
 @RequestMapping(value="/myHandicap")
-public class CalculateHandicapController {
+public class CalculateHandicapController implements AppController, AppFormController<ScoreCardDto> {
 
     @Autowired
     private Mapper mapper;
@@ -31,8 +33,9 @@ public class CalculateHandicapController {
     @Autowired
     private ScoreCardServiceImpl scoreCardService;
 
+    @Override
     @RequestMapping(value="/calculate")
-    public ModelAndView displayMyHandicapHistory(ModelAndView mav) {
+    public ModelAndView handleRequest(ModelAndView mav) {
         mav.setViewName("myHandicap/calculate");
 
         // Mock Initial ScoreCard values (User) TODO - Remove once redundant
@@ -45,10 +48,9 @@ public class CalculateHandicapController {
         return mav;
     }
 
+    @Override
     @RequestMapping(value="/submitRound", method = RequestMethod.POST)
-    public ModelAndView submitRoundOfGolf(ModelAndView mav, @Valid ScoreCardDto scoreCardDto,  BindingResult errors) {
-
-        System.out.println("controller: " + scoreCardDto.toString());
+    public ModelAndView submitFormRequest(ModelAndView mav, @Valid ScoreCardDto scoreCard, BindingResult errors) {
 
         if(errors.hasErrors()) {
             mav.setViewName("myHandicap/calculate");
@@ -62,9 +64,9 @@ public class CalculateHandicapController {
             mav.setViewName("myHandicap/history");
 
             // Dozer object mapping
-            ScoreCard scoreCard = mapper.map(scoreCardDto, ScoreCard.class);
+            ScoreCard sc = mapper.map(scoreCard, ScoreCard.class);
 
-            scoreCardService.save(scoreCard);
+            scoreCardService.save(sc);
 
         }
 

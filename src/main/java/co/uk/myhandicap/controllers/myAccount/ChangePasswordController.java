@@ -1,7 +1,14 @@
 package main.java.co.uk.myhandicap.controllers.myAccount;
 
+import main.java.co.uk.myhandicap.controllers.AppController;
+import main.java.co.uk.myhandicap.controllers.AppFormController;
+import main.java.co.uk.myhandicap.model.user.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 /**
  * User Account Change Password
@@ -12,11 +19,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping(value="/myAccount")
-public class ChangePasswordController {
+public class ChangePasswordController implements AppController, AppFormController<User> {
 
+    @Override
     @RequestMapping(value="/changeAccountPassword")
-    public String displayChangePasswordPage() {
-        return "myAccount/changePassword";
+    public ModelAndView handleRequest(ModelAndView mav) {
+        mav.setViewName("myAccount/changePassword");
+        return mav;
     }
 
+    @Override
+    public ModelAndView submitFormRequest(ModelAndView mav, @Valid User user, BindingResult errors) {
+        return null;
+    }
 }

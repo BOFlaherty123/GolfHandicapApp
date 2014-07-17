@@ -64,7 +64,7 @@ public class WelcomeController implements AppController {
         user.setLastName("OFlaherty");
         user.setPassword("qwerty12");
 
-        // add UserRoles collection (Set<UserRole)
+        // addToScore UserRoles collection (Set<UserRole)
         UserRole role1 = new UserRole();
         role1.setAssignedDate(new Date());
         role1.setRole("ROLE_USER");

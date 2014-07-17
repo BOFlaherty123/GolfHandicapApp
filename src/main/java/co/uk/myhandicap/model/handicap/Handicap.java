@@ -1,7 +1,5 @@
 package main.java.co.uk.myhandicap.model.handicap;
 
-import main.java.co.uk.myhandicap.model.user.User;
-
 /**
  * Handicap Object
  *
@@ -13,7 +11,6 @@ public class Handicap {
 
     private String calculatedOn;
     private String handicapScore;
-    private User user;
     private String numberOfRounds;
 
     public String getCalculatedOn() {
@@ -32,14 +29,6 @@ public class Handicap {
         this.handicapScore = handicapScore;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public String getNumberOfRounds() {
         return numberOfRounds;
     }
@@ -53,7 +42,6 @@ public class Handicap {
         return "Handicap{" +
                 "calculatedOn='" + calculatedOn + '\'' +
                 ", handicapScore='" + handicapScore + '\'' +
-                ", user=" + user +
                 ", numberOfRounds='" + numberOfRounds + '\'' +
                 '}';
     }

@@ -11,6 +11,7 @@ import main.java.co.uk.myhandicap.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,28 +28,21 @@ public class HandicapCalculation {
 
     private final static int DEFAULT_HANDICAP = 28;
 
+    private final Score score = new Score();
+
     @Autowired
     private UserServiceImpl userService;
 
     @Autowired
     private ScoreCardServiceImpl scoreCardService;
 
-    // Pass in the user
-    // extract Rounds Of Golf from Scorecard
-    // Locally Store Course Par and SSI
-    // loop through each hole of the round and...
-
-        // Calculate the users total score (Number of Strokes)
-        // Gross Score = Number of Strokes - Scratch Score (SSS)
-
-        // Calculate the rounds Adjusted Score (Gross Score - any adjustments under CONGU *)
-
-        // * CONGU allows double bogey (+2) maximum on any hole. i.e if a player takes 8 shots on a par 5
-        // * the maximum score allowed for that hole is 7 (5+2).
-
-
-    // Divide the number of Adjusted Gross Scores by the number of rounds played.
-
+    /**
+     * calculate a players handicap
+     *
+     * @param userId
+     * @return
+     * @throws UserNotFoundException
+     */
     public Handicap calculateUserHandicapScore(Long userId) throws UserNotFoundException {
 
         // retrieve user object
@@ -117,23 +111,69 @@ public class HandicapCalculation {
         // Setup a handicap object with default values
         Handicap playerHandicap = setupDefaultHandicap();
 
-        // Store coursePar & courseSSS for calculation
-        int coursePar; int courseSSS; int playerScore = 0;
+        if(!roundsOfGolf.isEmpty()) {
 
-        for(Round round : roundsOfGolf) {
+            List<BigDecimal> adjustedScores = new ArrayList<>();
 
-            coursePar = Integer.valueOf(round.getCoursePar());
-            // TODO - add SSS (standard scratch score) to Round class
+            // TODO - addToScore SSS (standard scratch score) to Round class
+            // Store coursePar & courseSSS for calculation
+            BigDecimal coursePar; int courseSSS;
 
-            for(Hole hole : round.getHoles()) {
-                playerScore += Integer.valueOf(hole.getHoleScore());
+            for(Round round : roundsOfGolf) {
+
+                BigDecimal playerScore = score.getPlayerScore();
+
+                coursePar = score.createScore(round.getCoursePar());
+
+                for(Hole hole : round.getHoles()) {
+
+                    // Process CONGU adjustment
+                    processCONGUAdjustment(hole);
+
+                    // add players score for the hole to the round total
+                    BigDecimal holeScore = score.createScore(hole.getHoleScore());
+                    playerScore = score.addToPlayerScore(playerScore, holeScore);
+
+                }
+
+                // calculate the players adjusted score for the round
+                BigDecimal adjustedScore = score.subtractFromScore(playerScore, coursePar);
+                adjustedScores.add(adjustedScore);
+
             }
 
-            System.out.println(playerScore);
+            // total all adjusted scores for each round of golf played by the user
+            BigDecimal adjustedTotal = score.getAdjustmentTotal();
 
+            for(BigDecimal adjustScore : adjustedScores) {
+                adjustedTotal = score.addToAdjustmentScore(adjustedTotal, adjustScore);
+            }
+
+            String handicap = score.calculateHandicap(roundsOfGolf.size(), adjustedTotal);
+
+            // add calculations to the handicap object
+            playerHandicap.setHandicapScore(handicap);
+            playerHandicap.setNumberOfRounds(String.valueOf(roundsOfGolf.size()));
         }
 
         return playerHandicap;
+    }
+
+    /**
+     * CONGU adjustment (max +2 shot penalty per hole 'double bogey)
+     *
+     * @param hole
+     */
+    private void processCONGUAdjustment(Hole hole) {
+
+        BigDecimal maxStroke = score.createScore(Integer.valueOf(hole.getHolePar()) + 2);
+        BigDecimal playerScore = score.createScore(hole.getHoleScore());
+
+        if(playerScore.compareTo(maxStroke) > 0) {
+            playerScore = maxStroke;
+
+            hole.setHoleScore(String.valueOf(playerScore));
+        }
 
     }
 
@@ -146,6 +186,7 @@ public class HandicapCalculation {
         Handicap playerHandicap = new Handicap();
 
         playerHandicap.setHandicapScore(String.valueOf(DEFAULT_HANDICAP));
+        // TODO - use JodaTime to obtain todays date in String format
         playerHandicap.setCalculatedOn("17/07/2014");
 
         return playerHandicap;

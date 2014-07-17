@@ -41,7 +41,7 @@
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
 
-        <!-- (create) Drop and re-create the database schema on startup. (Update) keeps existing and adds new-->
+        <!-- (createScore) Drop and re-createScore the database schema on startup. (Update) keeps existing and adds new-->
         <property name="hbm2ddl.auto">create</property>
 
     </session-factory>

@@ -21,6 +21,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -71,10 +72,7 @@ public class HandicapCalculationTest {
 
         when(userService.retrieveUserById(user.getId())).thenReturn(user);
 
-        List<ScoreCard> scoreCardList = new ArrayList();
-
-        ScoreCard scoreCard = buildMockScoreCard();
-        scoreCardList.add(scoreCard);
+        List<ScoreCard> scoreCardList = new ArrayList<>();
 
         when(scoreCardService.retrieveUserScoredCardsById(user)).thenReturn(scoreCardList);
 
@@ -93,10 +91,49 @@ public class HandicapCalculationTest {
 
         when(userService.retrieveUserById(user.getId())).thenReturn(user);
 
+        List<List<String>> pars = new ArrayList<>();
+
+        pars.add(new ArrayList<>(
+                Arrays.asList("3", "3", "3", "3", "4", "3", "3", "3", "4",
+                        "3", "3", "3", "3", "4", "3", "3", "3", "4"
+                )));
+
+        pars.add(new ArrayList<>(
+                Arrays.asList("3", "3", "3", "3", "4", "3", "3", "3", "4",
+                        "3", "3", "3", "3", "4", "3", "3", "3", "4"
+                )));
+
+        pars.add(new ArrayList<>(
+                Arrays.asList("3", "3", "3", "3", "4", "3", "3", "3", "4",
+                        "3", "3", "3", "3", "4", "3", "3", "3", "4"
+                )));
+
+        List<List<String>> scores = new ArrayList<>();
+
+        scores.add(new ArrayList<>(
+                Arrays.asList("4", "4", "5", "5", "5", "4", "8", "4", "5",
+                        "4", "5", "4", "3", "7", "5", "5", "6", "5"
+                )));
+
+        scores.add(new ArrayList<>(
+                Arrays.asList("4", "4", "4", "3", "6", "3", "3", "5", "5",
+                        "3", "4", "5", "3", "5", "5", "4", "7", "4"
+                )));
+
+        scores.add(new ArrayList<>(
+                Arrays.asList("5", "4", "4", "7", "6", "4", "3", "4", "5",
+                        "4", "4", "5", "4", "5", "4", "4", "5", "7"
+                )));
+
+        List<ScoreCard> scoreCardList = buildMockScoreCard(3, pars, scores);
+
+        when(scoreCardService.retrieveUserScoredCardsById(user)).thenReturn(scoreCardList);
+
         Handicap playerHandicap = processor.calculateUserHandicapScore(1L);
         assertEquals("17/07/2014", playerHandicap.getCalculatedOn());
-        assertEquals("20", playerHandicap.getHandicapScore());
-        assertEquals("5", playerHandicap.getNumberOfRounds());
+        assertEquals("22", playerHandicap.getHandicapScore());
+        assertEquals("3", playerHandicap.getNumberOfRounds());
+
     }
 
     private User buildMockUser(Long id) {
@@ -105,41 +142,52 @@ public class HandicapCalculationTest {
         return user;
     }
 
-    private ScoreCard buildMockScoreCard() {
-        ScoreCard scoreCard = new ScoreCard();
-        scoreCard.setPlayerId(1L);
-        scoreCard.setSubmittedDate("15/07/2014");
+    private List<ScoreCard> buildMockScoreCard(int numberOfScoreCards, List<List<String>> holeParList, List<List<String>> holeScoreList) {
 
-        List<Round> golfRounds = new ArrayList<>();
-        golfRounds.add(buildMockGolfRound());
+        List<ScoreCard> scoreCardList = new ArrayList();
 
-        scoreCard.setGolfRounds(golfRounds);
+        for(int i = 1; i <= numberOfScoreCards; i++) {
 
-        return scoreCard;
+            ScoreCard scoreCard = new ScoreCard();
+            scoreCard.setPlayerId(1L);
+            scoreCard.setSubmittedDate("15/07/2014");
+
+            List<Round> golfRounds = new ArrayList<>();
+            golfRounds.add(buildMockGolfRound(holeParList.get(i - 1), holeScoreList.get(i - 1)));
+
+            scoreCard.setGolfRounds(golfRounds);
+
+            scoreCardList.add(scoreCard);
+        }
+
+        return scoreCardList;
     }
 
-    private Round buildMockGolfRound() {
+    private Round buildMockGolfRound(List<String> holeParList, List<String> holeScoreList) {
         Round round = new Round();
         round.setCourseName("Course Name");
-        round.setCoursePar("72");
+        round.setCoursePar("58");
         round.setPlayDate("16/07/2014");
 
         List<Hole> holes = new ArrayList<>();
-        holes.add(buildMockHole());
+
+        buildMockHoleAndAddToRound(holeParList, holeScoreList, holes);
 
         round.setHoles(holes);
 
         return round;
     }
 
-    private Hole buildMockHole() {
-        Hole hole = new Hole();
-        hole.setHolePar("4");
-        hole.setHoleScore("3");
-        hole.setHoleYards("240");
-        hole.setHoleSSI("7");
+    private void buildMockHoleAndAddToRound(List<String> holeParList, List<String> holeScoreList, List<Hole> holes) {
+        for(int i = 0; i <= 17; i++) {
 
-        return hole;
+            Hole hole = new Hole();
+
+            hole.setHolePar(holeParList.get(i));
+            hole.setHoleScore(holeScoreList.get(i));
+
+            holes.add(hole);
+        }
     }
 
 }

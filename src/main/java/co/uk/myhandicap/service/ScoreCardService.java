@@ -1,6 +1,9 @@
 package main.java.co.uk.myhandicap.service;
 
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
+import main.java.co.uk.myhandicap.model.user.User;
+
+import java.util.List;
 
 /**
  * ScoreCard Interface
@@ -10,6 +13,8 @@ import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
  * @project MyHandicapApp
  */
 public interface ScoreCardService extends GenericService<ScoreCard,Long> {
+
+    List<ScoreCard> retrieveUserScoredCardsById(User user);
 
 
 }

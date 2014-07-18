@@ -26,10 +26,6 @@ import java.util.List;
 @Component
 public class HandicapCalculation {
 
-    private final static int DEFAULT_HANDICAP = 28;
-
-    private final Score score = new Score();
-
     @Autowired
     private UserServiceImpl userService;
 
@@ -45,6 +41,8 @@ public class HandicapCalculation {
      */
     public Handicap calculateUserHandicapScore(Long userId) throws UserNotFoundException {
 
+        final Score score = new Score();
+
         // retrieve user object
         User user = getUser(userId);
 
@@ -55,30 +53,15 @@ public class HandicapCalculation {
         List<Round> roundsOfGolf = extractRoundsOfGolfFromScoreCard(scoreCardList);
 
         // calculate the users handicap for this Round of golf
-        Handicap playerHandicap = calculateHandicapForRoundOfGolf(roundsOfGolf);
+        Handicap playerHandicap = calculateHandicapForRoundOfGolf(score, roundsOfGolf);
 
         if(playerHandicap == null) {
             throw new RuntimeException("We are unable to provide a handicap calculation for userId[" + userId + "]");
         }
 
+        System.out.println(playerHandicap.toString());
+
         return playerHandicap;
-    }
-
-    /**
-     * Retrieve the user from the database
-     *
-     * @param userId
-     * @return
-     * @throws UserNotFoundException
-     */
-    private User getUser(Long userId) throws UserNotFoundException {
-        User user = userService.retrieveUserById(userId);
-
-        if(user == null) {
-            throw new UserNotFoundException("User not found for Id[" + userId +"]");
-        }
-
-        return user;
     }
 
     /**
@@ -106,29 +89,26 @@ public class HandicapCalculation {
      * @param roundsOfGolf
      * @return
      */
-    private Handicap calculateHandicapForRoundOfGolf(List<Round> roundsOfGolf) {
+    private Handicap calculateHandicapForRoundOfGolf(Score score, List<Round> roundsOfGolf) {
 
         // Setup a handicap object with default values
-        Handicap playerHandicap = setupDefaultHandicap();
+        Handicap playerHandicap = new Handicap().setupDefaultHandicap();
 
         if(!roundsOfGolf.isEmpty()) {
 
             List<BigDecimal> adjustedScores = new ArrayList<>();
 
-            // TODO - addToScore SSS (standard scratch score) to Round class
-            // Store coursePar & courseSSS for calculation
-            BigDecimal coursePar; int courseSSS;
-
             for(Round round : roundsOfGolf) {
 
                 BigDecimal playerScore = score.getPlayerScore();
 
-                coursePar = score.createScore(round.getCoursePar());
+                // TODO - addToScore SSS (standard scratch score) to Round class
+                score.setCourseSSS(score.createScore(round.getCoursePar()));
 
                 for(Hole hole : round.getHoles()) {
 
                     // Process CONGU adjustment
-                    processCONGUAdjustment(hole);
+                    processCONGUAdjustment(hole, score);
 
                     // add players score for the hole to the round total
                     BigDecimal holeScore = score.createScore(hole.getHoleScore());
@@ -137,9 +117,8 @@ public class HandicapCalculation {
                 }
 
                 // calculate the players adjusted score for the round
-                BigDecimal adjustedScore = score.subtractFromScore(playerScore, coursePar);
+                BigDecimal adjustedScore = score.subtractFromScore(playerScore, score.getCourseSSS());
                 adjustedScores.add(adjustedScore);
-
             }
 
             // total all adjusted scores for each round of golf played by the user
@@ -164,7 +143,7 @@ public class HandicapCalculation {
      *
      * @param hole
      */
-    private void processCONGUAdjustment(Hole hole) {
+    private void processCONGUAdjustment(Hole hole, Score score) {
 
         BigDecimal maxStroke = score.createScore(Integer.valueOf(hole.getHolePar()) + 2);
         BigDecimal playerScore = score.createScore(hole.getHoleScore());
@@ -178,18 +157,20 @@ public class HandicapCalculation {
     }
 
     /**
-     * creates a default starting handicap object for a user
+     * Retrieve the user from the database
      *
+     * @param userId
      * @return
+     * @throws UserNotFoundException
      */
-    private Handicap setupDefaultHandicap() {
-        Handicap playerHandicap = new Handicap();
+    private User getUser(Long userId) throws UserNotFoundException {
+        User user = userService.retrieveUserById(userId);
 
-        playerHandicap.setHandicapScore(String.valueOf(DEFAULT_HANDICAP));
-        // TODO - use JodaTime to obtain todays date in String format
-        playerHandicap.setCalculatedOn("17/07/2014");
+        if(user == null) {
+            throw new UserNotFoundException("User not found for Id[" + userId +"]");
+        }
 
-        return playerHandicap;
+        return user;
     }
 
 }

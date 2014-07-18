@@ -36,9 +36,10 @@
         </property>
         <property name="hibernateProperties">
             <value>
-                hibernate.hbm2ddl.auto=create
+                hibernate.hbm2ddl.auto=update
                 hibernate.show_sql=true
                 hibernate.dialect=org.hibernate.dialect.PostgresPlusDialect
+                hibernate.default-lazy=false
             </value>
         </property>
     </bean>

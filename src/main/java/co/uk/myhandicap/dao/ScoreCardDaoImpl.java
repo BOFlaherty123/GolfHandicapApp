@@ -2,12 +2,14 @@ package main.java.co.uk.myhandicap.dao;
 
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
 import main.java.co.uk.myhandicap.model.user.User;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.exception.GenericJDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,15 +68,23 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
 
         Session session = sessionFactory.openSession();
 
+        List<ScoreCard> scoreCardList = new ArrayList<>();
+
         try {
             // Create a session transaction (usually within a try block)
             session.beginTransaction();
+
+            Query query = session.createQuery("from ScoreCard where playerId = :playerId ");
+            query.setParameter("playerId", user.getId());
+
+            scoreCardList = query.list();
 
             // Commit and close the transaction
             session.getTransaction().commit();
 
             // Close the session (usually within a finally block)
-            session.close();
+            // TODO - Revist how long a session should be open for and when it should be closed
+            //session.close();
 
         } catch(GenericJDBCException ex) {
             logger.error("class[" + this.getClass().getName() + "] method=[.save()]", ex);
@@ -82,6 +92,6 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
 
         logger.exit();
 
-        return null;
+        return scoreCardList;
     }
 }

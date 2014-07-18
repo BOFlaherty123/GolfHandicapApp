@@ -1,6 +1,7 @@
 package test.java.co.uk.myhandicap.calculation;
 
 import main.java.co.uk.myhandicap.calculation.HandicapCalculation;
+import main.java.co.uk.myhandicap.calculation.Score;
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.model.handicap.Handicap;
 import main.java.co.uk.myhandicap.model.handicap.Hole;
@@ -9,6 +10,9 @@ import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
 import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.ScoreCardServiceImpl;
 import main.java.co.uk.myhandicap.service.UserServiceImpl;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -37,6 +41,8 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class HandicapCalculationTest {
 
+    private final DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/yyyy");
+
     @InjectMocks
     private HandicapCalculation processor;
 
@@ -46,13 +52,17 @@ public class HandicapCalculationTest {
     @Mock
     private ScoreCardServiceImpl scoreCardService;
 
-    @Before
-    public void init() {
-        MockitoAnnotations.initMocks(this);
-    }
+    @Mock
+    private Score score;
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
+
+    @Before
+    public void init() {
+        MockitoAnnotations.initMocks(this);
+
+    }
 
     @Test
     public void exceptionThrowForAnInvalidUserId() throws UserNotFoundException {
@@ -79,7 +89,7 @@ public class HandicapCalculationTest {
         Handicap playerHandicap = processor.calculateUserHandicapScore(1L);
 
         verify(scoreCardService, times(1)).retrieveUserScoredCardsById(Matchers.<User>any());
-        assertEquals("17/07/2014", playerHandicap.getCalculatedOn());
+        assertEquals(fmt.print(new DateTime()), playerHandicap.getCalculatedOn());
         assertEquals("28", playerHandicap.getHandicapScore());
 
     }
@@ -130,7 +140,7 @@ public class HandicapCalculationTest {
         when(scoreCardService.retrieveUserScoredCardsById(user)).thenReturn(scoreCardList);
 
         Handicap playerHandicap = processor.calculateUserHandicapScore(1L);
-        assertEquals("17/07/2014", playerHandicap.getCalculatedOn());
+        assertEquals(fmt.print(new DateTime()), playerHandicap.getCalculatedOn());
         assertEquals("22", playerHandicap.getHandicapScore());
         assertEquals("3", playerHandicap.getNumberOfRounds());
 

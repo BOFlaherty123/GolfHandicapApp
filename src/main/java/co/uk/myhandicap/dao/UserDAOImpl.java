@@ -78,6 +78,9 @@ public class UserDaoImpl implements UserDao {
 
             // Retrieve a User object from the Database
             try{
+
+                System.out.println("retrieveUserById " + userId);
+
                 user = (User) session.get(User.class, userId);
 
                 if(user == null) {
@@ -88,7 +91,8 @@ public class UserDaoImpl implements UserDao {
                 System.out.println("error: " + e.getMessage());
             }
 
-            session.close();
+            // TODO - Revist how long a session should be open for and when it should be closed
+            //session.close();
 
         } catch(GenericJDBCException ex) {
             logger.error("class[" + this.getClass().getName() + "] method=[.retrieveUserById()]", ex);

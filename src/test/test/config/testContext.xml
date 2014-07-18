@@ -18,4 +18,9 @@
     <bean id="HoleValidator" class="org.mockito.Mockito" factory-method="mock">
         <constructor-arg value="main.java.co.uk.myhandicap.validation.validator.HoleValidator"/>
     </bean>
+
+    <bean id="handicapCalculation" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="main.java.co.uk.myhandicap.calculation.HandicapCalculation"/>
+    </bean>
+
 </beans>

@@ -12,12 +12,9 @@ import java.math.RoundingMode;
  */
 public class Score {
 
-    // TODO can we store the values locally in this object? If the Score object is injected into the class (new instance each time)
-    // TODO behavior with the class will remain as a singleton and multiple iteractions will stay seperate
-    // TODO Setter/Getter methods are required to keep track of the adjustment total, playerScore and handicap value
-
     private BigDecimal playerScore = new BigDecimal(0);
     private BigDecimal adjustmentTotal = new BigDecimal(0);
+    private BigDecimal courseSSS = new BigDecimal(0);
     private BigDecimal handicap;
 
     public BigDecimal getPlayerScore() {
@@ -44,16 +41,24 @@ public class Score {
         this.handicap = handicap;
     }
 
+    public BigDecimal getCourseSSS() {
+        return courseSSS;
+    }
+
+    public void setCourseSSS(BigDecimal courseSSS) {
+        this.courseSSS = courseSSS;
+    }
 
     public BigDecimal createScore(String value) {
         return new BigDecimal(value);
     }
 
+    // Score BigDecimal arithmetic and initialisation
+
     public BigDecimal createScore(Integer value) {
         return new BigDecimal(value);
     }
 
-    // TODO - Use the global variables (playerScore) and add the value to this field.
     public BigDecimal addToPlayerScore(BigDecimal value1, BigDecimal value2) {
         return value1.add(value2);
     }

@@ -23,7 +23,7 @@ public class ScoreCard {
     private Long playerId;
     @Column(name="SUBMITTED_DATE")
     private String submittedDate;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(joinColumns = @JoinColumn(name="SCORE_CARD_ID"), inverseJoinColumns = @JoinColumn(name="ROUND_ID"))
     private List<Round> golfRounds;
 

@@ -20,6 +20,8 @@ public class RoundDto {
     private String courseName;
     @NotBlank(message = "Course Par is required.")
     private String coursePar;
+    @NotBlank(message = "Course SSS is required.")
+    private String courseSSS;
     @Valid
     private List<HoleDto> holes;
 
@@ -47,6 +49,14 @@ public class RoundDto {
         this.coursePar = coursePar;
     }
 
+    public String getCourseSSS() {
+        return courseSSS;
+    }
+
+    public void setCourseSSS(String courseSSS) {
+        this.courseSSS = courseSSS;
+    }
+
     public List<HoleDto> getHoles() {
         return holes;
     }
@@ -58,9 +68,10 @@ public class RoundDto {
     @Override
     public String toString() {
         return "RoundDto{" +
-                "playDate=" + playDate +
+                "playDate='" + playDate + '\'' +
                 ", courseName='" + courseName + '\'' +
                 ", coursePar='" + coursePar + '\'' +
+                ", courseSSS='" + courseSSS + '\'' +
                 ", holes=" + holes +
                 '}';
     }

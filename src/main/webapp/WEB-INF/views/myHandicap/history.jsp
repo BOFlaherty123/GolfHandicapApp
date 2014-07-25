@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
     <head>
         <title>My Handicap</title>
@@ -62,6 +63,23 @@
                         <legend>History</legend>
 
                         Round history is displayed here
+
+                        <h2><c:out value="${playerHandicap.handicapScore}"/></h2>
+
+                        <table>
+                            <c:forEach var="scoreCard" varStatus="i" items="${playerScoreCards}">
+                                <tr>
+                                    <td><c:out value="${scoreCard.submittedDate}"/></td>
+                                </tr>
+                                <tr>
+                                    <td><c:out value="${scoreCard.golfRounds[i.index].playDate}"/></td>
+                                    <td><c:out value="${scoreCard.golfRounds[i.index].courseName}"/></td>
+                                    <td><c:out value="${scoreCard.golfRounds[i.index].coursePar}"/></td>
+                                    <td><c:out value="${scoreCard.golfRounds[i.index].courseSSS}"/></td>
+                                </tr>
+                            </c:forEach>
+
+                        </table>
 
                     </fieldset>
                 </div>

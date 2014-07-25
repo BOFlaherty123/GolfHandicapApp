@@ -72,20 +72,26 @@
 
                                 <div class="form-group">
                                     <label for="input-dateOfPlay" class="col-lg-2 control-label">Date of Play</label>
-                                    <div class="col-lg-10">
+                                    <div class="col-lg-8">
                                         <form:input id="input-dateOfPlay" path="golfRounds[0].playDate" class="form-control" placeholder="Date of Visit"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="input-course-name" class="col-lg-2 control-label">Course Name</label>
-                                    <div class="col-lg-10">
+                                    <div class="col-lg-8">
                                         <form:input id="input-course-name" path="golfRounds[0].courseName" class="form-control" placeholder="Name of Golf Course"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="input-course-par" class="col-lg-2 control-label">Course Par</label>
-                                    <div class="col-lg-10">
+                                    <div class="col-lg-8">
                                         <form:input id="input-course-par" path="golfRounds[0].coursePar" class="form-control" placeholder="Par of Golf Course"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input-course-sss" class="col-lg-2 control-label">Course SSS</label>
+                                    <div class="col-lg-8">
+                                        <form:input id="input-course-sss" path="golfRounds[0].courseSSS" class="form-control" placeholder="SSS of Golf Course"/>
                                     </div>
                                 </div>
                             </div>

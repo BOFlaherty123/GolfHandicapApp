@@ -40,7 +40,7 @@ public class CalculateHandicapController implements AppController, AppFormContro
 
         // Mock Initial ScoreCard values (User) TODO - Remove once redundant
         ScoreCardDto scoreCardDto = new ScoreCardDto();
-        scoreCardDto.setPlayerId(1L);
+        scoreCardDto.setPlayerId(21L);
         scoreCardDto.setSubmittedDate("15/07/2014");
 
         mav.addObject(scoreCardDto);

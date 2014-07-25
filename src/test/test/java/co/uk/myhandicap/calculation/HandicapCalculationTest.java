@@ -8,8 +8,8 @@ import main.java.co.uk.myhandicap.model.handicap.Hole;
 import main.java.co.uk.myhandicap.model.handicap.Round;
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
 import main.java.co.uk.myhandicap.model.user.User;
-import main.java.co.uk.myhandicap.service.ScoreCardServiceImpl;
-import main.java.co.uk.myhandicap.service.UserServiceImpl;
+import main.java.co.uk.myhandicap.service.ScoreCardService;
+import main.java.co.uk.myhandicap.service.UserService;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -47,10 +47,10 @@ public class HandicapCalculationTest {
     private HandicapCalculation processor;
 
     @Mock
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @Mock
-    private ScoreCardServiceImpl scoreCardService;
+    private ScoreCardService scoreCardService;
 
     @Mock
     private Score score;
@@ -80,7 +80,7 @@ public class HandicapCalculationTest {
 
         User user = buildMockUser(1L);
 
-        when(userService.retrieveUserById(user.getId())).thenReturn(user);
+        when(userService.retrieveUserById(anyLong())).thenReturn(user);
 
         List<ScoreCard> scoreCardList = new ArrayList<>();
 
@@ -177,6 +177,7 @@ public class HandicapCalculationTest {
         Round round = new Round();
         round.setCourseName("Course Name");
         round.setCoursePar("58");
+        round.setCourseSSS("58");
         round.setPlayDate("16/07/2014");
 
         List<Hole> holes = new ArrayList<>();

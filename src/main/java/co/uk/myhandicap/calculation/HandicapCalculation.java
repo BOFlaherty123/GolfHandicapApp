@@ -6,8 +6,10 @@ import main.java.co.uk.myhandicap.model.handicap.Hole;
 import main.java.co.uk.myhandicap.model.handicap.Round;
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
 import main.java.co.uk.myhandicap.model.user.User;
-import main.java.co.uk.myhandicap.service.ScoreCardServiceImpl;
-import main.java.co.uk.myhandicap.service.UserServiceImpl;
+import main.java.co.uk.myhandicap.service.ScoreCardService;
+import main.java.co.uk.myhandicap.service.UserService;
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,10 +29,13 @@ import java.util.List;
 public class HandicapCalculation {
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @Autowired
-    private ScoreCardServiceImpl scoreCardService;
+    private ScoreCardService scoreCardService;
+
+    private static final XLogger logger = XLoggerFactory.getXLogger(HandicapCalculation.class
+            .getName());
 
     /**
      * calculate a players handicap
@@ -41,6 +46,9 @@ public class HandicapCalculation {
      */
     public Handicap calculateUserHandicapScore(Long userId) throws UserNotFoundException {
 
+        logger.entry(userId);
+
+        // creates a new score object for the calculation
         final Score score = new Score();
 
         // retrieve user object
@@ -59,7 +67,9 @@ public class HandicapCalculation {
             throw new RuntimeException("We are unable to provide a handicap calculation for userId[" + userId + "]");
         }
 
-        System.out.println(playerHandicap.toString());
+        logger.info("playerHandicap[ " + playerHandicap + "]");
+
+        logger.exit();
 
         return playerHandicap;
     }
@@ -91,6 +101,8 @@ public class HandicapCalculation {
      */
     private Handicap calculateHandicapForRoundOfGolf(Score score, List<Round> roundsOfGolf) {
 
+        logger.entry(score, roundsOfGolf);
+
         // Setup a handicap object with default values
         Handicap playerHandicap = new Handicap().setupDefaultHandicap();
 
@@ -102,8 +114,7 @@ public class HandicapCalculation {
 
                 BigDecimal playerScore = score.getPlayerScore();
 
-                // TODO - addToScore SSS (standard scratch score) to Round class
-                score.setCourseSSS(score.createScore(round.getCoursePar()));
+                score.setCourseSSS(score.createScore(round.getCourseSSS()));
 
                 for(Hole hole : round.getHoles()) {
 
@@ -132,8 +143,12 @@ public class HandicapCalculation {
 
             // add calculations to the handicap object
             playerHandicap.setHandicapScore(handicap);
+            logger.info("playerHandicap[ " + handicap + "]");
             playerHandicap.setNumberOfRounds(String.valueOf(roundsOfGolf.size()));
+            logger.info("roundsOfGolf[ " + roundsOfGolf.size() + "]");
         }
+
+        logger.exit();
 
         return playerHandicap;
     }

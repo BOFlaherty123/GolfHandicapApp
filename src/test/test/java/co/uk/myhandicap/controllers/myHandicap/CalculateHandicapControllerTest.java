@@ -72,6 +72,7 @@ public class CalculateHandicapControllerTest {
                 .param("golfRounds[0].playDate", "15/07/2014")
                 .param("golfRounds[0].courseName", "Testing Course Name")
                 .param("golfRounds[0].coursePar", "72")
+                .param("golfRounds[0].courseSSS", "72")
         )
                 .andExpect(status().isOk())
                 .andExpect(model().hasNoErrors())
@@ -97,6 +98,7 @@ public class CalculateHandicapControllerTest {
                 .param("golfRounds[0].playDate", "15/07/2014")
                 .param("golfRounds[0].courseName", "Testing Course Name")
                 .param("golfRounds[0].coursePar", "72")
+                .param("golfRounds[0].courseSSS", "72")
         )
                 .andExpect(status().isOk())
                 .andExpect(model().hasErrors())
@@ -127,7 +129,7 @@ public class CalculateHandicapControllerTest {
         )
                 .andExpect(status().isOk())
                 .andExpect(model().hasErrors())
-                .andExpect(model().errorCount(2))
+                .andExpect(model().errorCount(3))
                 .andExpect(view().name("myHandicap/calculate"));
 
     }
@@ -155,7 +157,7 @@ public class CalculateHandicapControllerTest {
         )
                 .andExpect(status().isOk())
                 .andExpect(model().hasErrors())
-                .andExpect(model().errorCount(1))
+                .andExpect(model().errorCount(2))
                 .andExpect(view().name("myHandicap/calculate"));
 
     }

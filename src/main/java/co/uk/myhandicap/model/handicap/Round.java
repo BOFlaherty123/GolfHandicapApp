@@ -24,6 +24,8 @@ public class Round {
     private String courseName;
     @Column(name="COURSE_PAR")
     private String coursePar;
+    @Column(name="COURSE_SSS")
+    private String courseSSS;
     @Column(name="COURSE_HOLES")
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(joinColumns = @JoinColumn(name="ROUND_ID"), inverseJoinColumns = @JoinColumn(name="HOLE_ID"))
@@ -61,6 +63,14 @@ public class Round {
         this.coursePar = coursePar;
     }
 
+    public String getCourseSSS() {
+        return courseSSS;
+    }
+
+    public void setCourseSSS(String courseSSS) {
+        this.courseSSS = courseSSS;
+    }
+
     public List<Hole> getHoles() {
         return holes;
     }
@@ -73,11 +83,11 @@ public class Round {
     public String toString() {
         return "Round{" +
                 "id=" + id +
-                ", playDate=" + playDate +
+                ", playDate='" + playDate + '\'' +
                 ", courseName='" + courseName + '\'' +
                 ", coursePar='" + coursePar + '\'' +
+                ", courseSSS='" + courseSSS + '\'' +
                 ", holes=" + holes +
                 '}';
     }
-
 }

@@ -1,7 +1,7 @@
 package main.java.co.uk.myhandicap.dao;
 
-import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
+import main.java.co.uk.myhandicap.model.user.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.exception.GenericJDBCException;
@@ -41,7 +41,7 @@ public class UserDaoImpl implements UserDao {
             session.close();
 
         } catch(GenericJDBCException ex) {
-            logger.error("class[" + this.getClass().getName() + "] method=[.save()]", ex);
+            logger.error("class=[" + this.getClass().getName() + "] method=[.save()]", ex);
         }
 
         logger.exit();
@@ -49,6 +49,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(User updateObj) {
+        logger.entry(updateObj);
+
+        System.out.println("update: " + updateObj.toString());
 
         // Basic HQL query example, not you do not need to specify "Select * ..."
         // We use class/field names for HQL queries, instead of the database information (Table & Column name etc)
@@ -59,6 +62,7 @@ public class UserDaoImpl implements UserDao {
 //            System.out.print("Username: " + aUser.getUsername());
 //        }
 
+        logger.exit(updateObj);
     }
 
     @Override
@@ -84,18 +88,18 @@ public class UserDaoImpl implements UserDao {
                 user = (User) session.get(User.class, userId);
 
                 if(user == null) {
-                    throw new UserNotFoundException("user[id=" + userId + "] not found.");
+                    throw new UserNotFoundException("user=[id=" + userId + "] not found.");
                 }
 
             } catch (UserNotFoundException e){
-                System.out.println("error: " + e.getMessage());
+                logger.error("class=[" + this.getClass().getName() + "] method=[.retrieveUserById()]", e.getMessage());
             }
 
             // TODO - Revist how long a session should be open for and when it should be closed
             //session.close();
 
         } catch(GenericJDBCException ex) {
-            logger.error("class[" + this.getClass().getName() + "] method=[.retrieveUserById()]", ex);
+            logger.error("class=[" + this.getClass().getName() + "] method=[.retrieveUserById()]", ex);
         }
 
         logger.exit();

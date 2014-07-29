@@ -67,7 +67,7 @@ public class HandicapCalculation {
             throw new RuntimeException("We are unable to provide a handicap calculation for userId[" + userId + "]");
         }
 
-        logger.info("playerHandicap[ " + playerHandicap + "]");
+        logger.info("playerHandicap=[ " + playerHandicap + "]");
 
         logger.exit();
 

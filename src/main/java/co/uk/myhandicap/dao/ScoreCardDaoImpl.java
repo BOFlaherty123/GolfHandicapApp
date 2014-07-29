@@ -45,7 +45,7 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
             session.close();
 
         } catch(GenericJDBCException ex) {
-            logger.error("class[" + this.getClass().getName() + "] method=[.save()]", ex);
+            logger.error("class=[" + this.getClass().getName() + "] method=[.save()]", ex);
         }
 
         logger.exit();
@@ -76,6 +76,7 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
 
             Query query = session.createQuery("from ScoreCard where playerId = :playerId ");
             query.setParameter("playerId", user.getId());
+            logger.info("class=[" + this.getClass().getName() + "] method=[.save()] query=[", query.toString() + "]");
 
             scoreCardList = query.list();
 
@@ -87,7 +88,7 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
             //session.close();
 
         } catch(GenericJDBCException ex) {
-            logger.error("class[" + this.getClass().getName() + "] method=[.save()]", ex);
+            logger.error("class=[" + this.getClass().getName() + "] method=[.save()]", ex);
         }
 
         logger.exit();

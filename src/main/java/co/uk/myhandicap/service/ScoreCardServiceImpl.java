@@ -27,8 +27,8 @@ public class ScoreCardServiceImpl implements ScoreCardService {
     }
 
     @Override
-    public ScoreCard update(ScoreCard scoreCard) {
-        return null;
+    public void update(ScoreCard scoreCard) {
+
     }
 
     @Override

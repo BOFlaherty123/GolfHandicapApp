@@ -13,7 +13,7 @@ public interface GenericService<T, Long extends Serializable> {
 
     void save(T saveObj);
 
-    T update(T saveObj);
+    void update(T saveObj);
 
     void delete(T saveObj);
 

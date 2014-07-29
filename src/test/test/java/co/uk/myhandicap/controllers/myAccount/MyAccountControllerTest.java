@@ -59,7 +59,7 @@ public class MyAccountControllerTest {
      * Result:
      *      .hasNoErrors()
      * View:
-     *      "myAccount/personal" with model attribute 'success'
+     *      "myAccount/personal" with model attribute 'status'
      *
      * @throws Exception
      */
@@ -76,7 +76,7 @@ public class MyAccountControllerTest {
                 .andExpect(view().name("myAccount/personal"))
                 .andExpect(forwardedUrl("/WEB-INF/views/myAccount/personal.jsp"))
                 .andExpect(model().hasNoErrors())
-                .andExpect(model().attribute("success", "Personal Information Successfully Updated."));
+                .andExpect(model().attribute("status", "Personal Information Successfully Updated."));
 
     }
 
@@ -85,7 +85,7 @@ public class MyAccountControllerTest {
      * Result:
      *      .hasErrors(1)
      * View:
-     *      "myAccount/personal" with errors amd model attribute 'failure'
+     *      "myAccount/personal" with errors amd model attribute 'status'
      *
      * @throws Exception
      */
@@ -103,7 +103,7 @@ public class MyAccountControllerTest {
                 .andExpect(forwardedUrl("/WEB-INF/views/myAccount/personal.jsp"))
                 .andExpect(model().hasErrors())
                 .andExpect(model().errorCount(1))
-                .andExpect(model().attribute("failure", "Personal Information Update Failed, correct errors and try again."));
+                .andExpect(model().attribute("status", "Personal Information Update Failed, correct errors and try again."));
 
      }
 
@@ -112,7 +112,7 @@ public class MyAccountControllerTest {
      * Result:
      *      .hasErrors(1)
      * View:
-     *      "myAccount/personal" with errors amd model attribute 'failure'
+     *      "myAccount/personal" with errors amd model attribute 'status'
      *
      * @throws Exception
      */
@@ -130,14 +130,89 @@ public class MyAccountControllerTest {
                 .andExpect(forwardedUrl("/WEB-INF/views/myAccount/personal.jsp"))
                 .andExpect(model().hasErrors())
                 .andExpect(model().errorCount(1))
-                .andExpect(model().attribute("failure", "Personal Information Update Failed, correct errors and try again."));
+                .andExpect(model().attribute("status", "Personal Information Update Failed, correct errors and try again."));
 
     }
 
-    // Test that errors are returned to the model if any fields fail validation
+    /**
+     * Case: Submitted lastName is not valid (numbers), validation should fail and error message presented to the user.
+     * Result:
+     *      .hasErrors(1)
+     * View:
+     *      "myAccount/personal" with errors amd model attribute 'status'
+     *
+     * @throws Exception
+     */
+    @Test
+    public void submitPersonalInformationAndLastNameDigitsInvalidShouldFailValidation() throws Exception {
 
-    // Test erroneous data input by the user, i.e. entering numeric values instead of alphabetical
+        mockMvc.perform(post("/myAccount/personalInformation/update")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("firstName", "Test")
+                        .param("lastName", "349982")
+                        .param("email", "test@test.com")
+        )
+                .andExpect(status().isOk())
+                .andExpect(view().name("myAccount/personal"))
+                .andExpect(forwardedUrl("/WEB-INF/views/myAccount/personal.jsp"))
+                .andExpect(model().hasErrors())
+                .andExpect(model().errorCount(1))
+                .andExpect(model().attribute("status", "Personal Information Update Failed, correct errors and try again."));
 
-    // Test that an email address is entered in the correct format, xxxx@xxxx.com for example
+    }
+
+    /**
+     * Case: For submitted without values, validation should fail and error message presented to the user.
+     * Result:
+     *      .hasErrors(3)
+     * View:
+     *      "myAccount/personal" with errors amd model attribute 'status'
+     *
+     * @throws Exception
+     */
+    @Test
+    public void submitFormWithoutAnyValuesValidationShouldFailValidation() throws Exception {
+
+        mockMvc.perform(post("/myAccount/personalInformation/update")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("firstName", "")
+                        .param("lastName", "")
+                        .param("email", "")
+        )
+                .andExpect(status().isOk())
+                .andExpect(view().name("myAccount/personal"))
+                .andExpect(forwardedUrl("/WEB-INF/views/myAccount/personal.jsp"))
+                .andExpect(model().hasErrors())
+                .andExpect(model().errorCount(6))
+                .andExpect(model().attribute("status", "Personal Information Update Failed, correct errors and try again."));
+
+    }
+
+    /**
+     * Case: Form submitted with an invalid email value, validation should fail and error message presented to the user.
+     * Result:
+     *      .hasErrors(1)
+     * View:
+     *      "myAccount/personal" with errors amd model attribute 'status'
+     *
+     * @throws Exception
+     */
+    @Test
+    public void submitFormWithoutAValidEmailValuesValidationShouldFailValidation() throws Exception {
+
+        mockMvc.perform(post("/myAccount/personalInformation/update")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("firstName", "Test")
+                        .param("lastName", "McTester")
+                        .param("email", "testing1234")
+        )
+                .andExpect(status().isOk())
+                .andExpect(view().name("myAccount/personal"))
+                .andExpect(forwardedUrl("/WEB-INF/views/myAccount/personal.jsp"))
+                .andExpect(model().hasErrors())
+                .andExpect(model().errorCount(1))
+                .andExpect(model().attribute("status", "Personal Information Update Failed, correct errors and try again."));
+
+    }
 
 }

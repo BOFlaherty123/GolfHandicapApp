@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <html>
     <head>
         <title>Personal Information</title>
@@ -24,7 +26,6 @@
         <div class="container">
 
              <div class="row">
-
                  <!-- Navigation -->
                  <div class="navbar navbar-inverse">
                      <div class="navbar-header">
@@ -53,7 +54,6 @@
                          </ul>
                      </div>
                  </div>
-
              </div>
 
              <div class="row" style="background-color: #ecf0f1">
@@ -62,31 +62,37 @@
                  <div class="col-md-8">
 
                      <!-- Personal Details Form -->
-                     <form class="form-horizontal">
+                     <form:form method="post" action="${pageContext.request.contextPath}/myAccount/personalInformation/update"
+                                commandName="personalInformationDto" class="form-horizontal">
+
                          <fieldset>
                              <legend>Personal Information</legend>
+
+                             <div class="form-group">
+                                <form:errors path="*" cssClass="text-danger"/>
+                             </div>
                              <div class="form-group">
                                  <label for="inputFirstName" class="col-lg-2 control-label">First Name</label>
                                  <div class="col-lg-10">
-                                     <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
+                                     <form:input id="inputFirstName" path="firstName" class="form-control" placeholder="First Name"/>
                                  </div>
                              </div>
                              <div class="form-group">
                                  <label for="inputLastName" class="col-lg-2 control-label">Last Name</label>
                                  <div class="col-lg-10">
-                                     <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
+                                     <form:input id="inputLastName" path="lastName" class="form-control" placeholder="Last Name"/>
                                  </div>
                              </div>
                              <div class="form-group">
                                  <label for="inputEmail" class="col-lg-2 control-label">Email</label>
                                  <div class="col-lg-10">
-                                     <input type="text" class="form-control" id="inputEmail" placeholder="Email">
+                                     <form:input id="inputEmail" path="email" class="form-control" placeholder="Email"/>
                                  </div>
                              </div>
+                             <!-- Status Message To user -->
                              <div class="form-group">
-                                 <label for="inputPassword" class="col-lg-2 control-label">Password</label>
                                  <div class="col-lg-10">
-                                     <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                                     <p class="text-primary"><c:out value="${status}"/></p>
                                  </div>
                              </div>
                              <!-- Address Information -->
@@ -100,14 +106,13 @@
                                  </div>
                              </div>
                          </fieldset>
-                     </form>
+                     </form:form>
 
                  </div>
 
                  <div class="col-md-2"></div>
 
              </div>
-
         </div>
 
     </body>

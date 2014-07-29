@@ -40,15 +40,16 @@ public class MyHandicapController implements AppController {
     public ModelAndView handleRequest(ModelAndView mav) {
         mav.setViewName("myHandicap/history");
 
-        System.out.println("scoreCardService " + scoreCardService);
-        System.out.println("userService " + userService);
-
         try {
             Handicap handicap = handicapCalculation.calculateUserHandicapScore(21L);
 
             User user = userService.retrieveUserById(21L);
 
             List<ScoreCard> scoreCardList = scoreCardService.retrieveUserScoredCardsById(user);
+
+            if(scoreCardList.size() == 0) {
+                mav.addObject("noPlayerScoreCards", "No Player ScoreCards Found.");
+            }
 
             mav.addObject("playerHandicap", handicap);
             mav.addObject("playerScoreCards", scoreCardList);

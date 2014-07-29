@@ -3,7 +3,11 @@ package main.java.co.uk.myhandicap.model.user;
 import main.java.co.uk.myhandicap.model.user.address.Address;
 
 import javax.persistence.*;
-import java.util.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * User Entity
@@ -31,6 +35,8 @@ public class User {
     private String email;
 
     @Column(name="FIRST_NAME")
+    @Pattern(regexp="[A-Za-z]", message = "FirstName must only contain characters.")
+    @Min(value=2, message = "FirstName must be at least two characters in length.")
     private String firstName;
 
     @Column(name="LAST_NAME")

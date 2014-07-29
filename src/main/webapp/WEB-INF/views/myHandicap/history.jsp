@@ -19,6 +19,9 @@
         <!-- Bootstrap -->
         <link href="${pageContext.request.contextPath}/resources/style/bootstrap/bootstrap.css" rel="stylesheet">
 
+        <!-- Javascript -->
+        <script src="${pageContext.request.contextPath}/resources/js/myHandicap_history.js"></script>
+
     </head>
 
     <body>
@@ -62,30 +65,60 @@
                     <fieldset>
                         <legend>History</legend>
 
-                        Round history is displayed here
-
                         <h2><c:out value="${playerHandicap.handicapScore}"/></h2>
 
-                        <table>
-                            <c:forEach var="scoreCard" varStatus="i" items="${playerScoreCards}">
-                                <tr>
-                                    <td><c:out value="${scoreCard.submittedDate}"/></td>
-                                </tr>
-                                <tr>
-                                    <td><c:out value="${scoreCard.golfRounds[i.index].playDate}"/></td>
-                                    <td><c:out value="${scoreCard.golfRounds[i.index].courseName}"/></td>
-                                    <td><c:out value="${scoreCard.golfRounds[i.index].coursePar}"/></td>
-                                    <td><c:out value="${scoreCard.golfRounds[i.index].courseSSS}"/></td>
-                                </tr>
-                            </c:forEach>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <c:forEach var="scoreCard" varStatus="i" items="${playerScoreCards}">
+                                    <tr>
+                                        <td><b>Submitted On:</b> <c:out value="${scoreCard.submittedDate}"/></td>
+                                    </tr>
 
-                        </table>
+                                    <c:forEach var="golfRound" items="${scoreCard.golfRounds}">
+                                        <!-- Round Details -->
+                                        <tr class="bg-success">
+                                            <th>Date of Player</th>
+                                            <th>Course Name</th>
+                                            <th>Course Par</th>
+                                            <th>Course SSS</th>
+                                        </tr>
+                                        <tr>
+                                            <td><c:out value="${golfRound.playDate}"/></td>
+                                            <td><c:out value="${golfRound.courseName}"/></td>
+                                            <td><c:out value="${golfRound.coursePar}"/></td>
+                                            <td><c:out value="${golfRound.courseSSS}"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td onclick="displayHoleDataForRound(${i.index}, 'show')">Display Hole By Hole Data</td>
+                                            <td onclick="displayHoleDataForRound(${i.index}, 'hide')">Hide Hole By Hole Data</td>
+                                        </tr>
+                                        <!-- Hole by Hole -->
+                                        <tr id="golf_hole">
+                                            <th>Hole</th>
+                                            <th>Yards</th>
+                                            <th>Par</th>
+                                            <th>Player Score</th>
+                                            <th>S.I</th>
+                                        </tr>
+                                        <c:forEach var="holes" varStatus="a" items="${golfRound.holes}">
+                                            <tr id="golf_${i.index}_hole_${a.index}">
+                                                <td><c:out value="${a.index + 1}"/></td>
+                                                <td><c:out value="${holes.holeYards}"/></td>
+                                                <td><c:out value="${holes.holePar}"/></td>
+                                                <td><c:out value="${holes.holeScore}"/></td>
+                                                <td><c:out value="${holes.holeSSI}"/></td>
+                                            </tr>
+                                        </c:forEach>
+
+                                    </c:forEach>
+
+                                </c:forEach>
+                            </table>
+                        </div>
 
                     </fieldset>
                 </div>
-
             </div>
-
         </div>
     </body>
 </html>

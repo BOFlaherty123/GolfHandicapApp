@@ -32,8 +32,18 @@ public class MyAccountController implements AppController, AppFormController<Use
     }
 
     @Override
+    @RequestMapping(value="/personalInformation/update")
     public ModelAndView submitFormRequest(ModelAndView mav, @Valid User user, BindingResult errors) {
-        return null;
+
+        mav.setViewName("myAccount/personal");
+
+        if(errors.hasErrors()) {
+            mav.addObject("failure", "Personal Information Update Failed, correct errors and try again.");
+        } else {
+            mav.addObject("success", "Personal Information Successfully Updated.");
+        }
+
+        return mav;
     }
 
 }

@@ -97,6 +97,28 @@ public class MyHandicapControllerTest {
     }
 
     @Test
+    public void noPlayerScoreCardsRetrieved() throws Exception {
+
+        User user = buildMockUser(21L);
+
+        List<ScoreCard> scoreCardList = new ArrayList<ScoreCard>();
+
+        when(userService.retrieveUserById(anyLong())).thenReturn(user);
+        when(scoreCardService.retrieveUserScoredCardsById(user)).thenReturn(scoreCardList);
+
+        when(handicapCalculationMock.calculateUserHandicapScore(21L)).thenReturn(new Handicap());
+
+        mockMvc.perform(get("/myHandicap/history"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("myHandicap/history"))
+                .andExpect(forwardedUrl("/WEB-INF/views/myHandicap/history.jsp")
+                )
+                .andExpect(model().attribute("playerScoreCards", hasSize(0)))
+                .andExpect(model().attribute("noPlayerScoreCards", "No Player ScoreCards Found."));
+
+    }
+
+    @Test
     public void playerScoreCardsSuccessfullyRetrieved() throws Exception {
 
         User user = buildMockUser(21L);
@@ -120,7 +142,6 @@ public class MyHandicapControllerTest {
             )
                 .andExpect(model().attribute("playerScoreCards", hasSize(1)));
     }
-
 
     private User buildMockUser(Long id) {
         User user = new User();

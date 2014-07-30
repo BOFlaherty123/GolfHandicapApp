@@ -41,6 +41,7 @@ public class MyAccountController implements AppController, AppFormController<Per
 
         mav.setViewName("myAccount/personal");
 
+        // TODO - retrieve logged in user object
         mav.addObject(new User());
         mav.addObject(new PersonalInformationDto());
 

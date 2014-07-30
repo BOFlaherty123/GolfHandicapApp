@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
     <head>
         <title>My Account: Change Password</title>
@@ -62,24 +63,30 @@
                     <fieldset>
                         <legend>Change Password</legend>
 
-                        <form class="form-horizontal">
+                        <form:form method="post" action="${pageContext.request.contextPath}/myAccount/changeAccountPassword/update"
+                                   commandName="changePasswordDto" class="form-horizontal">
 
+                            <div class="form-group">
+                                <form:errors path="*" cssClass="text-danger"/>
+                            </div>
                             <div class="form-group">
                                 <label for="inputPassword" class="col-lg-2 control-label">New Password</label>
                                 <div class="col-lg-10">
-                                    <input type="text" class="form-control" id="inputPassword">
-                                </div>                            </div>
+                                    <form:input id="inputPassword" path="password" class="form-control"/>
+                                </div>
+                           </div>
                             <div class="form-group">
                                 <label for="inputConfirmPassword" class="col-lg-2 control-label">Confirm Password</label>
                                 <div class="col-lg-10">
-                                    <input type="text" class="form-control" id="inputConfirmPassword" placeholder="Please Confirm Your Password">
-                                </div>                            </div>
+                                    <form:input id="inputConfirmPassword" path="confirmPassword" class="form-control" placeholder="Please Confirm Your Password"/>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="col-lg-10 col-lg-offset-2">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </div>
-                        </form>
+                        </form:form>
 
                     </fieldset>
                 </div>

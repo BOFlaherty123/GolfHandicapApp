@@ -109,7 +109,7 @@ public class ChangePasswordControllerTest {
         mockMvc.perform(post("/myAccount/changeAccountPassword/update")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("password", "ac")
-                        .param("confirmPassword", "qwertyuy ")
+                        .param("confirmPassword", "qwertyuy")
         )
                 .andExpect(status().isOk())
                 .andExpect(view().name("myAccount/changePassword"))
@@ -119,6 +119,8 @@ public class ChangePasswordControllerTest {
                 .andExpect(model().attribute("status", "Please correct the error(s) and resubmit the form."));
     }
 
+
+    // test password/confirmPassword validation behavior when an empty value is entered into either or both of the screen fields
 
     // test that a call to the userService has been made to save the updated data
 }

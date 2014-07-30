@@ -51,11 +51,8 @@ public class HandicapCalculation {
         // creates a new score object for the calculation
         final Score score = new Score();
 
-        // retrieve user object
-        User user = getUser(userId);
-
-        // retrieve all score cards for a user
-        List<ScoreCard> scoreCardList = scoreCardService.retrieveUserScoredCardsById(user);
+        // retrieve all score cards for the current user
+        List<ScoreCard> scoreCardList = scoreCardService.retrieveUserScoredCardsById(getUser(userId));
 
         // retrieve all rounds of golf played by a user
         List<Round> roundsOfGolf = extractRoundsOfGolfFromScoreCard(scoreCardList);
@@ -110,27 +107,8 @@ public class HandicapCalculation {
 
             List<BigDecimal> adjustedScores = new ArrayList<>();
 
-            for(Round round : roundsOfGolf) {
-
-                BigDecimal playerScore = score.getPlayerScore();
-
-                score.setCourseSSS(score.createScore(round.getCourseSSS()));
-
-                for(Hole hole : round.getHoles()) {
-
-                    // Process CONGU adjustment
-                    processCONGUAdjustment(hole, score);
-
-                    // add players score for the hole to the round total
-                    BigDecimal holeScore = score.createScore(hole.getHoleScore());
-                    playerScore = score.addToPlayerScore(playerScore, holeScore);
-
-                }
-
-                // calculate the players adjusted score for the round
-                BigDecimal adjustedScore = score.subtractFromScore(playerScore, score.getCourseSSS());
-                adjustedScores.add(adjustedScore);
-            }
+            // loop through each round of golf on the players scorecard
+            processRoundOfGolf(score, roundsOfGolf, adjustedScores);
 
             // total all adjusted scores for each round of golf played by the user
             BigDecimal adjustedTotal = score.getAdjustmentTotal();
@@ -143,14 +121,61 @@ public class HandicapCalculation {
 
             // add calculations to the handicap object
             playerHandicap.setHandicapScore(handicap);
-            logger.info("playerHandicap[ " + handicap + "]");
             playerHandicap.setNumberOfRounds(String.valueOf(roundsOfGolf.size()));
-            logger.info("roundsOfGolf[ " + roundsOfGolf.size() + "]");
+
+            logger.info("playerHandicap=[ " + handicap + "] roundsOfGolf=[ " + roundsOfGolf.size() + "]");
         }
 
         logger.exit();
 
         return playerHandicap;
+    }
+
+    /**
+     * Loop through each Round on the players scorecard and process data
+     *
+     * @param score
+     * @param roundsOfGolf
+     * @param adjustedScores
+     */
+    private void processRoundOfGolf(Score score, List<Round> roundsOfGolf, List<BigDecimal> adjustedScores) {
+        for(Round round : roundsOfGolf) {
+
+            BigDecimal playerScore = score.getPlayerScore();
+
+            score.setCourseSSS(score.createScore(round.getCourseSSS()));
+
+            // loop through each hole of the round and adjust the players score
+            playerScore = processHoleData(score, round, playerScore);
+
+            // calculate the players adjusted score for the round
+            BigDecimal adjustedScore = score.subtractFromScore(playerScore, score.getCourseSSS());
+            adjustedScores.add(adjustedScore);
+        }
+    }
+
+    /**
+     * loop through each hole and make the necessary adjustments to the players overal score
+     *
+     * @param score
+     * @param round
+     * @param playerScore
+     * @return
+     */
+    private BigDecimal processHoleData(Score score, Round round, BigDecimal playerScore) {
+
+        for(Hole hole : round.getHoles()) {
+
+            // Process CONGU adjustment
+            processCONGUAdjustment(hole, score);
+
+            // add players score for the hole to the round total
+            BigDecimal holeScore = score.createScore(hole.getHoleScore());
+            playerScore = score.addToPlayerScore(playerScore, holeScore);
+
+        }
+
+        return playerScore;
     }
 
     /**
@@ -182,7 +207,7 @@ public class HandicapCalculation {
         User user = userService.retrieveUserById(userId);
 
         if(user == null) {
-            throw new UserNotFoundException("User not found for Id[" + userId +"]");
+            throw new UserNotFoundException("User not found for Id=[" + userId +"]");
         }
 
         return user;

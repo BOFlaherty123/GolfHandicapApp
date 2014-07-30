@@ -27,6 +27,8 @@ public class ChangePasswordController implements AppController, AppFormControlle
     public ModelAndView handleRequest(ModelAndView mav) {
         mav.setViewName("myAccount/changePassword");
 
+        mav.addObject(new ChangePasswordDto());
+
         // TODO - retrieve logged in user object
         User user = new User();
         user.setId(1L);

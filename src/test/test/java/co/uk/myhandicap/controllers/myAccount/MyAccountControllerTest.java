@@ -76,7 +76,7 @@ public class MyAccountControllerTest {
                 .andExpect(view().name("myAccount/personal"))
                 .andExpect(forwardedUrl("/WEB-INF/views/myAccount/personal.jsp"))
                 .andExpect(model().hasNoErrors())
-                .andExpect(model().attribute("status", "Personal Information Successfully Updated."));
+                .andExpect(model().attribute("success", "Personal Information Successfully Updated."));
 
     }
 
@@ -85,7 +85,7 @@ public class MyAccountControllerTest {
      * Result:
      *      .hasErrors(1)
      * View:
-     *      "myAccount/personal" with errors amd model attribute 'status'
+     *      "myAccount/personal" with errors amd model attribute 'failure'
      *
      * @throws Exception
      */
@@ -103,7 +103,7 @@ public class MyAccountControllerTest {
                 .andExpect(forwardedUrl("/WEB-INF/views/myAccount/personal.jsp"))
                 .andExpect(model().hasErrors())
                 .andExpect(model().errorCount(1))
-                .andExpect(model().attribute("status", "Personal Information Update Failed, correct errors and try again."));
+                .andExpect(model().attribute("failure", "Personal Information Update Failed, correct errors and try again."));
 
      }
 
@@ -112,7 +112,7 @@ public class MyAccountControllerTest {
      * Result:
      *      .hasErrors(1)
      * View:
-     *      "myAccount/personal" with errors amd model attribute 'status'
+     *      "myAccount/personal" with errors amd model attribute 'failure'
      *
      * @throws Exception
      */
@@ -130,7 +130,7 @@ public class MyAccountControllerTest {
                 .andExpect(forwardedUrl("/WEB-INF/views/myAccount/personal.jsp"))
                 .andExpect(model().hasErrors())
                 .andExpect(model().errorCount(1))
-                .andExpect(model().attribute("status", "Personal Information Update Failed, correct errors and try again."));
+                .andExpect(model().attribute("failure", "Personal Information Update Failed, correct errors and try again."));
 
     }
 
@@ -139,7 +139,7 @@ public class MyAccountControllerTest {
      * Result:
      *      .hasErrors(1)
      * View:
-     *      "myAccount/personal" with errors amd model attribute 'status'
+     *      "myAccount/personal" with errors amd model attribute 'failure'
      *
      * @throws Exception
      */
@@ -157,7 +157,7 @@ public class MyAccountControllerTest {
                 .andExpect(forwardedUrl("/WEB-INF/views/myAccount/personal.jsp"))
                 .andExpect(model().hasErrors())
                 .andExpect(model().errorCount(1))
-                .andExpect(model().attribute("status", "Personal Information Update Failed, correct errors and try again."));
+                .andExpect(model().attribute("failure", "Personal Information Update Failed, correct errors and try again."));
 
     }
 
@@ -166,7 +166,7 @@ public class MyAccountControllerTest {
      * Result:
      *      .hasErrors(3)
      * View:
-     *      "myAccount/personal" with errors amd model attribute 'status'
+     *      "myAccount/personal" with errors amd model attribute 'failure'
      *
      * @throws Exception
      */
@@ -184,7 +184,7 @@ public class MyAccountControllerTest {
                 .andExpect(forwardedUrl("/WEB-INF/views/myAccount/personal.jsp"))
                 .andExpect(model().hasErrors())
                 .andExpect(model().errorCount(6))
-                .andExpect(model().attribute("status", "Personal Information Update Failed, correct errors and try again."));
+                .andExpect(model().attribute("failure", "Personal Information Update Failed, correct errors and try again."));
 
     }
 
@@ -193,7 +193,7 @@ public class MyAccountControllerTest {
      * Result:
      *      .hasErrors(1)
      * View:
-     *      "myAccount/personal" with errors amd model attribute 'status'
+     *      "myAccount/personal" with errors amd model attribute 'failure'
      *
      * @throws Exception
      */
@@ -211,7 +211,7 @@ public class MyAccountControllerTest {
                 .andExpect(forwardedUrl("/WEB-INF/views/myAccount/personal.jsp"))
                 .andExpect(model().hasErrors())
                 .andExpect(model().errorCount(1))
-                .andExpect(model().attribute("status", "Personal Information Update Failed, correct errors and try again."));
+                .andExpect(model().attribute("failure", "Personal Information Update Failed, correct errors and try again."));
 
     }
 

@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <html>
     <head>
         <title>My Account: Change Password</title>
@@ -81,13 +82,20 @@
                                     <form:input id="inputConfirmPassword" path="confirmPassword" class="form-control" placeholder="Please Confirm Your Password"/>
                                 </div>
                             </div>
+                            <!-- Error Status Output -->
+                            <c:if test="${not empty status}">
+                                <div class="alert alert-danger" role="alert">
+                                    <c:out value="${status}"/>
+                                </div>
+                            </c:if>
+                            <!-- Submit form -->
                             <div class="form-group">
                                 <div class="col-lg-10 col-lg-offset-2">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </div>
-                        </form:form>
 
+                        </form:form>
                     </fieldset>
                 </div>
 

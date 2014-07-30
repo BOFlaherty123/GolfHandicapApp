@@ -98,18 +98,18 @@
                         </div>
 
                         <c:forEach var="i" begin="1" end="18">
-
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <div class="col-lg-10">
+                                        <label for="input-hole${i}-par" class="col-lg-2 control-label">Hole ${i}</label>
+                                        <div class="col-lg-8">
                                             <form:input id="input-hole${i}-par" path="golfRounds[0].holes[${i-1}].holePar" class="form-control" placeholder="Par"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <div class="input-group">
+                                        <div class="input-group col-lg-8">
                                             <form:input id="input-hole${i}-yards" path="golfRounds[0].holes[${i-1}].holeYards" class="form-control" placeholder="Yards"/>
                                             <span class="input-group-addon">yds</span>
                                         </div>
@@ -117,20 +117,19 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <div class="col-lg-10">
+                                        <div class="col-lg-8">
                                             <form:input id="input-hole${i}-score" path="golfRounds[0].holes[${i-1}].holeScore" class="form-control" placeholder="Your Score"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <div class="col-lg-10">
+                                        <div class="col-lg-8">
                                             <form:input id="input-hole${i}-ssi" path="golfRounds[0].holes[${i-1}].holeSSI" class="form-control" placeholder="SSI"/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </c:forEach>
 
                         <!-- Submit Form -->

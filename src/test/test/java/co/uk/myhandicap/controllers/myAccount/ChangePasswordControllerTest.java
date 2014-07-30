@@ -68,7 +68,6 @@ public class ChangePasswordControllerTest {
                 .andExpect(model().attribute("user", hasProperty("lastName", is("Mctester"))));
     }
 
-
     // test posting data to the controller with valid parameters (password/confirmPassword)
     @Test
     public void changePasswordControllerPostValidFormData() throws Exception {
@@ -118,7 +117,6 @@ public class ChangePasswordControllerTest {
                 .andExpect(model().errorCount(2))
                 .andExpect(model().attribute("status", "Please correct the error(s) and resubmit the form."));
     }
-
 
     // test password/confirmPassword validation behavior when an empty value is entered into either or both of the screen fields
 

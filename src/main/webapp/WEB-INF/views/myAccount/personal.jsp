@@ -89,17 +89,23 @@
                                      <form:input id="inputEmail" path="email" class="form-control" placeholder="Email"/>
                                  </div>
                              </div>
-                             <!-- Status Message To user -->
-                             <div class="form-group">
-                                 <div class="col-lg-10">
-                                     <p class="text-primary"><c:out value="${status}"/></p>
-                                 </div>
-                             </div>
                              <!-- Address Information -->
                              <div class="form-group">
 
 
                              </div>
+                             <!-- Error Status Output -->
+                             <c:if test="${not empty success}">
+                                 <div class="alert alert-success" role="alert">
+                                     <c:out value="${success}"/>
+                                 </div>
+                             </c:if>
+                             <!-- Error Status Output -->
+                             <c:if test="${not empty failure}">
+                                 <div class="alert alert-danger" role="alert">
+                                     <c:out value="${failure}"/>
+                                 </div>
+                             </c:if>
                              <div class="form-group">
                                  <div class="col-lg-10 col-lg-offset-2">
                                      <button type="submit" class="btn btn-primary">Submit</button>

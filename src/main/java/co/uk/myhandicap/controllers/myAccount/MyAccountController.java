@@ -58,7 +58,7 @@ public class MyAccountController implements AppController, AppFormController<Per
         mav.setViewName("myAccount/personal");
 
         if(errors.hasErrors()) {
-            mav.addObject("status", "Personal Information Update Failed, correct errors and try again.");
+            mav.addObject("failure", "Personal Information Update Failed, correct errors and try again.");
             logger.info(format("method=[ .submitFormRequest() ] message=[ hasErrors() - %s triggered. ]", errors.getErrorCount()));
         } else {
             // TODO - get the current user
@@ -71,7 +71,7 @@ public class MyAccountController implements AppController, AppFormController<Per
             // update user
             userService.update(user);
 
-            mav.addObject("status", "Personal Information Successfully Updated.");
+            mav.addObject("success", "Personal Information Successfully Updated.");
         }
 
         logger.exit(mav);

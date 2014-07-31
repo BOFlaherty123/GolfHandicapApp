@@ -2,7 +2,6 @@ package main.java.co.uk.myhandicap.calculation;
 
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.model.handicap.Handicap;
-import main.java.co.uk.myhandicap.model.handicap.Hole;
 import main.java.co.uk.myhandicap.model.handicap.Round;
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
 import main.java.co.uk.myhandicap.model.user.User;
@@ -33,6 +32,9 @@ public class HandicapCalculation {
 
     @Autowired
     private ScoreCardService scoreCardService;
+
+    @Autowired
+    private GolfRound golfRound;
 
     private static final XLogger logger = XLoggerFactory.getXLogger(HandicapCalculation.class
             .getName());
@@ -78,6 +80,7 @@ public class HandicapCalculation {
      * @return
      */
     private List<Round> extractRoundsOfGolfFromScoreCard(List<ScoreCard> scoreCardList) {
+        logger.entry(scoreCardList);
 
         List<Round> roundsOfGolf = new ArrayList<>();
 
@@ -86,6 +89,8 @@ public class HandicapCalculation {
                 roundsOfGolf.add(round);
             }
         }
+
+        logger.exit(roundsOfGolf);
 
         return roundsOfGolf;
     }
@@ -97,7 +102,6 @@ public class HandicapCalculation {
      * @return
      */
     private Handicap calculateHandicapForRoundOfGolf(Score score, List<Round> roundsOfGolf) {
-
         logger.entry(score, roundsOfGolf);
 
         // Setup a handicap object with default values
@@ -108,7 +112,7 @@ public class HandicapCalculation {
             List<BigDecimal> adjustedScores = new ArrayList<>();
 
             // loop through each round of golf on the players scorecard
-            processRoundOfGolf(score, roundsOfGolf, adjustedScores);
+            adjustedScores = golfRound.processRoundOfGolf(score, roundsOfGolf, adjustedScores);
 
             // total all adjusted scores for each round of golf played by the user
             BigDecimal adjustedTotal = score.getAdjustmentTotal();
@@ -132,71 +136,6 @@ public class HandicapCalculation {
     }
 
     /**
-     * Loop through each Round on the players scorecard and process data
-     *
-     * @param score
-     * @param roundsOfGolf
-     * @param adjustedScores
-     */
-    private void processRoundOfGolf(Score score, List<Round> roundsOfGolf, List<BigDecimal> adjustedScores) {
-        for(Round round : roundsOfGolf) {
-
-            BigDecimal playerScore = score.getPlayerScore();
-
-            score.setCourseSSS(score.createScore(round.getCourseSSS()));
-
-            // loop through each hole of the round and adjust the players score
-            playerScore = processHoleData(score, round, playerScore);
-
-            // calculate the players adjusted score for the round
-            BigDecimal adjustedScore = score.subtractFromScore(playerScore, score.getCourseSSS());
-            adjustedScores.add(adjustedScore);
-        }
-    }
-
-    /**
-     * loop through each hole and make the necessary adjustments to the players overal score
-     *
-     * @param score
-     * @param round
-     * @param playerScore
-     * @return
-     */
-    private BigDecimal processHoleData(Score score, Round round, BigDecimal playerScore) {
-
-        for(Hole hole : round.getHoles()) {
-
-            // Process CONGU adjustment
-            processCONGUAdjustment(hole, score);
-
-            // add players score for the hole to the round total
-            BigDecimal holeScore = score.createScore(hole.getHoleScore());
-            playerScore = score.addToPlayerScore(playerScore, holeScore);
-
-        }
-
-        return playerScore;
-    }
-
-    /**
-     * CONGU adjustment (max +2 shot penalty per hole 'double bogey)
-     *
-     * @param hole
-     */
-    private void processCONGUAdjustment(Hole hole, Score score) {
-
-        BigDecimal maxStroke = score.createScore(Integer.valueOf(hole.getHolePar()) + 2);
-        BigDecimal playerScore = score.createScore(hole.getHoleScore());
-
-        if(playerScore.compareTo(maxStroke) > 0) {
-            playerScore = maxStroke;
-
-            hole.setHoleScore(String.valueOf(playerScore));
-        }
-
-    }
-
-    /**
      * Retrieve the user from the database
      *
      * @param userId
@@ -204,11 +143,15 @@ public class HandicapCalculation {
      * @throws UserNotFoundException
      */
     private User getUser(Long userId) throws UserNotFoundException {
+        logger.entry(userId);
+
         User user = userService.retrieveUserById(userId);
 
         if(user == null) {
             throw new UserNotFoundException("User not found for Id=[" + userId +"]");
         }
+
+        logger.exit(user.toString());
 
         return user;
     }

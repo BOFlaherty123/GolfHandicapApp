@@ -54,7 +54,6 @@ public class Score {
     }
 
     // Score BigDecimal arithmetic and initialisation
-
     public BigDecimal createScore(Integer value) {
         return new BigDecimal(value);
     }
@@ -75,4 +74,13 @@ public class Score {
         return total.divide(new BigDecimal(size), RoundingMode.HALF_UP).toString();
     }
 
+    @Override
+    public String toString() {
+        return "Score{" +
+                "playerScore=" + playerScore +
+                ", adjustmentTotal=" + adjustmentTotal +
+                ", courseSSS=" + courseSSS +
+                ", handicap=" + handicap +
+                '}';
+    }
 }

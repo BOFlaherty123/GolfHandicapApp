@@ -1,5 +1,6 @@
 package test.java.co.uk.myhandicap.calculation;
 
+import main.java.co.uk.myhandicap.calculation.GolfRound;
 import main.java.co.uk.myhandicap.calculation.HandicapCalculation;
 import main.java.co.uk.myhandicap.calculation.Score;
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
@@ -24,6 +25,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -54,6 +56,9 @@ public class HandicapCalculationTest {
 
     @Mock
     private Score score;
+
+    @Mock
+    private GolfRound golfRound;
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
@@ -137,6 +142,13 @@ public class HandicapCalculationTest {
 
         List<ScoreCard> scoreCardList = buildMockScoreCard(3, pars, scores);
 
+        List<BigDecimal> adjustedScores = new ArrayList<>();
+
+        List<BigDecimal> test = new ArrayList<>();
+        test.add(new BigDecimal("26"));
+        test.add(new BigDecimal("18"));
+
+        when(golfRound.processRoundOfGolf(new Score(), scoreCardList.get(0).getGolfRounds(), adjustedScores)).thenReturn(test);
         when(scoreCardService.retrieveUserScoredCardsById(user)).thenReturn(scoreCardList);
 
         Handicap playerHandicap = processor.calculateUserHandicapScore(1L);

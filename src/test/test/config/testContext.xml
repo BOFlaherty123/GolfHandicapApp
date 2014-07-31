@@ -23,4 +23,8 @@
         <constructor-arg value="main.java.co.uk.myhandicap.calculation.HandicapCalculation"/>
     </bean>
 
+    <bean id="golfRound" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="main.java.co.uk.myhandicap.calculation.GolfRound"/>
+    </bean>
+
 </beans>

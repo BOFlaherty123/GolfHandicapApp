@@ -95,12 +95,11 @@ public class UserDaoImpl implements UserDao {
                 logger.error("class=[" + this.getClass().getName() + "] method=[.retrieveUserById()]", e.getMessage());
             }
 
-            // TODO - Revist how long a session should be open for and when it should be closed
-            //session.close();
-
         } catch(GenericJDBCException ex) {
             logger.error("class=[" + this.getClass().getName() + "] method=[.retrieveUserById()]", ex);
         }
+
+        session.close();
 
         logger.exit();
 

@@ -47,6 +47,7 @@ public class GolfRound {
             // calculate the players adjusted score for the round
             BigDecimal adjustedScore = score.subtractFromScore(playerScore, score.getCourseSSS());
             adjustedScores.add(adjustedScore);
+            logger.info(".processRoundOfGolf() - add adjustedScore=[ " + adjustedScore + " ]");
         }
 
         logger.exit(adjustedScores);

@@ -1,5 +1,8 @@
 package main.java.co.uk.myhandicap.model.handicap;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +27,7 @@ public class ScoreCard {
     @Column(name="SUBMITTED_DATE")
     private String submittedDate;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     @JoinTable(joinColumns = @JoinColumn(name="SCORE_CARD_ID"), inverseJoinColumns = @JoinColumn(name="ROUND_ID"))
     private List<Round> golfRounds;
 

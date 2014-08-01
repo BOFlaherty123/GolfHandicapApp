@@ -1,6 +1,8 @@
 package main.java.co.uk.myhandicap.model.user;
 
 import main.java.co.uk.myhandicap.model.user.address.Address;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -56,7 +58,8 @@ public class User {
     // @OneToOne(cascade = {CascadeType.ALL})
     // @JoinColumn(name = "ADDRESS_ID")
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     @JoinTable(joinColumns = @JoinColumn(name="USER_ID"), inverseJoinColumns = @JoinColumn(name="ADDRESS_ID"))
     private List<Address> address = new ArrayList<>();
 

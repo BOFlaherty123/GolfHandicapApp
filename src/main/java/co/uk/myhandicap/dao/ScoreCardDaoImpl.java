@@ -84,15 +84,16 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
             session.getTransaction().commit();
 
             // Close the session (usually within a finally block)
-            // TODO - Revist how long a session should be open for and when it should be closed
-            //session.close();
 
         } catch(GenericJDBCException ex) {
             logger.error("class=[" + this.getClass().getName() + "] method=[.save()]", ex);
         }
 
+        session.close();
+
         logger.exit();
 
         return scoreCardList;
     }
+
 }

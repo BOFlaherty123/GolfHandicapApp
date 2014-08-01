@@ -49,6 +49,7 @@
                                     <li><a href="${pageContext.request.contextPath}/myAccount/deleteUserAccount">Delete Account</a></li>
                                 </ul>
                             </li>
+                            <li><a href="${pageContext.request.contextPath}/register">Register</a></li>
                             <li><a href="#">Logout</a></li>
                         </ul>
                     </div>

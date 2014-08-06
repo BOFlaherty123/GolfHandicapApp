@@ -1,5 +1,6 @@
 package main.java.co.uk.myhandicap.controllers;
 
+import main.java.co.uk.myhandicap.encryption.EncryptUserPassword;
 import main.java.co.uk.myhandicap.form.UserRegistrationDto;
 import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.UserService;
@@ -21,14 +22,17 @@ import java.util.Date;
  * @project MyHandicapApp
  */
 @Controller
-public class UserRegistrationController implements AppFormController<UserRegistrationDto> {
+public class UserRegistrationController implements AppController, AppFormController<UserRegistrationDto> {
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value="/register")
-    public ModelAndView displayUserRegistration(ModelAndView mav)  {
+    @Autowired
+    private EncryptUserPassword encryptUserPassword;
 
+    @Override
+    @RequestMapping(value="/register")
+    public ModelAndView handleRequest(ModelAndView mav) {
         mav.setViewName("registerUser");
         mav.addObject(new UserRegistrationDto());
 
@@ -49,8 +53,12 @@ public class UserRegistrationController implements AppFormController<UserRegistr
             registerUser.setLastName(object.getLastName());
             registerUser.setEmail(object.getEmail());
             registerUser.setCreatedDate(new Date());
-            registerUser.setPassword(object.getPassword());
 
+            // Encrypt the users password
+            String password = encryptUserPassword.encryptPassword(object.getPassword());
+            registerUser.setPassword(password);
+
+            // Save User to database
             userService.save(registerUser);
 
             mav.addObject("success", "success message here");
@@ -58,4 +66,5 @@ public class UserRegistrationController implements AppFormController<UserRegistr
 
         return mav;
     }
+
 }

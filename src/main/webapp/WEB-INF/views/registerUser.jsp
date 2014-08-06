@@ -7,6 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
     <head>
         <title>Register User</title>
@@ -68,7 +70,13 @@
                             <legend>Register User</legend>
 
                             <div class="form-group">
-                                <form:errors path="*" cssClass="text-danger"/>
+                                <spring:hasBindErrors name="userRegistrationDto">
+                                    <form:errors path="username" cssClass="text-danger"/><br/>
+                                    <form:errors path="firstName" cssClass="text-danger"/><br/>
+                                    <form:errors path="lastName" cssClass="text-danger"/><br/>
+                                    <form:errors path="email" cssClass="text-danger"/><br/>
+                                    <form:errors path="password" cssClass="text-danger"/><br/>
+                                </spring:hasBindErrors>
                             </div>
                             <!-- Username -->
                             <div class="form-group">

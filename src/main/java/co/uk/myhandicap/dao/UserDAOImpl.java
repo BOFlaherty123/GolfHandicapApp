@@ -2,6 +2,7 @@ package main.java.co.uk.myhandicap.dao;
 
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.model.user.User;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.exception.GenericJDBCException;
@@ -82,9 +83,6 @@ public class UserDaoImpl implements UserDao {
 
             // Retrieve a User object from the Database
             try{
-
-                System.out.println("retrieveUserById " + userId);
-
                 user = (User) session.get(User.class, userId);
 
                 if(user == null) {
@@ -105,5 +103,44 @@ public class UserDaoImpl implements UserDao {
 
         return user;
     }
+
+    public User findUserByUsername(String username) {
+        logger.entry(username);
+
+        Session session = sessionFactory.openSession();
+
+        User user = null;
+        try {
+
+            session.beginTransaction();
+
+            // Retrieve a User object from the Database
+            try{
+
+                Query query = session.createQuery("from User where username = :username ");
+                query.setParameter("username", username);
+
+                // user is equal to the first user object found
+                user = (User) query.list().get(0);
+
+                if(user == null) {
+                    throw new UserNotFoundException("user=[username=" + username + "] not found.");
+                }
+
+            } catch (UserNotFoundException e){
+                logger.error("class=[" + this.getClass().getName() + "] method=[.findUserByUsername()]", e.getMessage());
+            }
+
+        } catch(GenericJDBCException ex) {
+            logger.error("class=[" + this.getClass().getName() + "] method=[.findUserByUsername()]", ex);
+        }
+
+        session.close();
+
+        logger.exit();
+
+        return user;
+    }
+
 
 }

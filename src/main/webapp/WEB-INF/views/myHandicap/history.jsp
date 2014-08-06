@@ -68,19 +68,20 @@
                         <h2><c:out value="${playerHandicap.handicapScore}"/></h2>
 
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table table-condensed">
                                 <c:forEach var="scoreCard" varStatus="i" items="${playerScoreCards}">
                                     <tr>
-                                        <td><b>Submitted On:</b> <c:out value="${scoreCard.submittedDate}"/></td>
+                                        <td class="col-sm-3"><b>Submitted On:</b> <c:out value="${scoreCard.submittedDate}"/></td>
                                     </tr>
 
                                     <c:forEach var="golfRound" items="${scoreCard.golfRounds}">
                                         <!-- Round Details -->
                                         <tr class="bg-success">
-                                            <th>Date of Player</th>
-                                            <th>Course Name</th>
-                                            <th>Course Par</th>
-                                            <th>Course SSS</th>
+                                            <th class="col-sm-2">Date of Play</th>
+                                            <th class="col-sm-2">Course Name</th>
+                                            <th class="col-sm-2">Course Par</th>
+                                            <th class="col-sm-2">Course SSS</th>
+                                            <th/>
                                         </tr>
                                         <tr>
                                             <td><c:out value="${golfRound.playDate}"/></td>
@@ -94,11 +95,11 @@
                                         </tr>
                                         <!-- Hole by Hole -->
                                         <tr id="golf_hole">
-                                            <th>Hole</th>
-                                            <th>Yards</th>
-                                            <th>Par</th>
-                                            <th>Player Score</th>
-                                            <th>S.I</th>
+                                            <th class="col-sm-2">Hole</th>
+                                            <th class="col-sm-2">Yards</th>
+                                            <th class="col-sm-2">Par</th>
+                                            <th class="col-sm-2">Player Score</th>
+                                            <th class="col-sm-2">S.I</th>
                                         </tr>
                                         <c:forEach var="holes" varStatus="a" items="${golfRound.holes}">
                                             <tr id="golf_${i.index}_hole_${a.index}">

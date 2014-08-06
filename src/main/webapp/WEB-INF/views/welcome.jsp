@@ -50,6 +50,7 @@
                                 </ul>
                             </li>
                             <li><a href="${pageContext.request.contextPath}/register">Register</a></li>
+                            <li><a href="${pageContext.request.contextPath}/login">Login</a></li>
                             <li><a href="#">Logout</a></li>
                         </ul>
                     </div>

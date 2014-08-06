@@ -13,4 +13,6 @@ public interface UserService extends GenericService<User, Long> {
 
     User retrieveUserById(Long id);
 
+    User findUserByUsername(String username);
+
 }

@@ -73,13 +73,13 @@
                             <div class="form-group">
                                 <label for="inputPassword" class="col-lg-2 control-label">New Password</label>
                                 <div class="col-lg-10">
-                                    <form:input id="inputPassword" path="password" class="form-control"/>
+                                    <form:password id="inputPassword" path="password" class="form-control"/>
                                 </div>
                            </div>
                             <div class="form-group">
                                 <label for="inputConfirmPassword" class="col-lg-2 control-label">Confirm Password</label>
                                 <div class="col-lg-10">
-                                    <form:input id="inputConfirmPassword" path="confirmPassword" class="form-control" placeholder="Please Confirm Your Password"/>
+                                    <form:password id="inputConfirmPassword" path="confirmPassword" class="form-control" placeholder="Please Confirm Your Password"/>
                                 </div>
                             </div>
                             <!-- Error Status Output -->

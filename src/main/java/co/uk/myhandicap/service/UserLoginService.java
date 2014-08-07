@@ -7,7 +7,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -26,19 +25,17 @@ public class UserLoginService implements UserDetailsService {
     private UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) {
 
-        User user = userService.findUserByUsername(username);
-
+        User user = null;
         try {
-            throw new UserNotFoundException("User=[ " + user + " ] not found");
+            user = userService.findUserByUsername(username);
         } catch (UserNotFoundException e) {
             e.printStackTrace();
         }
 
+        // Assign user the role, ROLE_USER on a successful login
         Collection<? extends GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_USER");
-
-        // TODO - Fix Encryption Error "org.jasypt.exceptions.EncryptionOperationNotPossibleException"
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(),
                 user.getPassword(), authorities);

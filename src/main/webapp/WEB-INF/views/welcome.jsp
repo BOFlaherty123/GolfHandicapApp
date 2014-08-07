@@ -51,7 +51,7 @@
                             </li>
                             <li><a href="${pageContext.request.contextPath}/register">Register</a></li>
                             <li><a href="${pageContext.request.contextPath}/login">Login</a></li>
-                            <li><a href="#">Logout</a></li>
+                            <li><a href="${pageContext.request.contextPath}/static/j_spring_security_logout">Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -82,10 +82,6 @@
                 </blockquote>
 
             </div>
-
-            <a href="${pageContext.request.contextPath}/saveUser">Save User</a>
-            <br/>
-            <a href="${pageContext.request.contextPath}/retrieveUser">Get User</a>
 
         </div>
 

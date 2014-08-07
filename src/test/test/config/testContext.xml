@@ -20,11 +20,11 @@
     </bean>
 
     <bean id="handicapCalculation" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="main.java.co.uk.myhandicap.calculation.HandicapCalculation"/>
+        <constructor-arg value="main.java.co.uk.myhandicap.calculation.handicap.HandicapCalculation"/>
     </bean>
 
     <bean id="golfRound" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="main.java.co.uk.myhandicap.calculation.GolfRound"/>
+        <constructor-arg value="main.java.co.uk.myhandicap.calculation.handicap.GolfRound"/>
     </bean>
 
 </beans>

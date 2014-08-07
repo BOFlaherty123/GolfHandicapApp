@@ -19,4 +19,23 @@
         </field>
     </mapping>
 
+    <!-- PersonalInformationDto to User Mapping (MyAccountController.java) -->
+    <mapping>
+        <class-a>main.java.co.uk.myhandicap.model.user.User</class-a>
+        <class-b>main.java.co.uk.myhandicap.form.PersonalInformationDto</class-b>
+
+        <field>
+            <a>firstName</a>
+            <b>firstName</b>
+        </field>
+        <field>
+            <a>lastName</a>
+            <b>lastName</b>
+        </field>
+        <field>
+            <a>email</a>
+            <b>email</b>
+        </field>
+    </mapping>
+
 </mappings>

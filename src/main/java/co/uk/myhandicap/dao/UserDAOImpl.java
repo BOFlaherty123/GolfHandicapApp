@@ -104,7 +104,7 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
-    public User findUserByUsername(String username) {
+    public User findUserByUsername(String username) throws UserNotFoundException {
         logger.entry(username);
 
         Session session = sessionFactory.openSession();
@@ -115,20 +115,14 @@ public class UserDaoImpl implements UserDao {
             session.beginTransaction();
 
             // Retrieve a User object from the Database
-            try{
+            Query query = session.createQuery("from User where username = :username ");
+            query.setParameter("username", username);
 
-                Query query = session.createQuery("from User where username = :username ");
-                query.setParameter("username", username);
+            // user is equal to the first user object found
+            user = (User) query.list().get(0);
 
-                // user is equal to the first user object found
-                user = (User) query.list().get(0);
-
-                if(user == null) {
-                    throw new UserNotFoundException("user=[username=" + username + "] not found.");
-                }
-
-            } catch (UserNotFoundException e){
-                logger.error("class=[" + this.getClass().getName() + "] method=[.findUserByUsername()]", e.getMessage());
+            if(user == null) {
+                throw new UserNotFoundException("user=[username=" + username + "] not found.");
             }
 
         } catch(GenericJDBCException ex) {

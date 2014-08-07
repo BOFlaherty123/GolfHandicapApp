@@ -1,8 +1,8 @@
 package test.java.co.uk.myhandicap.calculation;
 
-import main.java.co.uk.myhandicap.calculation.GolfRound;
-import main.java.co.uk.myhandicap.calculation.HandicapCalculation;
-import main.java.co.uk.myhandicap.calculation.Score;
+import main.java.co.uk.myhandicap.calculation.handicap.GolfRound;
+import main.java.co.uk.myhandicap.calculation.handicap.HandicapCalculation;
+import main.java.co.uk.myhandicap.calculation.handicap.Score;
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.model.handicap.Handicap;
 import main.java.co.uk.myhandicap.model.handicap.Hole;

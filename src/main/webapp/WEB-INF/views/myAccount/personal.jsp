@@ -50,7 +50,7 @@
                                      <li><a href="${pageContext.request.contextPath}/myAccount/deleteUserAccount">Delete Account</a></li>
                                  </ul>
                              </li>
-                             <li><a href="#">Logout</a></li>
+                             <li><a href="${pageContext.request.contextPath}/static/j_spring_security_logout">Logout</a></li>
                          </ul>
                      </div>
                  </div>

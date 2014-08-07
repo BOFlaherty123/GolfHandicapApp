@@ -1,5 +1,6 @@
 package main.java.co.uk.myhandicap.service;
 
+import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.model.user.User;
 
 /**
@@ -13,6 +14,6 @@ public interface UserService extends GenericService<User, Long> {
 
     User retrieveUserById(Long id);
 
-    User findUserByUsername(String username);
+    User findUserByUsername(String username) throws UserNotFoundException;
 
 }

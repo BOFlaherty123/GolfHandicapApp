@@ -1,9 +1,12 @@
 package main.java.co.uk.myhandicap.controllers.myAccount;
 
+import main.java.co.uk.myhandicap.controllers.AbstractController;
 import main.java.co.uk.myhandicap.controllers.AppController;
 import main.java.co.uk.myhandicap.controllers.AppFormController;
 import main.java.co.uk.myhandicap.form.ChangePasswordDto;
 import main.java.co.uk.myhandicap.model.user.User;
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,22 +23,26 @@ import javax.validation.Valid;
  */
 @Controller
 @RequestMapping(value="/myAccount")
-public class ChangePasswordController implements AppController, AppFormController<ChangePasswordDto> {
+public class ChangePasswordController extends AbstractController implements AppController, AppFormController<ChangePasswordDto> {
+
+    private final XLogger logger = initiateXLoggerInstance(ChangePasswordController.class.getName());
+
+    @Override
+    protected XLogger initiateXLoggerInstance(String className) {
+        return XLoggerFactory.getXLogger(className);
+    }
 
     @Override
     @RequestMapping(value="/changeAccountPassword")
     public ModelAndView handleRequest(ModelAndView mav) {
         mav.setViewName("myAccount/changePassword");
 
-        mav.addObject(new ChangePasswordDto());
-
-        // TODO - retrieve logged in user object
-        User user = new User();
-        user.setId(1L);
-        user.setFirstName("Testing");
-        user.setLastName("Mctester");
-
+        // retrieve the user
+        User user = retrieveUserFromSecurityContext();
         mav.addObject(user);
+
+        // TODO Map User to ChangePasswordDTO
+        mav.addObject(new ChangePasswordDto());
 
         return mav;
     }
@@ -48,13 +55,12 @@ public class ChangePasswordController implements AppController, AppFormControlle
         if(errors.hasErrors()) {
             mav.addObject("status", "Please correct the error(s) and resubmit the form.");
         } else {
-
-            // save password
-
+            // TODO - save password using the userService
         }
 
         mav.setViewName("myAccount/changePassword");
 
         return mav;
     }
+
 }

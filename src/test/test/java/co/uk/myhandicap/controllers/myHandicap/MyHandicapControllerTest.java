@@ -1,6 +1,6 @@
 package test.java.co.uk.myhandicap.controllers.myHandicap;
 
-import main.java.co.uk.myhandicap.calculation.HandicapCalculation;
+import main.java.co.uk.myhandicap.calculation.handicap.HandicapCalculation;
 import main.java.co.uk.myhandicap.model.handicap.Handicap;
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
 import main.java.co.uk.myhandicap.model.user.User;

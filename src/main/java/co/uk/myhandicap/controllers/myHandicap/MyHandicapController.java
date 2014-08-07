@@ -1,6 +1,6 @@
 package main.java.co.uk.myhandicap.controllers.myHandicap;
 
-import main.java.co.uk.myhandicap.calculation.HandicapCalculation;
+import main.java.co.uk.myhandicap.calculation.handicap.HandicapCalculation;
 import main.java.co.uk.myhandicap.controllers.AppController;
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.model.handicap.Handicap;

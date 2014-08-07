@@ -1,6 +1,7 @@
 package main.java.co.uk.myhandicap.service;
 
 import main.java.co.uk.myhandicap.dao.UserDaoImpl;
+import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserByUsername(String username) {
+    public User findUserByUsername(String username) throws UserNotFoundException {
         return userDAO.findUserByUsername(username);
     }
 }

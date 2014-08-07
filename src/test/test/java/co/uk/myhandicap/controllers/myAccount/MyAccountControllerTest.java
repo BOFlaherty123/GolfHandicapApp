@@ -4,8 +4,10 @@ import main.java.co.uk.myhandicap.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -37,6 +39,9 @@ public class MyAccountControllerTest {
 
     @Autowired
     private UserService userService;
+
+    @Mock
+    private SecurityContext ctx;
 
     @Before
     public void setup() {

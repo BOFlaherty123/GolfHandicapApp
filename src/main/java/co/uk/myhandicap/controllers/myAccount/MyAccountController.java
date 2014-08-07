@@ -1,10 +1,12 @@
 package main.java.co.uk.myhandicap.controllers.myAccount;
 
+import main.java.co.uk.myhandicap.controllers.AbstractController;
 import main.java.co.uk.myhandicap.controllers.AppController;
 import main.java.co.uk.myhandicap.controllers.AppFormController;
 import main.java.co.uk.myhandicap.form.PersonalInformationDto;
 import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.UserService;
+import org.dozer.Mapper;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +28,20 @@ import static java.lang.String.format;
  */
 @Controller
 @RequestMapping(value="/myAccount")
-public class MyAccountController implements AppController, AppFormController<PersonalInformationDto> {
+public class MyAccountController extends AbstractController implements AppController, AppFormController<PersonalInformationDto> {
 
-    public final XLogger logger = XLoggerFactory.getXLogger(MyAccountController.class
-            .getName());
+    private final XLogger logger = initiateXLoggerInstance(MyAccountController.class.getName());
+
+    @Override
+    protected XLogger initiateXLoggerInstance(String className) {
+        return XLoggerFactory.getXLogger(className);
+    }
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private Mapper mapper;
 
     @Override
     @RequestMapping(value="/personalInformation")
@@ -41,9 +50,12 @@ public class MyAccountController implements AppController, AppFormController<Per
 
         mav.setViewName("myAccount/personal");
 
-        // TODO - retrieve logged in user object
-        mav.addObject(new User());
-        mav.addObject(new PersonalInformationDto());
+        // retrieve the user
+        User user = retrieveUserFromSecurityContext();
+
+        // Map a user object to personal information dto to populate the screen
+        PersonalInformationDto userInfo = mapper.map(user, PersonalInformationDto.class);
+        mav.addObject(userInfo);
 
         logger.exit(mav);
 
@@ -61,8 +73,9 @@ public class MyAccountController implements AppController, AppFormController<Per
             mav.addObject("failure", "Personal Information Update Failed, correct errors and try again.");
             logger.info(format("method=[ .submitFormRequest() ] message=[ hasErrors() - %s triggered. ]", errors.getErrorCount()));
         } else {
-            // TODO - get the current user
-            // TODO - save the users form submission to database via the user service
+            // TODO - Get the current user (add ID to personal Information DTO and use a hidden field to store the users ID)
+            // TODO - Retrieve the user via ID and modify the fields based on the form submission.
+            // TODO - Save the users form submission to database via the user service
             User user = new User();
             user.setFirstName(form.getFirstName());
             user.setLastName(form.getLastName());

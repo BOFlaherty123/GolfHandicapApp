@@ -52,16 +52,17 @@ public class UserDaoImpl implements UserDao {
     public void update(User updateObj) {
         logger.entry(updateObj);
 
-        System.out.println("update: " + updateObj.toString());
+        Session session = sessionFactory.openSession();
 
-        // Basic HQL query example, not you do not need to specify "Select * ..."
-        // We use class/field names for HQL queries, instead of the database information (Table & Column name etc)
-//        Query allUsersQuery = session.createQuery("from User");
-//        List<User> users = allUsersQuery.list();
-//
-//        for(User aUser : users) {
-//            System.out.print("Username: " + aUser.getUsername());
-//        }
+        session.beginTransaction();
+
+        logger.info("update User=[ " + updateObj.toString() + " ]");
+        session.update(updateObj);
+        session.flush();
+
+        session.getTransaction().commit();
+
+        session.close();
 
         logger.exit(updateObj);
     }

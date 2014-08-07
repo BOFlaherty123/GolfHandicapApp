@@ -71,6 +71,9 @@
                              <div class="form-group">
                                 <form:errors path="*" cssClass="text-danger"/>
                              </div>
+
+                             <form:hidden path="id"/>
+
                              <div class="form-group">
                                  <label for="inputFirstName" class="col-lg-2 control-label">First Name</label>
                                  <div class="col-lg-10">

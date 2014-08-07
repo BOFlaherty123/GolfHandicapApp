@@ -73,10 +73,7 @@ public class MyAccountController extends AbstractController implements AppContro
             mav.addObject("failure", "Personal Information Update Failed, correct errors and try again.");
             logger.info(format("method=[ .submitFormRequest() ] message=[ hasErrors() - %s triggered. ]", errors.getErrorCount()));
         } else {
-            // TODO - Get the current user (add ID to personal Information DTO and use a hidden field to store the users ID)
-            // TODO - Retrieve the user via ID and modify the fields based on the form submission.
-            // TODO - Save the users form submission to database via the user service
-            User user = new User();
+            User user = userService.retrieveUserById(form.getId());
             user.setFirstName(form.getFirstName());
             user.setLastName(form.getLastName());
             user.setEmail(form.getEmail());

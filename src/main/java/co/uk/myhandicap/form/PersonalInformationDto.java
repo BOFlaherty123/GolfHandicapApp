@@ -15,6 +15,7 @@ import javax.validation.constraints.Pattern;
  */
 public class PersonalInformationDto {
 
+    private long id;
     @NotBlank(message = "FirstName must have a value.")
     @Pattern(regexp="[a-zA-Z]+", message = "FirstName must only contain characters.")
     @Length(min=2, message = "FirstName must be at least two characters in length.")
@@ -25,6 +26,14 @@ public class PersonalInformationDto {
     @NotBlank(message = "Email must have a value.")
     @Email(message = "Email address must be entered in the correct format, i.e with name@company.com")
     private String email;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;

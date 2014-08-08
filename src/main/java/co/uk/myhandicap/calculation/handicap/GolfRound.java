@@ -25,6 +25,8 @@ public class GolfRound {
     private static final XLogger logger = XLoggerFactory.getXLogger(GolfRound.class
             .getName());
 
+    private GolfRound() {}
+
     /**
      * Loop through each Round on the players scorecard and process data
      *

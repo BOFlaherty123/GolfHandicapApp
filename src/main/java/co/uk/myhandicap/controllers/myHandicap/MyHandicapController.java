@@ -1,6 +1,7 @@
 package main.java.co.uk.myhandicap.controllers.myHandicap;
 
 import main.java.co.uk.myhandicap.calculation.handicap.HandicapCalculation;
+import main.java.co.uk.myhandicap.controllers.AbstractController;
 import main.java.co.uk.myhandicap.controllers.AppController;
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.model.handicap.Handicap;
@@ -8,11 +9,14 @@ import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
 import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.ScoreCardService;
 import main.java.co.uk.myhandicap.service.UserService;
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -24,7 +28,14 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value="/myHandicap")
-public class MyHandicapController implements AppController {
+public class MyHandicapController extends AbstractController implements AppController {
+
+    private final XLogger logger = initiateXLoggerInstance(MyHandicapController.class.getName());
+
+    @Override
+    protected XLogger initiateXLoggerInstance(String className) {
+        return XLoggerFactory.getXLogger(className);
+    }
 
     @Autowired
     private HandicapCalculation handicapCalculation;
@@ -37,13 +48,13 @@ public class MyHandicapController implements AppController {
 
     @Override
     @RequestMapping(value="/history")
-    public ModelAndView handleRequest(ModelAndView mav) {
+    public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
         mav.setViewName("myHandicap/history");
 
         try {
-            Handicap handicap = handicapCalculation.calculateUserHandicapScore(21L);
+            User user = userService.findUserByUsername(principal.getName());
 
-            User user = userService.retrieveUserById(21L);
+            Handicap handicap = handicapCalculation.calculateUserHandicapScore(user.getId());
 
             List<ScoreCard> scoreCardList = scoreCardService.retrieveUserScoredCardsById(user);
 

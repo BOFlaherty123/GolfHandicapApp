@@ -2,9 +2,12 @@ package main.java.co.uk.myhandicap.controllers.myHandicap;
 
 import main.java.co.uk.myhandicap.controllers.AppController;
 import main.java.co.uk.myhandicap.controllers.AppFormController;
+import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.form.ScoreCardDto;
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
+import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.ScoreCardServiceImpl;
+import main.java.co.uk.myhandicap.service.UserService;
 import org.dozer.Mapper;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.security.Principal;
+import java.util.Date;
 
 import static java.lang.String.format;
 
@@ -37,19 +42,29 @@ public class CalculateHandicapController implements AppController, AppFormContro
     private Mapper mapper;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private ScoreCardServiceImpl scoreCardService;
 
     @Override
     @RequestMapping(value="/calculate")
-    public ModelAndView handleRequest(ModelAndView mav) {
+    public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
         logger.entry(mav);
 
         mav.setViewName("myHandicap/calculate");
 
-        // Mock Initial ScoreCard values (User) TODO - Remove once redundant
+        User user = null;
+
+        try {
+            user = userService.findUserByUsername(principal.getName());
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        }
+
         ScoreCardDto scoreCardDto = new ScoreCardDto();
-        scoreCardDto.setPlayerId(21L);
-        scoreCardDto.setSubmittedDate("15/07/2014");
+        scoreCardDto.setPlayerId(user.getId());
+        scoreCardDto.setSubmittedDate(new Date().toString());
 
         mav.addObject(scoreCardDto);
 

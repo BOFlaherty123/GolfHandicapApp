@@ -14,19 +14,11 @@ import org.springframework.stereotype.Component;
 public class EncryptUserPassword {
 
     public String encryptPassword(String password) {
-
-        StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
-        String encryptPassword = passwordEncryptor.encryptPassword(password);
-
-        boolean isOkay = checkUserPasswordsMatch(passwordEncryptor, password, encryptPassword);
-        System.out.println("isOkay? " + isOkay);
-
-        return passwordEncryptor.encryptPassword(password);
+        return runEncryption().encryptPassword(password);
     }
 
-    public boolean checkUserPasswordsMatch(StrongPasswordEncryptor passwordEncryptor,
-                                           String password, String encryptPassword) {
-        return passwordEncryptor.checkPassword(password, encryptPassword);
+    private StrongPasswordEncryptor runEncryption() {
+        return new StrongPasswordEncryptor();
     }
 
 }

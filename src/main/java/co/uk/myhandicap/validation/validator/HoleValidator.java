@@ -68,14 +68,7 @@ public class HoleValidator implements ConstraintValidator<HoleValid, Object> {
     }
 
     private String getUserInputProperty(Object holeValues, String property) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-
-        String value = BeanUtils.getProperty(holeValues, property);
-
-        if(value != null) {
-            value.trim();
-        }
-
-        return value;
+        return BeanUtils.getProperty(holeValues, property).trim();
 
     }
 

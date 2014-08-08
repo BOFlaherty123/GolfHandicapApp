@@ -69,9 +69,16 @@
 
                         <div class="table-responsive">
                             <table class="table table-condensed">
+
+                                <c:if test="${not empty noPlayerScoreCards}">
+                                    <tr>
+                                        <td class="col-sm-3"><b>Submitted On:</b> <c:out value="${noPlayerScoreCards}"/></td>
+                                    </tr>
+                                </c:if>
+
                                 <c:forEach var="scoreCard" varStatus="i" items="${playerScoreCards}">
                                     <tr>
-                                        <td class="col-sm-3"><b>Submitted On:</b> <c:out value="${scoreCard.submittedDate}"/></td>
+                                        <td class="col-sm-3"><c:out value="${scoreCard.submittedDate}"/></td>
                                     </tr>
 
                                     <c:forEach var="golfRound" items="${scoreCard.golfRounds}">

@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
+
 /**
  * Welcome Controller
  *
@@ -21,7 +23,7 @@ public class WelcomeController implements AppController {
      */
     @Override
     @RequestMapping(value="/")
-    public ModelAndView handleRequest(ModelAndView mav) {
+    public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
         mav.setViewName("welcome");
         return mav;
     }

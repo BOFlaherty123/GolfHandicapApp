@@ -39,6 +39,9 @@ public class HandicapCalculation {
     private static final XLogger logger = XLoggerFactory.getXLogger(HandicapCalculation.class
             .getName());
 
+
+    private HandicapCalculation() {}
+
     /**
      * calculate a players handicap
      *

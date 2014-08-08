@@ -38,4 +38,29 @@
         </field>
     </mapping>
 
+    <mapping>
+        <class-a>main.java.co.uk.myhandicap.form.UserRegistrationDto</class-a>
+        <class-b>main.java.co.uk.myhandicap.model.user.User</class-b>
+        <field>
+            <a>username</a>
+            <b>username</b>
+        </field>
+        <field>
+            <a>firstName</a>
+            <b>firstName</b>
+        </field>
+        <field>
+            <a>lastName</a>
+            <b>lastName</b>
+        </field>
+        <field>
+            <a>email</a>
+            <b>email</b>
+        </field>
+        <field>
+            <a>password</a>
+            <b>password</b>
+        </field>
+    </mapping>
+
 </mappings>

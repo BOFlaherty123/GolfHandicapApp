@@ -21,11 +21,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -52,6 +52,12 @@ public class MyHandicapControllerTest {
     @Autowired
     private HandicapCalculation handicapCalculationMock;
 
+    Principal principal = new Principal() {
+        @Override
+        public String getName() {
+            return USER;
+        }};
+
     @Autowired
     private UserService userService;
 
@@ -61,6 +67,8 @@ public class MyHandicapControllerTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
+    private final String USER = "TEST_PRINCIPAL";
+
     @Before
     public void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -69,7 +77,7 @@ public class MyHandicapControllerTest {
     @Test
     public void myHandicapControllerHistoryRequestMapping() throws Exception {
 
-        mockMvc.perform(get("/myHandicap/history"))
+        mockMvc.perform(get("/myHandicap/history").principal(principal))
                 .andExpect(status().isOk())
                 .andExpect(view().name("myHandicap/history"))
                 .andExpect(forwardedUrl("/WEB-INF/views/myHandicap/history.jsp"));
@@ -81,14 +89,17 @@ public class MyHandicapControllerTest {
 
         String currentDate = fmt.print(new DateTime());
 
+        User user = buildMockUser(21L);
+
         Handicap handicap = new Handicap();
         handicap.setCalculatedOn(currentDate);
         handicap.setHandicapScore("22");
         handicap.setNumberOfRounds("3");
 
+        when(userService.findUserByUsername(USER)).thenReturn(user);
         when(handicapCalculationMock.calculateUserHandicapScore(21L)).thenReturn(handicap);
 
-        mockMvc.perform(get("/myHandicap/history"))
+        mockMvc.perform(get("/myHandicap/history").principal(principal))
                 .andExpect(status().isOk())
                 .andExpect(view().name("myHandicap/history"))
                 .andExpect(forwardedUrl("/WEB-INF/views/myHandicap/history.jsp")
@@ -101,14 +112,13 @@ public class MyHandicapControllerTest {
 
         User user = buildMockUser(21L);
 
-        List<ScoreCard> scoreCardList = new ArrayList<ScoreCard>();
+        List<ScoreCard> scoreCardList = new ArrayList<>();
 
-        when(userService.retrieveUserById(anyLong())).thenReturn(user);
+        when(userService.findUserByUsername(USER)).thenReturn(user);
+        when(handicapCalculationMock.calculateUserHandicapScore(21L)).thenReturn(new Handicap());
         when(scoreCardService.retrieveUserScoredCardsById(user)).thenReturn(scoreCardList);
 
-        when(handicapCalculationMock.calculateUserHandicapScore(21L)).thenReturn(new Handicap());
-
-        mockMvc.perform(get("/myHandicap/history"))
+        mockMvc.perform(get("/myHandicap/history").principal(principal))
                 .andExpect(status().isOk())
                 .andExpect(view().name("myHandicap/history"))
                 .andExpect(forwardedUrl("/WEB-INF/views/myHandicap/history.jsp")
@@ -131,11 +141,11 @@ public class MyHandicapControllerTest {
 
         scoreCardList.add(scoreCard);
 
-        when(userService.retrieveUserById(anyLong())).thenReturn(user);
+        when(userService.findUserByUsername(USER)).thenReturn(user);
         when(scoreCardService.retrieveUserScoredCardsById(user)).thenReturn(scoreCardList);
         when(handicapCalculationMock.calculateUserHandicapScore(21L)).thenReturn(new Handicap());
 
-        mockMvc.perform(get("/myHandicap/history"))
+        mockMvc.perform(get("/myHandicap/history").principal(principal))
                 .andExpect(status().isOk())
                 .andExpect(view().name("myHandicap/history"))
                 .andExpect(forwardedUrl("/WEB-INF/views/myHandicap/history.jsp")
@@ -146,6 +156,7 @@ public class MyHandicapControllerTest {
     private User buildMockUser(Long id) {
         User user = new User();
         user.setId(id);
+        user.setUsername(USER);
         return user;
     }
 

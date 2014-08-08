@@ -56,10 +56,12 @@ public class UserDaoImpl implements UserDao {
 
         session.beginTransaction();
 
+        // Update User object
         logger.info("update User=[ " + updateObj.toString() + " ]");
         session.update(updateObj);
         session.flush();
 
+        // Commit and close the transaction
         session.getTransaction().commit();
 
         session.close();
@@ -67,6 +69,7 @@ public class UserDaoImpl implements UserDao {
         logger.exit(updateObj);
     }
 
+    // TODO - code delete user method
     @Override
     public void delete(User deleteObj) {
 
@@ -136,6 +139,5 @@ public class UserDaoImpl implements UserDao {
 
         return user;
     }
-
 
 }

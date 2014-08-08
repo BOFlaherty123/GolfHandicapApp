@@ -20,7 +20,7 @@ public abstract class AbstractController {
     @Autowired
     private UserService userService;
 
-    public User retrieveUserFromSecurityContext() {
+    protected User retrieveUserFromSecurityContext() {
 
         // retrieve the user from the security context
         SecurityContext ctx = SecurityContextHolder.getContext();

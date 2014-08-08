@@ -21,6 +21,8 @@ public class GolfHole {
     private static final XLogger logger = XLoggerFactory.getXLogger(GolfHole.class
             .getName());
 
+    private GolfHole() {}
+
     /**
      * loop through each hole and make the necessary adjustments to the players overal score
      *

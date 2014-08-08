@@ -40,7 +40,7 @@ public class PasswordMatchValidator implements ConstraintValidator<PasswordMatch
         }
 
         // if the two password inputs do not match, validation should fail
-        if(!pwd.equals(confirmPwd)) {
+        if(!(pwd != null ? pwd.equals(confirmPwd) : false)) {
             return false;
         }
 

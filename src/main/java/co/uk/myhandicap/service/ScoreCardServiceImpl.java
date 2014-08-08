@@ -40,4 +40,5 @@ public class ScoreCardServiceImpl implements ScoreCardService {
     public List<ScoreCard> retrieveUserScoredCardsById(User user) {
         return scoreCardDao.retrieveUserScoreCardById(user);
     }
+
 }

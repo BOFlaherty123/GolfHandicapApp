@@ -4,6 +4,7 @@ import main.java.co.uk.myhandicap.encryption.EncryptUserPassword;
 import main.java.co.uk.myhandicap.form.UserRegistrationDto;
 import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.UserService;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Date;
 
 /**
@@ -30,9 +32,12 @@ public class UserRegistrationController implements AppController, AppFormControl
     @Autowired
     private EncryptUserPassword encryptUserPassword;
 
+    @Autowired
+    private Mapper mapper;
+
     @Override
     @RequestMapping(value="/register")
-    public ModelAndView handleRequest(ModelAndView mav) {
+    public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
         mav.setViewName("registerUser");
         mav.addObject(new UserRegistrationDto());
 
@@ -47,11 +52,8 @@ public class UserRegistrationController implements AppController, AppFormControl
             mav.addObject("failure", "failure message here");
         } else {
 
-            User registerUser = new User();
-            registerUser.setUsername(object.getUsername());
-            registerUser.setFirstName(object.getFirstName());
-            registerUser.setLastName(object.getLastName());
-            registerUser.setEmail(object.getEmail());
+            // Map an instance of UserRegistrationDto to the User domain object
+            User registerUser = mapper.map(object, User.class);
             registerUser.setCreatedDate(new Date());
 
             // Encrypt the users password

@@ -2,6 +2,8 @@ package main.java.co.uk.myhandicap.controllers;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
+
 /**
  * Description Here
  *
@@ -11,6 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public interface AppController {
 
-    ModelAndView handleRequest(ModelAndView mav);
+    ModelAndView handleRequest(ModelAndView mav, Principal principal);
 
 }

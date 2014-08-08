@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 /**
  * Delete User Account
@@ -23,14 +24,15 @@ public class DeleteAccountController implements AppController, AppFormController
 
     @Override
     @RequestMapping(value="/deleteUserAccount")
-    public ModelAndView handleRequest(ModelAndView mav) {
+    public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
         mav.setViewName("myAccount/deleteAccount");
         return mav;
     }
 
+    // TODO - code delete user controller
     @Override
     public ModelAndView submitFormRequest(ModelAndView mav, @Valid User user, BindingResult errors) {
         return null;
-
     }
+
 }

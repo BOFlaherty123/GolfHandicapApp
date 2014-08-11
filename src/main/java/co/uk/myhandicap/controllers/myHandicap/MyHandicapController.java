@@ -12,6 +12,7 @@ import main.java.co.uk.myhandicap.service.UserService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -46,6 +47,9 @@ public class MyHandicapController extends AbstractController implements AppContr
     @Autowired
     private UserService userService;
 
+    @Value("${calculateHandicap.noPlayerScoreCards}")
+    private String noPlayerScoreCards;
+
     @Override
     @RequestMapping(value="/history")
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
@@ -59,7 +63,7 @@ public class MyHandicapController extends AbstractController implements AppContr
             List<ScoreCard> scoreCardList = scoreCardService.retrieveUserScoredCardsById(user);
 
             if(scoreCardList.size() == 0) {
-                mav.addObject("noPlayerScoreCards", "No Player ScoreCards Found.");
+                mav.addObject("noPlayerScoreCards", noPlayerScoreCards);
             }
 
             mav.addObject("playerHandicap", handicap);

@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
     <head>
@@ -113,6 +113,18 @@
                                     <form:password id="inputPassword" path="password" class="form-control" placeholder="Password"/>
                                 </div>
                             </div>
+                            <!-- Error Status Output -->
+                            <c:if test="${not empty success}">
+                                <div class="alert alert-success" role="alert">
+                                    <c:out value="${success}"/>
+                                </div>
+                            </c:if>
+                            <!-- Error Status Output -->
+                            <c:if test="${not empty failure}">
+                                <div class="alert alert-danger" role="alert">
+                                    <c:out value="${failure}"/>
+                                </div>
+                            </c:if>
                             <!-- Submit Form -->
                             <div class="form-group">
                                 <div class="col-lg-10 col-lg-offset-2">

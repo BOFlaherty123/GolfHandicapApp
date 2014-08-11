@@ -55,16 +55,17 @@ public class CalculateHandicapController implements AppController, AppFormContro
         mav.setViewName("myHandicap/calculate");
 
         User user = null;
+        ScoreCardDto scoreCardDto = new ScoreCardDto();
 
         try {
             user = userService.findUserByUsername(principal.getName());
+
+            // if the user is found, setup the a new scoreCard dto object
+            scoreCardDto.setPlayerId(user.getId());
+            scoreCardDto.setSubmittedDate(new Date().toString());
         } catch (UserNotFoundException e) {
             e.printStackTrace();
         }
-
-        ScoreCardDto scoreCardDto = new ScoreCardDto();
-        scoreCardDto.setPlayerId(user.getId());
-        scoreCardDto.setSubmittedDate(new Date().toString());
 
         mav.addObject(scoreCardDto);
 

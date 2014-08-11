@@ -17,8 +17,8 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-        p:location="/WEB-INF/jdbc.properties" />
+    <!--<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"-->
+        <!--p:location="/WEB-INF/jdbc.properties" />-->
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <!--<property name="configLocation" value="classpath:hibernate.cfg.xml"/>-->
@@ -70,5 +70,16 @@
     </bean>
 
     <bean id="jasyptPasswordEncryptor" class="org.jasypt.util.password.StrongPasswordEncryptor" />
+
+    <!--<context:property-placeholder location="/WEB-INF/properties/handicapApp.properties"/>-->
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>/WEB-INF/jdbc.properties</value>
+                <value>/WEB-INF/properties/handicapApp.properties</value>
+            </list>
+        </property>
+    </bean>
 
 </beans>

@@ -25,11 +25,18 @@ public class UserLoginService implements UserDetailsService {
     private UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
+    public UserDetails loadUserByUsername(String input) {
 
         User user = null;
+        String username = null;
+        String password = null;
         try {
-            user = userService.findUserByUsername(username);
+            user = userService.findUserByUsername(input);
+
+            // if the user is found, store their current username and password
+            username = user.getUsername();
+            password = user.getPassword();
+
         } catch (UserNotFoundException e) {
             e.printStackTrace();
         }
@@ -37,7 +44,7 @@ public class UserLoginService implements UserDetailsService {
         // Assign user the role, ROLE_USER on a successful login
         Collection<? extends GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_USER");
 
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),
-                user.getPassword(), authorities);
+        return new org.springframework.security.core.userdetails.User(username,
+                password, authorities);
     }
 }

@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
  * @project MyHandicapApp
  */
 @Component
-public class EncryptUserPassword {
+public final class EncryptUserPassword {
+
+    private EncryptUserPassword() {};
 
     public String encryptPassword(String password) {
         return runEncryption().encryptPassword(password);

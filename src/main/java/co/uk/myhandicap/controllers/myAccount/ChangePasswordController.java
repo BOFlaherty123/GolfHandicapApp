@@ -55,8 +55,8 @@ public class ChangePasswordController extends AbstractController implements AppC
         } catch (UserNotFoundException e) {
             e.printStackTrace();
         }
-        mav.addObject(user);
 
+        mav.addObject(user);
         mav.addObject(new ChangePasswordDto());
 
         return mav;

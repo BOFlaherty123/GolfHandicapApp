@@ -11,6 +11,7 @@ import org.dozer.Mapper;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +40,12 @@ public class MyAccountController extends AbstractController implements AppContro
 
     @Autowired
     private Mapper mapper;
+
+    @Value("${myAccount.personal.success}")
+    private String successMessage;
+
+    @Value("${myAccount.personal.failure}")
+    private String failureMessage;
 
     @Override
     protected XLogger initiateXLoggerInstance(String className) {
@@ -76,10 +83,8 @@ public class MyAccountController extends AbstractController implements AppContro
 
         mav.setViewName("myAccount/personal");
 
-        // TODO - store success/failure message in properties file
-
         if(errors.hasErrors()) {
-            mav.addObject("failure", "Personal Information Update Failed, correct errors and try again.");
+            mav.addObject("failure", failureMessage);
             logger.info(format("method=[ .submitFormRequest() ] message=[ hasErrors() - %s triggered. ]", errors.getErrorCount()));
         } else {
 
@@ -91,7 +96,7 @@ public class MyAccountController extends AbstractController implements AppContro
             // update user
             userService.update(user);
 
-            mav.addObject("success", "Personal Information Successfully Updated.");
+            mav.addObject("success", successMessage);
         }
 
         logger.exit(mav);

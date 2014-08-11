@@ -6,6 +6,7 @@ import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.UserService;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,12 @@ public class UserRegistrationController implements AppController, AppFormControl
     @Autowired
     private Mapper mapper;
 
+    @Value("${registerUser.success}")
+    private String successMessage;
+
+    @Value("${registerUser.failure}")
+    private String failureMessage;
+
     @Override
     @RequestMapping(value="/register")
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
@@ -49,7 +56,7 @@ public class UserRegistrationController implements AppController, AppFormControl
     public ModelAndView submitFormRequest(ModelAndView mav, @Valid UserRegistrationDto object, BindingResult errors) {
 
         if(errors.hasErrors()) {
-            mav.addObject("failure", "failure message here");
+            mav.addObject("failure", failureMessage);
         } else {
 
             // Map an instance of UserRegistrationDto to the User domain object
@@ -63,7 +70,7 @@ public class UserRegistrationController implements AppController, AppFormControl
             // Save User to database
             userService.save(registerUser);
 
-            mav.addObject("success", "success message here");
+            mav.addObject("success", successMessage);
         }
 
         return mav;

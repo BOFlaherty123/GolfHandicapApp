@@ -49,28 +49,28 @@ public class Score {
         this.courseSSS = courseSSS;
     }
 
-    public BigDecimal createScore(String value) {
-        return new BigDecimal(value);
-    }
-
     // Score BigDecimal arithmetic and initialisation
-    public BigDecimal createScore(Integer value) {
+    public static final BigDecimal createScore(String value) {
         return new BigDecimal(value);
     }
 
-    public BigDecimal addToPlayerScore(BigDecimal value1, BigDecimal value2) {
+    public static final BigDecimal createScore(Integer value) {
+        return new BigDecimal(value);
+    }
+
+    public static final BigDecimal addToPlayerScore(BigDecimal value1, BigDecimal value2) {
         return value1.add(value2);
     }
 
-    public BigDecimal addToAdjustmentScore(BigDecimal value1, BigDecimal value2) {
+    public static final BigDecimal addToAdjustmentScore(BigDecimal value1, BigDecimal value2) {
         return value1.add(value2);
     }
 
-    public BigDecimal subtractFromScore(BigDecimal value1, BigDecimal value2) {
+    public static final BigDecimal subtractFromScore(BigDecimal value1, BigDecimal value2) {
         return value1.subtract(value2);
     }
 
-    public String calculateHandicap(int size, BigDecimal total) {
+    public static String calculateHandicap(int size, BigDecimal total) {
         return total.divide(new BigDecimal(size), RoundingMode.HALF_UP).toString();
     }
 

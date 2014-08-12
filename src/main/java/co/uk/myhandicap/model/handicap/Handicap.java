@@ -43,7 +43,7 @@ public class Handicap {
         this.numberOfRounds = numberOfRounds;
     }
 
-    public Handicap setupDefaultHandicap() {
+    public static final Handicap setupDefaultHandicap() {
         Handicap playerHandicap = new Handicap();
 
         playerHandicap.setHandicapScore(String.valueOf(DEFAULT_HANDICAP));

@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static main.java.co.uk.myhandicap.calculation.handicap.Score.createScore;
+import static main.java.co.uk.myhandicap.calculation.handicap.Score.subtractFromScore;
+
 /**
  * Process Data Per Golf Round
  *
@@ -41,13 +44,13 @@ public class GolfRound {
 
             BigDecimal playerScore = score.getPlayerScore();
 
-            score.setCourseSSS(score.createScore(round.getCourseSSS()));
+            score.setCourseSSS(createScore(round.getCourseSSS()));
 
             // loop through each hole of the round and adjust the players score
             playerScore = golfHole.processHoleData(score, round, playerScore);
 
             // calculate the players adjusted score for the round
-            BigDecimal adjustedScore = score.subtractFromScore(playerScore, score.getCourseSSS());
+            BigDecimal adjustedScore = subtractFromScore(playerScore, score.getCourseSSS());
             adjustedScores.add(adjustedScore);
             logger.info(".processRoundOfGolf() - add adjustedScore=[ " + adjustedScore + " ]");
         }

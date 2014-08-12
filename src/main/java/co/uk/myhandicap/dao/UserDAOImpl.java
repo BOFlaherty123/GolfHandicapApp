@@ -7,7 +7,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.exception.GenericJDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import static java.lang.String.format;
 
 /**
  * User Dao
@@ -21,6 +24,9 @@ public class UserDaoImpl implements UserDao {
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    @Value("${exception.userNotFound}")
+    private String userNotFoundException;
 
     @Override
     public void save(User user) {
@@ -90,7 +96,7 @@ public class UserDaoImpl implements UserDao {
                 user = (User) session.get(User.class, userId);
 
                 if(user == null) {
-                    throw new UserNotFoundException("user=[id=" + userId + "] not found.");
+                    throw new UserNotFoundException(format(userNotFoundException, userId));
                 }
 
             } catch (UserNotFoundException e){
@@ -126,7 +132,7 @@ public class UserDaoImpl implements UserDao {
             user = (User) query.list().get(0);
 
             if(user == null) {
-                throw new UserNotFoundException("user=[username=" + username + "] not found.");
+                throw new UserNotFoundException(format(userNotFoundException, username));
             }
 
         } catch(GenericJDBCException ex) {

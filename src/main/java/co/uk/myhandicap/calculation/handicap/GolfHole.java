@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
+import static main.java.co.uk.myhandicap.calculation.handicap.Score.addToPlayerScore;
+import static main.java.co.uk.myhandicap.calculation.handicap.Score.createScore;
+
 /**
  * Process Data Per Golf Hole
  *
@@ -40,8 +43,8 @@ public class GolfHole {
             processCONGUAdjustment(hole, score);
 
             // add players score for the hole to the round total
-            BigDecimal holeScore = score.createScore(hole.getHoleScore());
-            playerScore = score.addToPlayerScore(playerScore, holeScore);
+            BigDecimal holeScore = createScore(hole.getHoleScore());
+            playerScore = addToPlayerScore(playerScore, holeScore);
 
         }
 
@@ -58,8 +61,8 @@ public class GolfHole {
     private void processCONGUAdjustment(Hole hole, Score score) {
         logger.entry(hole, score);
 
-        BigDecimal maxStroke = score.createScore(Integer.valueOf(hole.getHolePar()) + 2);
-        BigDecimal playerScore = score.createScore(hole.getHoleScore());
+        BigDecimal maxStroke = createScore(Integer.valueOf(hole.getHolePar()) + 2);
+        BigDecimal playerScore = createScore(hole.getHoleScore());
 
         if(playerScore.compareTo(maxStroke) > 0) {
             playerScore = maxStroke;

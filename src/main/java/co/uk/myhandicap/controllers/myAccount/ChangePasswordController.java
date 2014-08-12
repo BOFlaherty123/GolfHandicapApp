@@ -11,6 +11,7 @@ import main.java.co.uk.myhandicap.service.UserService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.security.Principal;
+
+import static java.lang.String.format;
 
 /**
  * User Account Change Password
@@ -38,6 +41,12 @@ public class ChangePasswordController extends AbstractController implements AppC
     @Autowired
     private EncryptUserPassword encryptUserPassword;
 
+    @Value("${exception.userNotFound}")
+    private String userNotFoundException;
+
+    @Value("${myAccount.changePassword.failure}")
+    private String failureMessage;
+
     @Override
     protected XLogger initiateXLoggerInstance(String className) {
         return XLoggerFactory.getXLogger(className);
@@ -53,7 +62,7 @@ public class ChangePasswordController extends AbstractController implements AppC
         try {
             user = userService.findUserByUsername(principal.getName());
         } catch (UserNotFoundException e) {
-            e.printStackTrace();
+           logger.error(format(userNotFoundException, principal.getName()));
         }
 
         mav.addObject(user);
@@ -68,7 +77,7 @@ public class ChangePasswordController extends AbstractController implements AppC
                                           BindingResult errors) {
 
         if(errors.hasErrors()) {
-            mav.addObject("status", "Please correct the error(s) and resubmit the form.");
+            mav.addObject("status", failureMessage);
         } else {
             User user = retrieveUserFromSecurityContext();
 

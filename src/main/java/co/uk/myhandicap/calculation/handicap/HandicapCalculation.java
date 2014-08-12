@@ -10,11 +10,17 @@ import main.java.co.uk.myhandicap.service.UserService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.String.format;
+import static main.java.co.uk.myhandicap.calculation.handicap.Score.addToAdjustmentScore;
+import static main.java.co.uk.myhandicap.calculation.handicap.Score.calculateHandicap;
+import static main.java.co.uk.myhandicap.model.handicap.Handicap.setupDefaultHandicap;
 
 /**
  * Calculate a users golf handicap
@@ -36,9 +42,14 @@ public class HandicapCalculation {
     @Autowired
     private GolfRound golfRound;
 
+    @Value("${handicapCalculation.runTimeException}")
+    private String handicapException;
+
+    @Value("${exception.userNotFound}")
+    private String userNotFoundException;
+
     private static final XLogger logger = XLoggerFactory.getXLogger(HandicapCalculation.class
             .getName());
-
 
     private HandicapCalculation() {}
 
@@ -66,7 +77,7 @@ public class HandicapCalculation {
         Handicap playerHandicap = calculateHandicapForRoundOfGolf(score, roundsOfGolf);
 
         if(playerHandicap == null) {
-            throw new RuntimeException("We are unable to provide a handicap calculation for userId[" + userId + "]");
+            throw new RuntimeException(format(handicapException, userId));
         }
 
         logger.info("playerHandicap=[ " + playerHandicap + "]");
@@ -75,6 +86,8 @@ public class HandicapCalculation {
 
         return playerHandicap;
     }
+
+
 
     /**
      * extract all rounds of golf for the given user.
@@ -108,7 +121,7 @@ public class HandicapCalculation {
         logger.entry(score, roundsOfGolf);
 
         // Setup a handicap object with default values
-        Handicap playerHandicap = new Handicap().setupDefaultHandicap();
+        Handicap playerHandicap = setupDefaultHandicap();
 
         if(!roundsOfGolf.isEmpty()) {
 
@@ -121,10 +134,10 @@ public class HandicapCalculation {
             BigDecimal adjustedTotal = score.getAdjustmentTotal();
 
             for(BigDecimal adjustScore : adjustedScores) {
-                adjustedTotal = score.addToAdjustmentScore(adjustedTotal, adjustScore);
+                adjustedTotal = addToAdjustmentScore(adjustedTotal, adjustScore);
             }
 
-            String handicap = score.calculateHandicap(roundsOfGolf.size(), adjustedTotal);
+            String handicap = calculateHandicap(roundsOfGolf.size(), adjustedTotal);
 
             // add calculations to the handicap object
             playerHandicap.setHandicapScore(handicap);
@@ -151,7 +164,7 @@ public class HandicapCalculation {
         User user = userService.retrieveUserById(userId);
 
         if(user == null) {
-            throw new UserNotFoundException("User not found for Id=[" + userId +"]");
+            throw new UserNotFoundException(format(userNotFoundException, userId));
         }
 
         logger.exit(user.toString());

@@ -1,6 +1,5 @@
 package main.java.co.uk.myhandicap.controllers.myAccount;
 
-import main.java.co.uk.myhandicap.controllers.AbstractController;
 import main.java.co.uk.myhandicap.controllers.AppController;
 import main.java.co.uk.myhandicap.controllers.AppFormController;
 import main.java.co.uk.myhandicap.encryption.EncryptUserPassword;
@@ -31,9 +30,9 @@ import static java.lang.String.format;
  */
 @Controller
 @RequestMapping(value="/myAccount")
-public class ChangePasswordController extends AbstractController implements AppController, AppFormController<ChangePasswordDto> {
+public class ChangePasswordController implements AppController, AppFormController<ChangePasswordDto> {
 
-    private final XLogger logger = initiateXLoggerInstance(ChangePasswordController.class.getName());
+    private final XLogger logger = XLoggerFactory.getXLogger(ChangePasswordController.class);
 
     @Autowired
     private UserService userService;
@@ -46,11 +45,6 @@ public class ChangePasswordController extends AbstractController implements AppC
 
     @Value("${myAccount.changePassword.failure}")
     private String failureMessage;
-
-    @Override
-    protected XLogger initiateXLoggerInstance(String className) {
-        return XLoggerFactory.getXLogger(className);
-    }
 
     @Override
     @RequestMapping(value="/changeAccountPassword")
@@ -78,8 +72,11 @@ public class ChangePasswordController extends AbstractController implements AppC
 
         if(errors.hasErrors()) {
             mav.addObject("status", failureMessage);
+            logger.info(format("class=[ " + this.getClass().getName() + "] method=[ .submitFormRequest() ] message=[ hasErrors() - %s triggered. ]",
+                    errors.getErrorCount()));
+
         } else {
-            User user = retrieveUserFromSecurityContext();
+            User user = userService.retrieveUserFromSecurityContext();
 
             // Encrypt the users password
             String password = encryptUserPassword.encryptPassword(changePassword.getPassword());

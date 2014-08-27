@@ -5,6 +5,8 @@ import main.java.co.uk.myhandicap.form.UserRegistrationDto;
 import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.UserService;
 import org.dozer.Mapper;
+import org.slf4j.ext.XLogger;
+import org.slf4j.ext.XLoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,8 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Date;
 
+import static java.lang.String.format;
+
 /**
  * User Registration Controller
  *
@@ -26,6 +30,8 @@ import java.util.Date;
  */
 @Controller
 public class UserRegistrationController implements AppController, AppFormController<UserRegistrationDto> {
+
+    private final XLogger logger = XLoggerFactory.getXLogger(UserRegistrationController.class);
 
     @Autowired
     private UserService userService;
@@ -53,25 +59,32 @@ public class UserRegistrationController implements AppController, AppFormControl
 
     @Override
     @RequestMapping(value="/registerUser", method = RequestMethod.POST)
-    public ModelAndView submitFormRequest(ModelAndView mav, @Valid UserRegistrationDto object, BindingResult errors) {
+    public ModelAndView submitFormRequest(ModelAndView mav, @Valid UserRegistrationDto user, BindingResult errors) {
+        logger.entry(mav, user, errors);
 
         if(errors.hasErrors()) {
             mav.addObject("failure", failureMessage);
+            logger.info(format("class=[ " + this.getClass().getName() + "] method=[ .submitFormRequest() ] message=[ hasErrors() - %s triggered. ]",
+                    errors.getErrorCount()));
+
         } else {
 
-            // Map an instance of UserRegistrationDto to the User domain object
-            User registerUser = mapper.map(object, User.class);
+            // Map an instance of UserRegistrationDto to the User domain user
+            User registerUser = mapper.map(user, User.class);
             registerUser.setCreatedDate(new Date());
 
             // Encrypt the users password
-            String password = encryptUserPassword.encryptPassword(object.getPassword());
+            String password = encryptUserPassword.encryptPassword(user.getPassword());
             registerUser.setPassword(password);
 
             // Save User to database
             userService.save(registerUser);
 
+
             mav.addObject("success", successMessage);
         }
+
+        logger.exit(mav);
 
         return mav;
     }

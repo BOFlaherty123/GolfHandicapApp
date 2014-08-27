@@ -1,6 +1,5 @@
 package main.java.co.uk.myhandicap.controllers.myAccount;
 
-import main.java.co.uk.myhandicap.controllers.AbstractController;
 import main.java.co.uk.myhandicap.controllers.AppController;
 import main.java.co.uk.myhandicap.controllers.AppFormController;
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
@@ -31,9 +30,9 @@ import static java.lang.String.format;
  */
 @Controller
 @RequestMapping(value="/myAccount")
-public class MyAccountController extends AbstractController implements AppController, AppFormController<PersonalInformationDto> {
+public class MyAccountController implements AppController, AppFormController<PersonalInformationDto> {
 
-    private final XLogger logger = initiateXLoggerInstance(MyAccountController.class.getName());
+    private static final XLogger logger = XLoggerFactory.getXLogger(MyAccountController.class);
 
     @Autowired
     private UserService userService;
@@ -46,11 +45,6 @@ public class MyAccountController extends AbstractController implements AppContro
 
     @Value("${myAccount.personal.failure}")
     private String failureMessage;
-
-    @Override
-    protected XLogger initiateXLoggerInstance(String className) {
-        return XLoggerFactory.getXLogger(className);
-    }
 
     @Override
     @RequestMapping(value="/personalInformation")
@@ -85,7 +79,7 @@ public class MyAccountController extends AbstractController implements AppContro
 
         if(errors.hasErrors()) {
             mav.addObject("failure", failureMessage);
-            logger.info(format("method=[ .submitFormRequest() ] message=[ hasErrors() - %s triggered. ]", errors.getErrorCount()));
+            logger.info(format("class=[ " + this.getClass().getName() + "] method=[ .submitFormRequest() ] message=[ hasErrors() - %s triggered. ]", errors.getErrorCount()));
         } else {
 
             User user = userService.retrieveUserById(form.getId());

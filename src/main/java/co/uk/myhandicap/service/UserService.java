@@ -16,4 +16,6 @@ public interface UserService extends GenericService<User, Long> {
 
     User findUserByUsername(String username) throws UserNotFoundException;
 
+    User retrieveUserFromSecurityContext();
+
 }

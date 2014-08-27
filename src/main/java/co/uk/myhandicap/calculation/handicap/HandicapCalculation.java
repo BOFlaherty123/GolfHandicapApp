@@ -1,7 +1,6 @@
 package main.java.co.uk.myhandicap.calculation.handicap;
 
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
-import main.java.co.uk.myhandicap.model.handicap.Handicap;
 import main.java.co.uk.myhandicap.model.handicap.Round;
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
 import main.java.co.uk.myhandicap.model.user.User;
@@ -20,7 +19,7 @@ import java.util.List;
 import static java.lang.String.format;
 import static main.java.co.uk.myhandicap.calculation.handicap.Score.addToAdjustmentScore;
 import static main.java.co.uk.myhandicap.calculation.handicap.Score.calculateHandicap;
-import static main.java.co.uk.myhandicap.model.handicap.Handicap.setupDefaultHandicap;
+import static main.java.co.uk.myhandicap.calculation.handicap.Handicap.setupDefaultHandicap;
 
 /**
  * Calculate a users golf handicap
@@ -61,7 +60,6 @@ public class HandicapCalculation {
      * @throws UserNotFoundException
      */
     public Handicap calculateUserHandicapScore(Long userId) throws UserNotFoundException {
-
         logger.entry(userId);
 
         // creates a new score object for the calculation
@@ -86,7 +84,6 @@ public class HandicapCalculation {
 
         return playerHandicap;
     }
-
 
 
     /**

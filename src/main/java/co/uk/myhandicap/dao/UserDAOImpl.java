@@ -8,6 +8,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.exception.GenericJDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import static java.lang.String.format;
@@ -114,6 +116,21 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+    @Override
+    public User retrieveUserFromSecurityContext() {
+
+        SecurityContext ctx = SecurityContextHolder.getContext();
+
+        User user = null;
+        try {
+            user = findUserByUsername(ctx.getAuthentication().getName());
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+
     public User findUserByUsername(String username) throws UserNotFoundException {
         logger.entry(username);
 
@@ -125,7 +142,7 @@ public class UserDaoImpl implements UserDao {
             session.beginTransaction();
 
             // Retrieve a User object from the Database
-            Query query = session.createQuery("from User where username = :username ");
+            Query query = session.createQuery("from User where username = :username");
             query.setParameter("username", username);
 
             // user is equal to the first user object found

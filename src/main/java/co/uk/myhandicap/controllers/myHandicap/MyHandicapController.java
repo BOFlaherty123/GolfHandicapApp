@@ -1,10 +1,9 @@
 package main.java.co.uk.myhandicap.controllers.myHandicap;
 
+import main.java.co.uk.myhandicap.calculation.handicap.Handicap;
 import main.java.co.uk.myhandicap.calculation.handicap.HandicapCalculation;
-import main.java.co.uk.myhandicap.controllers.AbstractController;
 import main.java.co.uk.myhandicap.controllers.AppController;
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
-import main.java.co.uk.myhandicap.model.handicap.Handicap;
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
 import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.ScoreCardService;
@@ -29,14 +28,9 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value="/myHandicap")
-public class MyHandicapController extends AbstractController implements AppController {
+public class MyHandicapController implements AppController {
 
-    private final XLogger logger = initiateXLoggerInstance(MyHandicapController.class.getName());
-
-    @Override
-    protected XLogger initiateXLoggerInstance(String className) {
-        return XLoggerFactory.getXLogger(className);
-    }
+    private final XLogger logger = XLoggerFactory.getXLogger(MyHandicapController.class);
 
     @Autowired
     private HandicapCalculation handicapCalculation;
@@ -62,7 +56,8 @@ public class MyHandicapController extends AbstractController implements AppContr
 
             List<ScoreCard> scoreCardList = scoreCardService.retrieveUserScoredCardsById(user);
 
-            if(scoreCardList.size() == 0) {
+            // output message to user if there are no registered score cards
+            if(scoreCardList.isEmpty()) {
                 mav.addObject("noPlayerScoreCards", noPlayerScoreCards);
             }
 
@@ -70,7 +65,7 @@ public class MyHandicapController extends AbstractController implements AppContr
             mav.addObject("playerScoreCards", scoreCardList);
 
         } catch (UserNotFoundException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
 
         return mav;

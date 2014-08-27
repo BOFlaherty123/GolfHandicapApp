@@ -43,4 +43,9 @@ public class UserServiceImpl implements UserService {
     public User findUserByUsername(String username) throws UserNotFoundException {
         return userDAO.findUserByUsername(username);
     }
+
+    @Override
+    public User retrieveUserFromSecurityContext() {
+        return userDAO.retrieveUserFromSecurityContext();
+    }
 }

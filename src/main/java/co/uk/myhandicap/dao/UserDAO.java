@@ -13,4 +13,5 @@ public interface UserDao extends GenericDAO<User, Long> {
 
     public User retrieveUserById(Long userId);
 
+    User retrieveUserFromSecurityContext();
 }

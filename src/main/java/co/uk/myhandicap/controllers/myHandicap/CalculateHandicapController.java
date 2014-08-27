@@ -35,8 +35,7 @@ import static java.lang.String.format;
 @RequestMapping(value="/myHandicap")
 public class CalculateHandicapController implements AppController, AppFormController<ScoreCardDto> {
 
-    private static final XLogger logger = XLoggerFactory.getXLogger(CalculateHandicapController.class
-            .getName());
+    private static final XLogger logger = XLoggerFactory.getXLogger(CalculateHandicapController.class);
 
     @Autowired
     private Mapper mapper;

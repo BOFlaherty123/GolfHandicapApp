@@ -53,7 +53,7 @@ public class HandicapCalculation {
     private HandicapCalculation() {}
 
     /**
-     * calculate a players handicap
+     * calculate a players handicap.
      *
      * @param userId
      * @return
@@ -149,7 +149,7 @@ public class HandicapCalculation {
     }
 
     /**
-     * Retrieve the user from the database
+     * Retrieve the user from the database.
      *
      * @param userId
      * @return

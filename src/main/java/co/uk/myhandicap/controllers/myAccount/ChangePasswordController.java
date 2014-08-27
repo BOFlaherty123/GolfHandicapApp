@@ -46,6 +46,13 @@ public class ChangePasswordController implements AppController, AppFormControlle
     @Value("${myAccount.changePassword.failure}")
     private String failureMessage;
 
+    /**
+     * handleRequest for MyAccount/ChangePassword (GET).
+     *
+     * @param mav
+     * @param principal
+     * @return
+     */
     @Override
     @RequestMapping(value="/changeAccountPassword")
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
@@ -65,6 +72,14 @@ public class ChangePasswordController implements AppController, AppFormControlle
         return mav;
     }
 
+    /**
+     * submitFormRequest for MyAccount/ChangePassword (POST).
+     *
+     * @param mav
+     * @param changePassword
+     * @param errors
+     * @return
+     */
     @Override
     @RequestMapping(value="/changeAccountPassword/update")
     public ModelAndView submitFormRequest(ModelAndView mav, @Valid ChangePasswordDto changePassword,

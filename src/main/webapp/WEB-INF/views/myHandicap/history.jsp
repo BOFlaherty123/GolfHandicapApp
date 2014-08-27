@@ -77,17 +77,13 @@
                                 </c:if>
 
                                 <c:forEach var="scoreCard" varStatus="i" items="${playerScoreCards}">
-                                    <tr>
-                                        <td class="col-sm-3"><c:out value="${scoreCard.submittedDate}"/></td>
-                                    </tr>
-
                                     <c:forEach var="golfRound" items="${scoreCard.golfRounds}">
                                         <!-- Round Details -->
                                         <tr class="bg-success">
-                                            <th class="col-sm-2">Date of Play</th>
-                                            <th class="col-sm-2">Course Name</th>
-                                            <th class="col-sm-2">Course Par</th>
-                                            <th class="col-sm-2">Course SSS</th>
+                                            <th class="col-sm-3">Date of Play</th>
+                                            <th class="col-sm-3">Course Name</th>
+                                            <th class="col-sm-3">Course Par</th>
+                                            <th class="col-sm-3">Course SSS</th>
                                             <th/>
                                         </tr>
                                         <tr>
@@ -97,11 +93,11 @@
                                             <td><c:out value="${golfRound.courseSSS}"/></td>
                                         </tr>
                                         <tr>
-                                            <td onclick="displayHoleDataForRound(${i.index}, 'show')">Display Hole By Hole Data</td>
-                                            <td onclick="displayHoleDataForRound(${i.index}, 'hide')">Hide Hole By Hole Data</td>
+                                            <td onclick="displayHoleDataForRound(${i.index}, 'show')"><b>+</b> Display Hole By Hole Data</td>
+                                            <td onclick="displayHoleDataForRound(${i.index}, 'hide')"><b>-</b> Hide Hole By Hole Data</td>
                                         </tr>
                                         <!-- Hole by Hole -->
-                                        <tr id="golf_hole">
+                                        <tr id="golf_hole_${i.index}">
                                             <th class="col-sm-2">Hole</th>
                                             <th class="col-sm-2">Yards</th>
                                             <th class="col-sm-2">Par</th>
@@ -117,7 +113,6 @@
                                                 <td><c:out value="${holes.holeSSI}"/></td>
                                             </tr>
                                         </c:forEach>
-
                                     </c:forEach>
 
                                 </c:forEach>

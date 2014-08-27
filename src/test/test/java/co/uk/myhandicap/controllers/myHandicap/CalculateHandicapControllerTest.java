@@ -109,7 +109,7 @@ public class CalculateHandicapControllerTest {
 
 
     /**
-     * Case: ScoreCardDto is missing submittedDate & playerId
+     * Case: ScoreCardDto is missing submittedDate & playerId.
      * Result:
      *      .hasErrors()
      *      .errorCount(2)

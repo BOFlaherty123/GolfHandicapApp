@@ -44,6 +44,13 @@ public class MyHandicapController implements AppController {
     @Value("${calculateHandicap.noPlayerScoreCards}")
     private String noPlayerScoreCards;
 
+    /**
+     * handleRequest for myHandicap/history (GET).
+     *
+     * @param mav
+     * @param principal
+     * @return
+     */
     @Override
     @RequestMapping(value="/history")
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {

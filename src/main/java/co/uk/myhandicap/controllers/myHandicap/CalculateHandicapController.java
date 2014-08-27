@@ -46,6 +46,13 @@ public class CalculateHandicapController implements AppController, AppFormContro
     @Autowired
     private ScoreCardServiceImpl scoreCardService;
 
+    /**
+     * handleRequest for myHandicap/calculate (GET).
+     *
+     * @param mav
+     * @param principal
+     * @return
+     */
     @Override
     @RequestMapping(value="/calculate")
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
@@ -73,6 +80,14 @@ public class CalculateHandicapController implements AppController, AppFormContro
         return mav;
     }
 
+    /**
+     * submitFormRequest for myHandicap/submitRound (POST).
+     *
+     * @param mav
+     * @param scoreCard
+     * @param errors
+     * @return
+     */
     @Override
     @RequestMapping(value="/submitRound", method = RequestMethod.POST)
     public ModelAndView submitFormRequest(ModelAndView mav, @Valid ScoreCardDto scoreCard, BindingResult errors) {

@@ -31,7 +31,7 @@ public class GolfRound {
     private GolfRound() {}
 
     /**
-     * Loop through each Round on the players scorecard and process data
+     * Loop through each Round on the players scorecard and process data.
      *
      * @param score
      * @param roundsOfGolf

@@ -46,6 +46,13 @@ public class MyAccountController implements AppController, AppFormController<Per
     @Value("${myAccount.personal.failure}")
     private String failureMessage;
 
+    /**
+     * handleRequest for MyAccount/personalInformation (GET).
+     *
+     * @param mav
+     * @param principal
+     * @return
+     */
     @Override
     @RequestMapping(value="/personalInformation")
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
@@ -70,6 +77,14 @@ public class MyAccountController implements AppController, AppFormController<Per
         return mav;
     }
 
+    /**
+     * submitFormRequest for MyAccount/personalInformation (POST).
+     *
+     * @param mav
+     * @param form
+     * @param errors
+     * @return
+     */
     @Override
     @RequestMapping(value="/personalInformation/update")
     public ModelAndView submitFormRequest(ModelAndView mav, @Valid PersonalInformationDto form, BindingResult errors) {

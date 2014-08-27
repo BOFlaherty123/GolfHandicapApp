@@ -27,7 +27,7 @@ public class GolfHole {
     private GolfHole() {}
 
     /**
-     * loop through each hole and make the necessary adjustments to the players overal score
+     * loop through each hole and make the necessary adjustments to the players overal score.
      *
      * @param score
      * @param round
@@ -54,7 +54,7 @@ public class GolfHole {
     }
 
     /**
-     * CONGU adjustment (max +2 shot penalty per hole 'double bogey)
+     * CONGU adjustment (max +2 shot penalty per hole 'double bogey).
      *
      * @param hole
      */

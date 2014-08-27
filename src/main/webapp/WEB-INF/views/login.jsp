@@ -27,13 +27,11 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">
-                            Brand
-                        </a>
+                        <a class="navbar-brand" href="#"></a>
                     </div>
                     <div class="navbar-collapse collapse navbar-inverse-collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="${pageContext.request.contextPath}/">Home</a></li>
+                            <li><a href="${pageContext.request.contextPath}/">Home</a></li>
                             <li><a href="${pageContext.request.contextPath}/myHandicap/history">My Handicap</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
@@ -44,7 +42,7 @@
                                 </ul>
                             </li>
                             <li><a href="${pageContext.request.contextPath}/register">Register</a></li>
-                            <li><a href="${pageContext.request.contextPath}/login">Login</a></li>
+                            <li class="active"><a href="${pageContext.request.contextPath}/login">Login</a></li>
                             <li><a href="${pageContext.request.contextPath}/static/j_spring_security_logout">Logout</a></li>
                         </ul>
                     </div>

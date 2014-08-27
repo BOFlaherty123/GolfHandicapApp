@@ -48,6 +48,13 @@ public class UserRegistrationController implements AppController, AppFormControl
     @Value("${registerUser.failure}")
     private String failureMessage;
 
+    /**
+     * handleRequest for register (GET).
+     *
+     * @param mav
+     * @param principal
+     * @return
+     */
     @Override
     @RequestMapping(value="/register")
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
@@ -57,6 +64,14 @@ public class UserRegistrationController implements AppController, AppFormControl
         return mav;
     }
 
+    /**
+     *  submitFormRequest for registerUser (POST).
+     *
+     * @param mav
+     * @param user
+     * @param errors
+     * @return
+     */
     @Override
     @RequestMapping(value="/registerUser", method = RequestMethod.POST)
     public ModelAndView submitFormRequest(ModelAndView mav, @Valid UserRegistrationDto user, BindingResult errors) {

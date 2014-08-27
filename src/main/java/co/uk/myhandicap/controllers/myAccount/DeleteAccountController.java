@@ -22,6 +22,13 @@ import java.security.Principal;
 @RequestMapping(value="/myAccount")
 public class DeleteAccountController implements AppController, AppFormController<User> {
 
+    /**
+     * handleRequest for MyAccount/DeleteUserAccount (GET).
+     *
+     * @param mav
+     * @param principal
+     * @return
+     */
     @Override
     @RequestMapping(value="/deleteUserAccount")
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
@@ -29,7 +36,14 @@ public class DeleteAccountController implements AppController, AppFormController
         return mav;
     }
 
-    // TODO - code delete user controller
+    /**
+     * submitFormRequest for MyAccount/DeleteUserAccount (POST).
+     *
+     * @param mav
+     * @param user
+     * @param errors
+     * @return
+     */
     @Override
     public ModelAndView submitFormRequest(ModelAndView mav, @Valid User user, BindingResult errors) {
         return null;

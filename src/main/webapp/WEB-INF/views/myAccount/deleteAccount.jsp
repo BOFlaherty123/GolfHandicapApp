@@ -39,13 +39,13 @@
                     <div class="navbar-collapse collapse navbar-inverse-collapse">
                         <ul class="nav navbar-nav">
                             <li><a href="${pageContext.request.contextPath}/">Home</a></li>
-                            <li class="active"><a href="${pageContext.request.contextPath}/myHandicap/history">My Handicap</a></li>
-                            <li class="dropdown">
+                            <li><a href="${pageContext.request.contextPath}/myHandicap/history">My Handicap</a></li>
+                            <li class="dropdown active">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="${pageContext.request.contextPath}/myAccount/personalInformation">Personal Information</a></li>
                                     <li><a href="${pageContext.request.contextPath}/myAccount/changeAccountPassword">Change Password</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/myAccount/deleteUserAccount">Delete Account</a></li>
+                                    <li class="active"><a href="${pageContext.request.contextPath}/myAccount/deleteUserAccount">Delete Account</a></li>
                                 </ul>
                             </li>
                             <li><a href="${pageContext.request.contextPath}/static/j_spring_security_logout">Logout</a></li>

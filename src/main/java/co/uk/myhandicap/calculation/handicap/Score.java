@@ -71,6 +71,7 @@ public class Score {
     }
 
     public static String calculateHandicap(int size, BigDecimal total) {
+        // TODO - no not allow for a handicap above 28 (max 28)
         return total.divide(new BigDecimal(size), RoundingMode.HALF_UP).toString();
     }
 

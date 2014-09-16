@@ -1,5 +1,6 @@
 package test.java.co.uk.myhandicap.controllers.myAccount;
 
+import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +16,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.security.Principal;
+
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -48,14 +53,24 @@ public class MyAccountControllerTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
+    private final String USER = "TEST_PRINCIPAL";
+
+    Principal principal = new Principal() {
+        @Override
+        public String getName() {
+            return USER;
+        }};
+
     @Test
     public void myAccountControllerPersonalInformationRequestMapping() throws Exception {
 
-        mockMvc.perform(get("/myAccount/personalInformation"))
+        when(userService.findUserByUsername(USER)).thenReturn(new User());
+
+        mockMvc.perform(get("/myAccount/personalInformation").principal(principal))
                 .andExpect(status().isOk())
                 .andExpect(view().name("myAccount/personal"))
                 .andExpect(forwardedUrl("/WEB-INF/views/myAccount/personal.jsp"))
-                .andExpect(model().attributeExists("user"));
+                .andExpect(model().attributeExists("personalInformationDto"));
 
     }
 
@@ -71,17 +86,19 @@ public class MyAccountControllerTest {
     @Test
     public void submitAllPersonalInformationFormInputFields() throws Exception {
 
-        mockMvc.perform(post("/myAccount/personalInformation/update")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("firstName", "Test")
-                .param("lastName", "McTester")
-                .param("email", "test@test.com")
-        )
-                .andExpect(status().isOk())
-                .andExpect(view().name("myAccount/personal"))
-                .andExpect(forwardedUrl("/WEB-INF/views/myAccount/personal.jsp"))
-                .andExpect(model().hasNoErrors())
-                .andExpect(model().attribute("success", "Personal Information Successfully Updated."));
+        when(userService.retrieveUserById(anyLong())).thenReturn(new User());
+
+                mockMvc.perform(post("/myAccount/personalInformation/update")
+                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                                .param("firstName", "Test")
+                                .param("lastName", "McTester")
+                                .param("email", "test@test.com")
+                )
+                        .andExpect(status().isOk())
+                        .andExpect(view().name("myAccount/personal"))
+                        .andExpect(forwardedUrl("/WEB-INF/views/myAccount/personal.jsp"))
+                        .andExpect(model().hasNoErrors())
+                        .andExpect(model().attribute("success", "Personal Information Successfully Updated."));
 
     }
 

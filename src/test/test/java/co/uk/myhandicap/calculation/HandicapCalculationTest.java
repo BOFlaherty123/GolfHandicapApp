@@ -151,6 +151,7 @@ public class HandicapCalculationTest {
         when(golfRound.processRoundOfGolf(new Score(), scoreCardList.get(0).getGolfRounds(), adjustedScores)).thenReturn(test);
         when(scoreCardService.retrieveUserScoredCardsById(user)).thenReturn(scoreCardList);
 
+
         Handicap playerHandicap = processor.calculateUserHandicapScore(1L);
         assertEquals(fmt.print(new DateTime()), playerHandicap.getCalculatedOn());
         assertEquals("22", playerHandicap.getHandicapScore());

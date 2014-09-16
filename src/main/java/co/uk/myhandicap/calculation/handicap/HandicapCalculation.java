@@ -67,9 +67,11 @@ public class HandicapCalculation {
 
         // retrieve all score cards for the current user
         List<ScoreCard> scoreCardList = scoreCardService.retrieveUserScoredCardsById(getUser(userId));
+        System.out.println(scoreCardList.size());
 
         // retrieve all rounds of golf played by a user
         List<Round> roundsOfGolf = extractRoundsOfGolfFromScoreCard(scoreCardList);
+        System.out.println(roundsOfGolf.size());
 
         // calculate the users handicap for this Round of golf
         Handicap playerHandicap = calculateHandicapForRoundOfGolf(score, roundsOfGolf);
@@ -119,6 +121,7 @@ public class HandicapCalculation {
 
         // Setup a handicap object with default values
         Handicap playerHandicap = setupDefaultHandicap();
+        System.out.println("default player handicap: " + playerHandicap);
 
         if(!roundsOfGolf.isEmpty()) {
 
@@ -126,6 +129,7 @@ public class HandicapCalculation {
 
             // loop through each round of golf on the players scorecard
             adjustedScores = golfRound.processRoundOfGolf(score, roundsOfGolf, adjustedScores);
+            System.out.println("adjustedScores size: " + adjustedScores.size());
 
             // total all adjusted scores for each round of golf played by the user
             BigDecimal adjustedTotal = score.getAdjustmentTotal();

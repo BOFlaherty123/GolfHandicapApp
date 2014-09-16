@@ -1,5 +1,7 @@
 package test.java.co.uk.myhandicap.controllers.myHandicap;
 
+import main.java.co.uk.myhandicap.model.user.User;
+import main.java.co.uk.myhandicap.service.UserService;
 import main.java.co.uk.myhandicap.validation.validator.HoleValidator;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +15,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.security.Principal;
+
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -36,17 +41,30 @@ public class CalculateHandicapControllerTest {
     private WebApplicationContext webApplicationContext;
 
     @Autowired
-    private HoleValidator validator;  //my custom validator, bean defined in the app context
+    private HoleValidator holeValidator;  //my custom validator, bean defined in the app context
+
+    @Autowired
+    UserService userService;
 
     @Before
     public void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
+    private final String USER = "TEST_PRINCIPAL";
+
+    Principal principal = new Principal() {
+        @Override
+        public String getName() {
+            return USER;
+        }};
+
     @Test
     public void myHandicapControllerCalculateHandicapRequestMapping() throws Exception {
 
-        mockMvc.perform(get("/myHandicap/calculate"))
+        when(userService.findUserByUsername(principal.getName())).thenReturn(new User());
+
+        mockMvc.perform(get("/myHandicap/calculate").principal(principal))
                 .andExpect(status().isOk())
                 .andExpect(view().name("myHandicap/calculate"))
                 .andExpect(forwardedUrl("/WEB-INF/views/myHandicap/calculate.jsp"));
@@ -154,10 +172,14 @@ public class CalculateHandicapControllerTest {
                 .param("golfRounds[0].courseName", "Testing Course Name")
                 .param("golfRounds[0].coursePar", "72")
                 .param("golfRounds[0].holes[0].holePar", "3")
+                .param("golfRounds[0].holes[0].holeScore", "5")
+                .param("golfRounds[0].holes[0].holeSSI", "3")
+                .param("golfRounds[0].holes[0].holeYards", "250")
         )
+
                 .andExpect(status().isOk())
                 .andExpect(model().hasErrors())
-                .andExpect(model().errorCount(2))
+                .andExpect(model().errorCount(1))
                 .andExpect(view().name("myHandicap/calculate"));
 
     }

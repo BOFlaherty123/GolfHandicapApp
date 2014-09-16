@@ -15,7 +15,7 @@
         <constructor-arg value="org.dozer.Mapper"/>
     </bean>
 
-    <bean id="HoleValidator" class="org.mockito.Mockito" factory-method="mock">
+    <bean id="holeValidator" class="org.mockito.Mockito" factory-method="mock">
         <constructor-arg value="main.java.co.uk.myhandicap.validation.validator.HoleValidator"/>
     </bean>
 
@@ -26,5 +26,6 @@
     <bean id="golfRound" class="org.mockito.Mockito" factory-method="mock">
         <constructor-arg value="main.java.co.uk.myhandicap.calculation.handicap.GolfRound"/>
     </bean>
+
 
 </beans>

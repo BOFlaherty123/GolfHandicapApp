@@ -58,6 +58,9 @@ public class ChangePasswordController implements AppController, AppFormControlle
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
         mav.setViewName("myAccount/changePassword");
 
+        System.out.println(principal);
+        System.out.println(principal.getName());
+
         // retrieve the user
         User user = null;
         try {
@@ -91,10 +94,12 @@ public class ChangePasswordController implements AppController, AppFormControlle
                     errors.getErrorCount()));
 
         } else {
+
             User user = userService.retrieveUserFromSecurityContext();
 
             // Encrypt the users password
             String password = encryptUserPassword.encryptPassword(changePassword.getPassword());
+
             user.setPassword(password);
 
             userService.update(user);

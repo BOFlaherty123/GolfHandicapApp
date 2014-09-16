@@ -60,6 +60,9 @@ public class MyAccountController implements AppController, AppFormController<Per
 
         mav.setViewName("myAccount/personal");
 
+        System.out.println(principal.getName());
+        System.out.println(userService);
+
         // retrieve the user
         User user = null;
         try {

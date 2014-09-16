@@ -2,6 +2,7 @@ package main.java.co.uk.myhandicap.calculation.scoreanalysis.average;
 
 import main.java.co.uk.myhandicap.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Calculate a user's requested average
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @date Created on: 15/09/2014
  * @project MyHandicapApp
  */
+@Component
 public class CalculateRequestedAverage {
 
     @Autowired

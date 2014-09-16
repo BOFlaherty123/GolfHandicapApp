@@ -14,6 +14,8 @@ import java.util.List;
  */
 public interface AverageScore {
 
+    static final String ZERO = "0";
+
     String execute(User user, String averageRequested);
 
     String calculateAverage(List<ScoreCard> scoreCardList, String averageRequested);

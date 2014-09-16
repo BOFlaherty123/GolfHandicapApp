@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,37 +61,37 @@ public class AverageScoreByCourse extends AbstractCalculateAverage implements Av
         for(ScoreCard scoreCard : scoreCardList) {
 
             for(Round golfRound : scoreCard.getGolfRounds()) {
-                total = processRoundsOfGolfByCourseName(averageRequested, total, golfRound);
+                total = total.add(processRoundsOfGolfByCourseName(averageRequested, total, golfRound));
                 numberOfRounds++;
             }
         }
 
-        return calculate(total, numberOfRounds);
+        // if total is zero return, else calculate the user's avg score by course
+        return (total.signum() == 0 ) ?
+                ZERO : calculate(total, numberOfRounds);
+
     }
 
     /**
      *
+     *
      * @param averageRequested
-     * @param totalScore
+     * @param total
      * @param golfRound
      * @return
      */
-    private BigInteger processRoundsOfGolfByCourseName(String averageRequested, BigInteger totalScore, Round golfRound) {
-
-        List<Round> courseNameRounds = new ArrayList<>();
+    private BigInteger processRoundsOfGolfByCourseName(String averageRequested, BigInteger total, Round golfRound) {
 
         if(golfRound.getCourseName().equals(averageRequested)) {
 
-            courseNameRounds.add(golfRound);
-
-            for(Hole holeScore : golfRound.getHoles()) {
-                BigInteger score = new BigInteger(holeScore.getHoleScore());
-                totalScore = totalScore.add(score);
+            for(Hole hole : golfRound.getHoles()) {
+                BigInteger score = new BigInteger(hole.getHoleScore());
+                total = total.add(score);
             }
 
         }
 
-        return totalScore;
+        return total;
     }
 
 }

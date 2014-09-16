@@ -18,7 +18,7 @@ public abstract class AbstractCalculateAverage {
 
     protected String calculate(BigInteger total, int size) {
         // divide total of score by number of times played @ averageRequested
-        return String.valueOf(total.divide(new BigInteger(String.valueOf(2))));
+        return String.valueOf(total.divide(new BigInteger(String.valueOf(size))));
     }
 
 }

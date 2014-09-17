@@ -33,65 +33,62 @@ public class AverageScoreByCourse extends AbstractCalculateAverage implements Av
      */
     @Override
     public String execute(User user, String averageRequested) {
+
         // retrieve a scoreCard(s) for the user;
-        List<ScoreCard> scoreCardList = scoreCardDao.retrieveUserScoreCardById(user);
+        List<ScoreCard> scoreCardList = scoreCardDao.retrieveScoreCardAverageByGolfCourse(user, averageRequested);
 
         // calculate average score
-        return calculateAverage(scoreCardList, averageRequested);
+        return calculateAverage(scoreCardList);
     }
 
     @Override
-    public String calculateAverage(List<ScoreCard> scoreCardList, String averageRequested) {
+    public String calculateAverage(List scoreCardList) {
         // return average as String
-        return iterateOverRoundsOfGolf(scoreCardList, averageRequested);
+        return iterateOverRoundsOfGolf(scoreCardList);
     }
 
     /**
      * iterates over each round of golf and returns the average as a String (abstract method).
      *
      * @param scoreCardList
-     * @param averageRequested
      */
-    protected String iterateOverRoundsOfGolf(List<ScoreCard> scoreCardList, String averageRequested) {
+    private String iterateOverRoundsOfGolf(List<ScoreCard> scoreCardList) {
 
         // Default average value
-        BigInteger total = new BigInteger("0");
+        BigInteger totalScore = new BigInteger("0");
         int numberOfRounds = 0;
 
-        for(ScoreCard scoreCard : scoreCardList) {
-
-            for(Round golfRound : scoreCard.getGolfRounds()) {
-                total = total.add(processRoundsOfGolfByCourseName(averageRequested, total, golfRound));
-                numberOfRounds++;
+        if(scoreCardList != null) {
+            for (ScoreCard scoreCard : scoreCardList) {
+                for (Round golfRound : scoreCard.getGolfRounds()) {
+                    totalScore = totalScore.add(processRoundsOfGolfByCourseName(golfRound));
+                    numberOfRounds++;
+                }
             }
         }
 
         // if total is zero return, else calculate the user's avg score by course
-        return (total.signum() == 0 ) ?
-                ZERO : calculate(total, numberOfRounds);
+        return (totalScore.signum() == 0 ) ?
+                ZERO : calculate(totalScore, numberOfRounds);
 
     }
 
     /**
      *
      *
-     * @param averageRequested
-     * @param total
      * @param golfRound
      * @return
      */
-    private BigInteger processRoundsOfGolfByCourseName(String averageRequested, BigInteger total, Round golfRound) {
+    private BigInteger processRoundsOfGolfByCourseName(Round golfRound) {
 
-        if(golfRound.getCourseName().equals(averageRequested)) {
+        BigInteger roundTotal = new BigInteger("0");
 
-            for(Hole hole : golfRound.getHoles()) {
-                BigInteger score = new BigInteger(hole.getHoleScore());
-                total = total.add(score);
-            }
-
+        for(Hole hole : golfRound.getHoles()) {
+            BigInteger score = new BigInteger(hole.getHoleScore());
+            roundTotal = roundTotal.add(score);
         }
 
-        return total;
+        return roundTotal;
     }
 
 }

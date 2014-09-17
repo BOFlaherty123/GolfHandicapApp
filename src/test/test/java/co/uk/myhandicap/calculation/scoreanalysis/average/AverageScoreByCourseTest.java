@@ -44,7 +44,7 @@ public class AverageScoreByCourseTest extends AverageScoreTest {
         List<ScoreCard> list = new ArrayList<>();
         list.add(addScoreCard(1L, new ArrayList<Round>(), 2));
 
-        when(scoreCardDao.retrieveUserScoreCardById(user)).thenReturn(list);
+        when(scoreCardDao.retrieveScoreCardAverageByGolfCourse(user, "Course Name Here")).thenReturn(list);
 
         String average = averageScoreByCourse.execute(user, "Course Name Here");
         assertThat(average, notNullValue());
@@ -56,7 +56,7 @@ public class AverageScoreByCourseTest extends AverageScoreTest {
         List<ScoreCard> list = new ArrayList<>();
         list.add(addScoreCard(1L, new ArrayList<Round>(), 2));
 
-        when(scoreCardDao.retrieveUserScoreCardById(null)).thenReturn(null);
+        when(scoreCardDao.retrieveScoreCardAverageByGolfCourse(null, null)).thenReturn(null);
 
         String average = averageScoreByCourse.execute(user, "Course Name Here");
         assertThat(average, equalTo("0"));
@@ -68,7 +68,7 @@ public class AverageScoreByCourseTest extends AverageScoreTest {
         List<ScoreCard> list = new ArrayList<>();
         list.add(addScoreCard(1L, new ArrayList<Round>(), 2));
 
-        when(scoreCardDao.retrieveUserScoreCardById(null)).thenReturn(null);
+        when(scoreCardDao.retrieveScoreCardAverageByGolfCourse(user, "$%*$$%aaf^$*")).thenReturn(null);
 
         String average = averageScoreByCourse.execute(user, "$%*$$%aaf^$*");
         assertThat(average, equalTo("0"));

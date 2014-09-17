@@ -19,19 +19,18 @@ public class AverageScoreByHoleYardage extends AbstractCalculateAverage implemen
 
     @Override
     public String execute(User user, String averageRequested) {
-        return calculateAverage(new ArrayList<ScoreCard>(), averageRequested);
+        return calculateAverage(new ArrayList<ScoreCard>());
     }
 
     @Override
-    public String calculateAverage(List<ScoreCard> scoreCardList, String averageRequested) {
+    public String calculateAverage(List scoreCardList) {
 
         // averageRequested equals holeYardage parameter requested by the user
 
         return null;
     }
 
-    @Override
-    String iterateOverRoundsOfGolf(List<ScoreCard> scoreCardList, String averageRequested) {
+    String iterateOverRoundsOfGolf(List<ScoreCard> scoreCardList) {
         return null;
     }
 }

@@ -151,8 +151,6 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
             session.close();
         }
 
-        System.out.println("scoreCardList Size: " + scoreCardList.size());
-
         return scoreCardList;
 
     }

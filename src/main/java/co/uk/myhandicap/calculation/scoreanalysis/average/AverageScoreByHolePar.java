@@ -37,12 +37,12 @@ public class AverageScoreByHolePar extends AbstractCalculateAverage implements A
     private String iterateOverRoundsOfGolf(List<Hole> holeParList) {
 
         // Default average value
-        BigInteger total = new BigInteger("0");
+        BigInteger total = new BigInteger(ZERO);
         total = total.add(calculateTotalHoleScoreForGivenPar(total, holeParList));
 
         // if total is zero return, else calculate the user's avg score by par
-        return (total.signum() == 0 ) ?
-                "0" : calculate(total, numberOfHoles(holeParList));
+        return (total.signum() == 0) ?
+                ZERO : calculate(total, numberOfHoles(holeParList));
 
     }
 

@@ -55,7 +55,7 @@ public class AverageScoreByCourse extends AbstractCalculateAverage implements Av
     private String iterateOverRoundsOfGolf(List<ScoreCard> scoreCardList) {
 
         // Default average value
-        BigInteger totalScore = new BigInteger("0");
+        BigInteger totalScore = new BigInteger(ZERO);
         int numberOfRounds = 0;
 
         if(scoreCardList != null) {
@@ -68,7 +68,7 @@ public class AverageScoreByCourse extends AbstractCalculateAverage implements Av
         }
 
         // if total is zero return, else calculate the user's avg score by course
-        return (totalScore.signum() == 0 ) ?
+        return (totalScore.signum() == 0) ?
                 ZERO : calculate(totalScore, numberOfRounds);
 
     }
@@ -81,7 +81,7 @@ public class AverageScoreByCourse extends AbstractCalculateAverage implements Av
      */
     private BigInteger processRoundsOfGolfByCourseName(Round golfRound) {
 
-        BigInteger roundTotal = new BigInteger("0");
+        BigInteger roundTotal = new BigInteger(ZERO);
 
         for(Hole hole : golfRound.getHoles()) {
             BigInteger score = new BigInteger(hole.getHoleScore());

@@ -58,9 +58,6 @@ public class ChangePasswordController implements AppController, AppFormControlle
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
         mav.setViewName("myAccount/changePassword");
 
-        System.out.println(principal);
-        System.out.println(principal.getName());
-
         // retrieve the user
         User user = null;
         try {

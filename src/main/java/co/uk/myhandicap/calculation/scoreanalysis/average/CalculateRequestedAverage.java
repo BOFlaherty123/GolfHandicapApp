@@ -21,6 +21,14 @@ public class CalculateRequestedAverage {
     @Autowired
     private AverageScoreByHoleYardage averageScoreByHoleYardage;
 
+    /**
+     * determine which calculation class to use based on user selection
+     *
+     * @param userRequest
+     * @param user
+     * @param averageRequested
+     * @return
+     */
     public String process(String userRequest, User user, String averageRequested) {
         return (userRequest.equals("avgByHolePar")) ? averageScoreByHolePar.execute(user, averageRequested) :
                 (userRequest.equals("avgByCourse")) ?  averageScoreByCourse.execute(user, averageRequested) :

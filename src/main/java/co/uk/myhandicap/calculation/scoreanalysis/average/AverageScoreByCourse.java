@@ -8,7 +8,7 @@ import main.java.co.uk.myhandicap.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -44,7 +44,7 @@ public class AverageScoreByCourse extends AbstractCalculateAverage implements Av
     @Override
     public String calculateAverage(List scoreCardList) {
         // return average as String
-        return iterateOverRoundsOfGolf(scoreCardList);
+        return iterateOverAndProcessQueryResults(scoreCardList);
     }
 
     /**
@@ -52,10 +52,10 @@ public class AverageScoreByCourse extends AbstractCalculateAverage implements Av
      *
      * @param scoreCardList
      */
-    private String iterateOverRoundsOfGolf(List<ScoreCard> scoreCardList) {
+    private String iterateOverAndProcessQueryResults(List<ScoreCard> scoreCardList) {
 
         // Default average value
-        BigInteger totalScore = new BigInteger(ZERO);
+        BigDecimal totalScore = new BigDecimal(ZERO);
         int numberOfRounds = 0;
 
         if(scoreCardList != null) {
@@ -79,12 +79,12 @@ public class AverageScoreByCourse extends AbstractCalculateAverage implements Av
      * @param golfRound
      * @return
      */
-    private BigInteger processRoundsOfGolfByCourseName(Round golfRound) {
+    private BigDecimal processRoundsOfGolfByCourseName(Round golfRound) {
 
-        BigInteger roundTotal = new BigInteger(ZERO);
+        BigDecimal roundTotal = new BigDecimal(ZERO);
 
         for(Hole hole : golfRound.getHoles()) {
-            BigInteger score = new BigInteger(hole.getHoleScore());
+            BigDecimal score = new BigDecimal(hole.getHoleScore());
             roundTotal = roundTotal.add(score);
         }
 

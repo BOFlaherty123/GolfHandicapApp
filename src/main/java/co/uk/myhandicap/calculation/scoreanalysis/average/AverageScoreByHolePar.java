@@ -1,12 +1,12 @@
 package main.java.co.uk.myhandicap.calculation.scoreanalysis.average;
 
-import main.java.co.uk.myhandicap.dao.ScoreCardDao;
+import main.java.co.uk.myhandicap.dao.HoleDao;
 import main.java.co.uk.myhandicap.model.handicap.Hole;
 import main.java.co.uk.myhandicap.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -20,36 +20,42 @@ import java.util.List;
 public class AverageScoreByHolePar extends AbstractCalculateAverage implements AverageScore{
 
     @Autowired
-    private ScoreCardDao scoreCardDao = null;
+    private HoleDao holeDao = null;
 
     public String execute(User user, String averageRequested) {
         // retrieve a scoreCard(s) for the user;
-        List<Hole> holeParList = scoreCardDao.retrieveScoreCardAverageByHolePar(user, averageRequested);
+        List<Hole> holeParList = holeDao.retrieveHoleAverageByHolePar(user, averageRequested);
 
         return calculateAverage(holeParList);
     }
 
     public String calculateAverage(List holeParList) {
         // averageRequested equals holePar parameter requested by the user, valid values 3, 4 or 5
-        return iterateOverRoundsOfGolf(holeParList);
+        return iterateOverAndProcessQueryResults(holeParList);
     }
 
-    private String iterateOverRoundsOfGolf(List<Hole> holeParList) {
+    private String iterateOverAndProcessQueryResults(List<Hole> holeParList) {
 
         // Default average value
-        BigInteger total = new BigInteger(ZERO);
+        BigDecimal total = new BigDecimal(ZERO);
         total = total.add(calculateTotalHoleScoreForGivenPar(total, holeParList));
 
         // if total is zero return, else calculate the user's avg score by par
         return (total.signum() == 0) ?
                 ZERO : calculate(total, numberOfHoles(holeParList));
-
     }
 
-    private BigInteger calculateTotalHoleScoreForGivenPar(BigInteger total, List<Hole> holes) {
+    /**
+     * add the score of any given hole that matches the users par criteria to the overall total
+     *
+     * @param total
+     * @param holeParList
+     * @return
+     */
+    private BigDecimal calculateTotalHoleScoreForGivenPar(BigDecimal total, List<Hole> holeParList) {
 
-        for(Hole hole : holes) {
-            BigInteger score = new BigInteger(hole.getHoleScore());
+        for(Hole hole : holeParList) {
+            BigDecimal score = new BigDecimal(hole.getHoleScore());
             total = total.add(score);
         }
 

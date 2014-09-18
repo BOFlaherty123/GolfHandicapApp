@@ -1,6 +1,5 @@
 package main.java.co.uk.myhandicap.dao;
 
-import main.java.co.uk.myhandicap.model.handicap.Hole;
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
 import main.java.co.uk.myhandicap.model.user.User;
 import org.hibernate.Query;
@@ -121,38 +120,6 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
         }
 
         return scoreCardList;
-    }
-
-    // TODO - create & move this method to a new HoleDao class
-    @Override
-    public List<Hole> retrieveScoreCardAverageByHolePar(User user, String holePar) {
-
-        Session session = sessionFactory.openSession();
-
-        List<Hole> scoreCardList = new ArrayList<>();
-
-        try {
-
-            session.beginTransaction();
-
-            Query query = session.createQuery("select distinct holes from ScoreCard as scoreCard " +
-                    "inner join scoreCard.golfRounds as round " +
-                    "inner join round.holes as holes where scoreCard.playerId = :playerId and holes.holePar = :holePar");
-            query.setParameter("playerId", user.getId());
-            query.setParameter("holePar", holePar);
-
-            scoreCardList = query.list();
-
-            session.getTransaction().commit();
-
-        } catch(GenericJDBCException ex) {
-            logger.error("class=[" + this.getClass().getName() + "] method=[.save()]", ex);
-        } finally {
-            session.close();
-        }
-
-        return scoreCardList;
-
     }
 
 }

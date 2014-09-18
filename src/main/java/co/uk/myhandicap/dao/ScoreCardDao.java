@@ -1,6 +1,5 @@
 package main.java.co.uk.myhandicap.dao;
 
-import main.java.co.uk.myhandicap.model.handicap.Hole;
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
 import main.java.co.uk.myhandicap.model.user.User;
 
@@ -18,7 +17,5 @@ public interface ScoreCardDao extends GenericDAO<ScoreCard, Long> {
     List<ScoreCard> retrieveUserScoreCardById(User user);
 
     List<ScoreCard> retrieveScoreCardAverageByGolfCourse(User user, String courseName);
-
-    List<Hole> retrieveScoreCardAverageByHolePar(User user, String holePar);
 
 }

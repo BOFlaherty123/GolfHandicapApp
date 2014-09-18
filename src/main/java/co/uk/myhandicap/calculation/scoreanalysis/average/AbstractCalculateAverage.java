@@ -1,6 +1,7 @@
 package main.java.co.uk.myhandicap.calculation.scoreanalysis.average;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * Common behavior for AverageCalculation classes
@@ -11,9 +12,9 @@ import java.math.BigInteger;
  */
 public abstract class AbstractCalculateAverage {
 
-    protected String calculate(BigInteger total, int size) {
+    protected String calculate(BigDecimal total, int size) {
         // divide total of score by number of times played @ averageRequested
-        return String.valueOf(total.divide(new BigInteger(String.valueOf(size))));
+        return String.valueOf(total.divide(new BigDecimal(String.valueOf(size)), 2, RoundingMode.HALF_UP));
     }
 
 }

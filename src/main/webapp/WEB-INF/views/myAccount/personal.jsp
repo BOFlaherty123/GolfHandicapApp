@@ -42,6 +42,7 @@
                          <ul class="nav navbar-nav">
                              <li><a href="${pageContext.request.contextPath}/">Home</a></li>
                              <li><a href="${pageContext.request.contextPath}/myHandicap/history">My Handicap</a></li>
+                             <li><a href="${pageContext.request.contextPath}/scoreAnalysis">Analysis</a></li>
                              <li class="dropdown active">
                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
                                  <ul class="dropdown-menu">

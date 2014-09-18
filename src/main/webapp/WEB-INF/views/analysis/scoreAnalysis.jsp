@@ -130,7 +130,7 @@
                                 <p>
                                     <label for="selectedYardage">Hole Yardage:</label>
                                     <input type="text" id="selectedYardage" readonly style="font-weight:bold;">
-                                    <a id="calculateYardage" href="${pageContext.request.contextPath}/scoreAnalysis/averageYardage">Calculate</a>
+                                    <a id="calculateYardage" href="#">Calculate</a>
                                 </p>
                             </div>
 

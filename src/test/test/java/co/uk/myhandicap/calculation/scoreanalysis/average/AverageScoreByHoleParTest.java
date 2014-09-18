@@ -35,7 +35,7 @@ public class AverageScoreByHoleParTest extends AverageScoreTest {
     private User user;
 
     @Mock
-    private HoleDao scoreCardDao;
+    private HoleDao holeDao;
 
     @Test
     public void executeWithTwoGolfRoundsForAverageScoreOnPar3ReturnValidAverageValue() {
@@ -43,7 +43,7 @@ public class AverageScoreByHoleParTest extends AverageScoreTest {
         List<Hole> list = new ArrayList<>();
         setupHoles(list, 18, "3");
 
-        when(scoreCardDao.retrieveHoleAverageByHolePar(user, "3")).thenReturn(list);
+        when(holeDao.retrieveHoleAverageByHolePar(user, "3")).thenReturn(list);
 
         String average = averageScoreByHolePar.execute(user, "3");
         assertThat(average, notNullValue());
@@ -56,7 +56,7 @@ public class AverageScoreByHoleParTest extends AverageScoreTest {
         List list = new ArrayList<>();
         setupHoles(list, 36, "4");
 
-        when(scoreCardDao.retrieveHoleAverageByHolePar(user, "4")).thenReturn(list);
+        when(holeDao.retrieveHoleAverageByHolePar(user, "4")).thenReturn(list);
 
         String average = averageScoreByHolePar.execute(user, "4");
         assertThat(average, notNullValue());
@@ -69,7 +69,7 @@ public class AverageScoreByHoleParTest extends AverageScoreTest {
         List list = new ArrayList<>();
         setupHoles(list, 12, "5");
 
-        when(scoreCardDao.retrieveHoleAverageByHolePar(user, "5")).thenReturn(list);
+        when(holeDao.retrieveHoleAverageByHolePar(user, "5")).thenReturn(list);
 
         String average = averageScoreByHolePar.execute(user, "5");
         assertThat(average, notNullValue());
@@ -82,7 +82,7 @@ public class AverageScoreByHoleParTest extends AverageScoreTest {
         List list = new ArrayList<>();
         setupHoles(list, 0, "-");
 
-        when(scoreCardDao.retrieveHoleAverageByHolePar(user, "-")).thenReturn(list);
+        when(holeDao.retrieveHoleAverageByHolePar(user, "-")).thenReturn(list);
 
         String average = averageScoreByHolePar.execute(user, "-");
         assertThat(average, equalTo("0"));

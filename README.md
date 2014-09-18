@@ -7,4 +7,5 @@ The application is written predominately in Java, using the Spring (MVC) framewo
 - Bootstrap 3
 - Spring Security
 - Logback / Perf4J / XLogger
+- Mockito (Junit)
 

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 /**
- * Common behavior for AverageCalculation classes
+ * Common behavior for AverageCalculation classes.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 16/09/2014

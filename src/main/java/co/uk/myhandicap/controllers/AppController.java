@@ -5,7 +5,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal;
 
 /**
- * Description Here
+ * Interface for common method for all controllers
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 15/07/14

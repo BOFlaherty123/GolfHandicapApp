@@ -49,7 +49,7 @@ public class AverageScoreByHoleYardage extends AbstractCalculateAverage implemen
     }
 
     /**
-     * add the score of any given hole that matches the users par criteria to the overall total
+     * add the score of any given hole that matches the users par criteria to the overall total.
      *
      * @param total
      * @param holeParList
@@ -66,7 +66,7 @@ public class AverageScoreByHoleYardage extends AbstractCalculateAverage implemen
     }
 
     /**
-     * determines the number of holes with a registered score that match the averageRequested parameter
+     * determines the number of holes with a registered score that match the averageRequested parameter.
      *
      * @return
      */

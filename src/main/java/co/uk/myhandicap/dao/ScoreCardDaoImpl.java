@@ -122,4 +122,32 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
         return scoreCardList;
     }
 
+    @Override
+    public List<String> retrieveAllGolfCourseNamesForUserByScoreCard(User user) {
+
+        Session session = sessionFactory.openSession();
+
+        List<String> golfCourseNames = new ArrayList<>();
+
+        try {
+
+            session.beginTransaction();
+
+            Query query = session.createQuery("select distinct round.courseName from ScoreCard as scoreCard " +
+                    "inner join scoreCard.golfRounds as round where scoreCard.playerId = :playerId");
+            query.setParameter("playerId", user.getId());
+
+            golfCourseNames = query.list();
+
+            session.getTransaction().commit();
+
+        } catch(GenericJDBCException ex) {
+            logger.error("class=[" + this.getClass().getName() + "] method=[.save()]", ex);
+        } finally {
+            session.close();
+        }
+
+        return golfCourseNames;
+    }
+
 }

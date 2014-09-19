@@ -2,6 +2,7 @@ package main.java.co.uk.myhandicap.controllers.scoreanalysis;
 
 import main.java.co.uk.myhandicap.calculation.scoreanalysis.average.CalculateRequestedAverage;
 import main.java.co.uk.myhandicap.controllers.AppController;
+import main.java.co.uk.myhandicap.dao.ScoreCardDao;
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.UserService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.List;
 
 /**
  * Score Analysis Controller
@@ -31,19 +33,33 @@ public class ScoreAnalysisController implements AppController {
     private UserService userService;
     @Autowired
     private CalculateRequestedAverage calculateRequestedAverage;
+    @Autowired
+    private ScoreCardDao scoreCardDao;
 
     @Override
     @RequestMapping(value="/scoreAnalysis")
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
-        return new ModelAndView("analysis/scoreAnalysis");
-    }
-
-    @RequestMapping(value="scoreAnalysis/averageCourseName")
-    public ModelAndView averageByCourseName(ModelAndView mav, Principal principal) {
 
         mav = new ModelAndView("analysis/scoreAnalysis");
+
+        // retrieve golf courses the user has played
+        mav.addObject("golfCourseNames", retrieveGolfCourseNamesForUser(principal));
+
+        return mav;
+    }
+
+
+    @RequestMapping(value="/scoreAnalysis/averageCourseName/{userInput}")
+    public ModelAndView averageByCourseName(@PathVariable("userInput") String userInput,
+                                            ModelAndView mav, Principal principal) {
+
+        mav = new ModelAndView("analysis/scoreAnalysis");
+
         // calculate and add returned average to model
-        mav.addObject("avgByCourseName", calculateAverage("avgByCourse", "Rivenhall Oaks", principal));
+        mav.addObject("avgByCourseName", calculateAverage("avgByCourse", userInput, principal));
+
+        // retrieve golf courses the user has played
+        mav.addObject("golfCourseNames", retrieveGolfCourseNamesForUser(principal));
 
         return mav;
     }
@@ -55,6 +71,9 @@ public class ScoreAnalysisController implements AppController {
         // calculate and add returned average to model
         mav.addObject("avgByHolePar", calculateAverage("avgByHolePar", userInput, principal));
 
+        // retrieve golf courses the user has played
+        mav.addObject("golfCourseNames", retrieveGolfCourseNamesForUser(principal));
+
         return mav;
     }
 
@@ -64,6 +83,9 @@ public class ScoreAnalysisController implements AppController {
         mav = new ModelAndView("analysis/scoreAnalysis");
         // calculate and add returned average to model
         mav.addObject("avgByHoleYardage", calculateAverage("avgByHoleYardage", userInput, principal));
+
+        // retrieve golf courses the user has played
+        mav.addObject("golfCourseNames", retrieveGolfCourseNamesForUser(principal));
 
         return mav;
     }
@@ -77,18 +99,36 @@ public class ScoreAnalysisController implements AppController {
      * @return
      */
     private String calculateAverage(String typeOfAvg, String userInput, Principal principal) {
+        return calculateRequestedAverage.process(typeOfAvg, retrieveUserByPrinciple(principal), userInput);
+    }
 
-        User user = null; String average = null;
+    /**
+     * retrieve the user object by principle.
+     *
+     * @param principal
+     * @return
+     */
+    private User retrieveUserByPrinciple(Principal principal) {
+
+        User user = null;
 
         try {
             user = userService.findUserByUsername(principal.getName());
-            // determine which average processor to use
-            average = calculateRequestedAverage.process(typeOfAvg, user, userInput);
         } catch (UserNotFoundException e) {
             e.printStackTrace();
         }
 
-        return average;
+        return user;
+    }
+
+    /**
+     * retrieve all distinct golf course names that a user has submitted.
+     *
+     * @param principal
+     * @return
+     */
+    private List<String> retrieveGolfCourseNamesForUser(Principal principal) {
+        return scoreCardDao.retrieveAllGolfCourseNamesForUserByScoreCard(retrieveUserByPrinciple(principal));
     }
 
 }

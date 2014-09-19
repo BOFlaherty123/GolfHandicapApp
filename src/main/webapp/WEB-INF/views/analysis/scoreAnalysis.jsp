@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <html>
     <head>
         <title>Score Analysis</title>
@@ -82,17 +83,32 @@
                             <legend>Average Score, By Course</legend>
 
                             <div id="input-hole-courseName">
-                                <p>
-                                    <label for="selectedCourse">Course Name:</label>
-                                    <input id="selectedCourse" name="selectedCourse" type="text" value="" min="20" max="50"/>
+                                <table class="table">
+                                    <tr>
+                                        <td>
+                                            <label for="courseNameSelection">Select Golf Course:</label>
 
-                                    <a id="calculateAvgByCourseName" href="${pageContext.request.contextPath}/scoreAnalysis/averageCourseName">Calculate</a>
-                                </p>
+                                            <!-- Golf Course Name Dropdown Menu -->
+                                            <select id="courseNameSelection">
+                                                <option value="#">Please Select a Course...</option>
+
+                                                <c:forEach var="courseName" items="${golfCourseNames}">
+                                                    <option value="${courseName}">${courseName}</option>
+                                                </c:forEach>
+                                            </select>
+
+                                            <input id="selectedCourse" name="selectedCourse" type="text" readonly value="" min="20" max="50"/>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-primary" id="calculateAvgByCourseName" href="#">Calculate</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><h1><b>${avgByCourseName}</b></h1></td>
+                                    </tr>
+                                </table>
+
                             </div>
-
-                            <p>
-                                <h1><b>${avgByCourseName}</b></h1>
-                            </p>
 
                         </fieldset>
                     </div>
@@ -102,19 +118,27 @@
                         <fieldset>
                             <legend>Average Score, By Hole Par</legend>
 
-                            <div id="slider-hole-par"></div>
-
                             <div id="input-hole-par">
-                                <p>
-                                    <label for="selectedPar">Hole Par:</label>
-                                    <input type="text" id="selectedPar" readonly style="font-weight:bold;">
-                                    <a id="calculatePar" href="#">Calculate</a>
-                                </p>
+                                <table class="table">
+                                    <tr>
+                                        <div id="slider-hole-par"></div>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label for="selectedPar">Hole Par:</label>
+                                            <input type="text" id="selectedPar" readonly style="font-weight:bold;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a class="btn btn-primary" id="calculatePar" href="#">Calculate</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><h1><b>${avgByHolePar}</b></h1></td>
+                                    </tr>
+                                </table>
                             </div>
-
-                            <p>
-                                <h1><b>${avgByHolePar}</b></h1>
-                            </p>
 
                         </fieldset>
                     </div>
@@ -124,19 +148,29 @@
                         <fieldset>
                             <legend>Average Score, By Hole Yardage</legend>
 
-                            <div id="slider-hole-yardage"></div>
-
                             <div id="input-hole-yardage">
-                                <p>
-                                    <label for="selectedYardage">Hole Yardage:</label>
-                                    <input type="text" id="selectedYardage" readonly style="font-weight:bold;">
-                                    <a id="calculateYardage" href="#">Calculate</a>
-                                </p>
-                            </div>
 
-                            <p>
-                                <h1><b>${avgByHoleYardage}</b></h1>
-                            </p>
+                                <table class="table">
+                                    <tr>
+                                        <div id="slider-hole-yardage"></div>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label for="selectedYardage">Hole Yardage:</label>
+                                            <input type="text" id="selectedYardage" readonly style="font-weight:bold;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a class="btn btn-primary" id="calculateYardage" href="#">Calculate</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><h1><b>${avgByHoleYardage}</b></h1></td>
+                                    </tr>
+                                </table>
+
+                            </div>
 
                         </fieldset>
                     </div>

@@ -18,4 +18,5 @@ public interface ScoreCardDao extends GenericDAO<ScoreCard, Long> {
 
     List<ScoreCard> retrieveScoreCardAverageByGolfCourse(User user, String courseName);
 
+    List<String> retrieveAllGolfCourseNamesForUserByScoreCard(User user);
 }

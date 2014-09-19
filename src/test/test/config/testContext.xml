@@ -27,5 +27,8 @@
         <constructor-arg value="main.java.co.uk.myhandicap.calculation.handicap.GolfRound"/>
     </bean>
 
+    <bean id="calculateRequestedAverage" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="main.java.co.uk.myhandicap.calculation.scoreanalysis.average.CalculateRequestedAverage"/>
+    </bean>
 
 </beans>

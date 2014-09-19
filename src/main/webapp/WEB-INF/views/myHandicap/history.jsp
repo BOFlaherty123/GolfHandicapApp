@@ -66,7 +66,15 @@
                     <fieldset>
                         <legend>History</legend>
 
-                        <h2><c:out value="${playerHandicap.handicapScore}"/></h2>
+                        <table>
+                            <tr>
+                                <td>
+                                    <h3>Player Handicap</h3>
+                                <td>
+                                    <h1><c:out value="${playerHandicap.handicapScore}"/></h1>
+                                </td>
+                            </tr>
+                        </table>
 
                         <div class="table-responsive">
                             <table class="table table-condensed">

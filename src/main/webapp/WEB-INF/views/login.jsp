@@ -12,6 +12,9 @@
         <!-- Bootstrap -->
         <link href="${pageContext.request.contextPath}/resources/style/bootstrap/bootstrap.css" rel="stylesheet">
 
+        <!-- CSS -->
+        <link href="${pageContext.request.contextPath}/resources/css/template.css" rel="stylesheet">
+
     </head>
 
     <body>
@@ -48,51 +51,54 @@
                     </div>
                 </div>
 
-                <div class="row">
+            </div>
 
-                    <spring:url var="authUrl" value="/static/j_spring_security_check" />
+            <div class="row" style="background-color: #ecf0f1">
 
-                    <div class="col-md-2"></div>
+                <spring:url var="authUrl" value="/static/j_spring_security_check" />
 
-                    <div class="col-md-8">
-                        <form method="post" action="${authUrl}">
+                <div class="col-md-2"></div>
 
-                            <fieldset>
-                                <legend>Login</legend>
+                <div class="col-md-8">
+                    <form method="post" action="${authUrl}">
 
-                                <table class="table table-condensed">
+                        <fieldset>
+                            <legend>Login</legend>
 
-                                    <tr>
-                                        <th>Username: </th>
-                                        <td>
-                                            <input id=username_or_email" name="j_username" type="text"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Password: </th>
-                                        <td>
-                                            <input id="password" name="j_password" type="password"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input name="submit" type="submit" value="Login"/>
-                                        </td>
-                                    </tr>
+                            <table class="table table-condensed">
 
-                                </table>
+                                <tr>
+                                    <th>Username: </th>
+                                    <td>
+                                        <input id=username_or_email" name="j_username" type="text"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Password: </th>
+                                    <td>
+                                        <input id="password" name="j_password" type="password"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input name="submit" type="submit" value="Login"/>
+                                    </td>
+                                </tr>
 
-                            </fieldset>
-                        </form>
-                    </div>
+                            </table>
 
-                    <div class="col-md-2"></div>
-
+                        </fieldset>
+                    </form>
                 </div>
+
+                <div class="col-md-2"></div>
 
             </div>
 
+            <jsp:include page="common/footer.jsp"/>
+
         </div>
+
     </body>
 
 </html>

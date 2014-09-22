@@ -12,9 +12,17 @@ import java.math.RoundingMode;
  */
 public abstract class AbstractCalculateAverage {
 
-    protected String calculate(BigDecimal total, int size) {
+    /**
+     * calculate an average score, to a set number of decimal places
+     *
+     * @param total
+     * @param size
+     * @param decimalPlaces
+     * @return
+     */
+    protected String calculate(BigDecimal total, int size, int decimalPlaces) {
         // divide total of score by number of times played @ averageRequested
-        return String.valueOf(total.divide(new BigDecimal(String.valueOf(size)), 2, RoundingMode.HALF_UP));
+        return String.valueOf(total.divide(new BigDecimal(String.valueOf(size)), decimalPlaces, RoundingMode.HALF_UP));
     }
 
 }

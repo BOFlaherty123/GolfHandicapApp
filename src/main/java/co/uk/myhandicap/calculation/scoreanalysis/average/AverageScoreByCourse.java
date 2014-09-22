@@ -69,7 +69,7 @@ public class AverageScoreByCourse extends AbstractCalculateAverage implements Av
 
         // if total is zero return, else calculate the user's avg score by course
         return (totalScore.signum() == 0) ?
-                ZERO : calculate(totalScore, numberOfRounds);
+                ZERO : calculate(totalScore, numberOfRounds, 0);
 
     }
 

@@ -25,9 +25,6 @@ import java.util.List;
 @Controller
 public class ScoreAnalysisController implements AppController {
 
-    // average score (par 3, 4 & 5) - course, par, score(s), average, user/player
-    // average score by length of hole - course, hole yardage, score(s), average, user/player
-    // average score by golf course - course, course total(s), average, user/player
     // best/worst holes on courses played more than once.
     @Autowired
     private UserService userService;
@@ -36,6 +33,8 @@ public class ScoreAnalysisController implements AppController {
     @Autowired
     private ScoreCardDao scoreCardDao;
 
+    private static final String GOLF_COURSE_NAMES_ATTR = "golfCourseNames";
+
     @Override
     @RequestMapping(value="/scoreAnalysis")
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
@@ -43,11 +42,10 @@ public class ScoreAnalysisController implements AppController {
         mav = new ModelAndView("analysis/scoreAnalysis");
 
         // retrieve golf courses the user has played
-        mav.addObject("golfCourseNames", retrieveGolfCourseNamesForUser(principal));
+        mav.addObject(GOLF_COURSE_NAMES_ATTR, retrieveGolfCourseNamesForUser(principal));
 
         return mav;
     }
-
 
     @RequestMapping(value="/scoreAnalysis/averageCourseName/{userInput}")
     public ModelAndView averageByCourseName(@PathVariable("userInput") String userInput,
@@ -59,7 +57,7 @@ public class ScoreAnalysisController implements AppController {
         mav.addObject("avgByCourseName", calculateAverage("avgByCourse", userInput, principal));
 
         // retrieve golf courses the user has played
-        mav.addObject("golfCourseNames", retrieveGolfCourseNamesForUser(principal));
+        mav.addObject(GOLF_COURSE_NAMES_ATTR, retrieveGolfCourseNamesForUser(principal));
 
         return mav;
     }
@@ -72,7 +70,7 @@ public class ScoreAnalysisController implements AppController {
         mav.addObject("avgByHolePar", calculateAverage("avgByHolePar", userInput, principal));
 
         // retrieve golf courses the user has played
-        mav.addObject("golfCourseNames", retrieveGolfCourseNamesForUser(principal));
+        mav.addObject(GOLF_COURSE_NAMES_ATTR, retrieveGolfCourseNamesForUser(principal));
 
         return mav;
     }
@@ -85,7 +83,7 @@ public class ScoreAnalysisController implements AppController {
         mav.addObject("avgByHoleYardage", calculateAverage("avgByHoleYardage", userInput, principal));
 
         // retrieve golf courses the user has played
-        mav.addObject("golfCourseNames", retrieveGolfCourseNamesForUser(principal));
+        mav.addObject(GOLF_COURSE_NAMES_ATTR, retrieveGolfCourseNamesForUser(principal));
 
         return mav;
     }

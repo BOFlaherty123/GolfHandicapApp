@@ -12,7 +12,7 @@ import java.util.List;
  * @date Created on: 18/09/2014
  * @project MyHandicapApp
  */
-public interface HoleDao extends GenericDAO<Hole, Long> {
+public interface HoleDao extends GenericDao<Hole, Long> {
 
     List<Hole> retrieveHoleAverageByHolePar(User user, String holePar);
 

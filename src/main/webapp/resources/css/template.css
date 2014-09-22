@@ -1,0 +1,16 @@
+.footer {
+    position: fixed;
+    height: 40px;
+    bottom: 0;
+    width: 92%;
+    background-color: #ecf0f1;
+    margin-right: 5%;
+}
+
+.averageDiv {
+    padding-top: 2%;
+}
+
+#input-hole-courseName, #input-hole-par, #input-hole-yardage {
+    padding: 2%
+}

@@ -21,17 +21,8 @@
         <link href="${pageContext.request.contextPath}/resources/style/bootstrap/bootstrap.css" rel="stylesheet">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
 
-        <style>
-
-            .averageDiv {
-                padding: 2%;
-            }
-
-            #input-hole-courseName, #input-hole-par, #input-hole-yardage {
-                padding: 2%
-            }
-
-        </style>
+        <!-- CSS -->
+        <link href="${pageContext.request.contextPath}/resources/css/template.css" rel="stylesheet">
 
     </head>
 
@@ -65,7 +56,9 @@
                                     <li><a href="${pageContext.request.contextPath}/myAccount/deleteUserAccount">Delete Account</a></li>
                                 </ul>
                             </li>
-                            <li><a href="${pageContext.request.contextPath}/static/j_spring_security_logout">Logout</a></li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/static/j_spring_security_logout">Logout</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -80,7 +73,7 @@
                     <div class="averageDiv">
                         <!-- Average Score, by Course -->
                         <fieldset>
-                            <legend>Average Score, By Course</legend>
+                            <legend>Average Total Score, By Course</legend>
 
                             <div id="input-hole-courseName">
                                 <table class="table">
@@ -107,11 +100,22 @@
                                         <td><h1><b>${avgByCourseName}</b></h1></td>
                                     </tr>
                                 </table>
-
                             </div>
 
                         </fieldset>
                     </div>
+
+                    <div class="col-md-2"></div>
+
+                </div>
+
+            </div>
+
+            <div class="row" style="background-color: #ecf0f1">
+
+                <div class="col-md-2"></div>
+
+                <div class="col-md-4">
 
                     <div class="averageDiv">
                         <!-- Average Score, by Hole Par -->
@@ -143,13 +147,16 @@
                         </fieldset>
                     </div>
 
+                </div>
+
+                <div class="col-md-4">
+
                     <div class="averageDiv">
                         <!-- Average Score, by Hole Par -->
                         <fieldset>
                             <legend>Average Score, By Hole Yardage</legend>
 
                             <div id="input-hole-yardage">
-
                                 <table class="table">
                                     <tr>
                                         <div id="slider-hole-yardage"></div>
@@ -169,9 +176,7 @@
                                         <td><h1><b>${avgByHoleYardage}</b></h1></td>
                                     </tr>
                                 </table>
-
                             </div>
-
                         </fieldset>
                     </div>
 
@@ -180,6 +185,13 @@
                 <div class="col-md-2"></div>
 
             </div>
+
+            <div class="row">
+                <div class="footer">
+                    <p style="text-align: center">Footer Links Go here</p>
+                </div>
+            </div>
+
         </div>
     </body>
 

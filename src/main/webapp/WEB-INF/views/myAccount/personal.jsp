@@ -19,6 +19,10 @@
 
         <!-- Bootstrap -->
         <link href="${pageContext.request.contextPath}/resources/style/bootstrap/bootstrap.css" rel="stylesheet">
+
+        <!-- CSS -->
+        <link href="${pageContext.request.contextPath}/resources/css/template.css" rel="stylesheet">
+
     </head>
 
     <body>
@@ -96,7 +100,6 @@
                              <!-- Address Information -->
                              <div class="form-group">
 
-
                              </div>
                              <!-- Error Status Output -->
                              <c:if test="${not empty success}">
@@ -122,6 +125,9 @@
                  <div class="col-md-2"></div>
 
              </div>
+
+            <jsp:include page="../common/footer.jsp"/>
+
         </div>
     </body>
 </html>

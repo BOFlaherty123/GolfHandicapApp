@@ -45,7 +45,7 @@ public class AverageScoreByHoleYardage extends AbstractCalculateAverage implemen
 
         // if total is zero return, else calculate the user's avg score by par
         return (total.signum() == 0) ?
-                ZERO : calculate(total, numberOfHoles(holeParList));
+                ZERO : calculate(total, numberOfHoles(holeParList), 2);
     }
 
     /**

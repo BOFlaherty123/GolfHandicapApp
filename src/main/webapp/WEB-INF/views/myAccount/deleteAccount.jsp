@@ -18,6 +18,9 @@
         <!-- Bootstrap -->
         <link href="${pageContext.request.contextPath}/resources/style/bootstrap/bootstrap.css" rel="stylesheet">
 
+        <!-- CSS -->
+        <link href="${pageContext.request.contextPath}/resources/css/template.css" rel="stylesheet">
+
     </head>
     <body>
 
@@ -54,6 +57,9 @@
                     </div>
                 </div>
             </div>
+
+            <jsp:include page="../common/footer.jsp"/>
+
         </div>
 
     </body>

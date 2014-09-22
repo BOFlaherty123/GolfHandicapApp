@@ -17,6 +17,10 @@
 
         <!-- Bootstrap -->
         <link href="${pageContext.request.contextPath}/resources/style/bootstrap/bootstrap.css" rel="stylesheet">
+
+        <!-- CSS -->
+        <link href="${pageContext.request.contextPath}/resources/css/template.css" rel="stylesheet">
+
     </head>
 
     <body>
@@ -57,7 +61,7 @@
                 </div>
 
                 <div class="jumbotron">
-                    <h1>Large Header</h1>
+                    <h1>Submit Score Card</h1>
                     <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
                     <p><a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/myHandicap/calculate">Calculate Handicap</a></p>
                 </div>
@@ -66,7 +70,7 @@
 
             <div class="row">
 
-                <h2>Testing Header</h2>
+                <h2>How we calculate your handicap</h2>
 
                 <p>
                     Test Test Test TestTest TestTest TestTest TestTest TestTest TestTest TestTest TestTest TestTest Test
@@ -74,14 +78,27 @@
                     Test TestTest Test Test TestTest TestTest TestTest TestTest TestTest TestTest TestTest TestTest Test
                     Test TestTest Test Test TestTest TestTest TestTest TestTest TestTest TestTest TestTest TestTest Test
                     Test TestTest Test Test TestTest TestTest TestTest TestTest TestTest TestTest TestTest TestTest Test
+
+                     <div class="well">
+                        Calculation example goes here.
+                     </div>
+
+                    Test TestTest Test Test TestTest TestTest TestTest TestTest TestTest TestTest TestTest TestTest Test
+                    Test TestTest Test Test TestTest TestTest TestTest TestTest TestTest TestTest TestTest TestTest Test
+                    Test TestTest Test Test TestTest TestTest TestTest TestTest TestTest TestTest TestTest TestTest Test
+
                 </p>
 
+            </div>
+
+            <div class="row">
                 <blockquote class="pull-right">
                     <p>I have a tip that can take five strokes off anyone's game: It's called an eraser.</p>
                     <footer>Arnold Palmer</footer>
                 </blockquote>
-
             </div>
+
+            <jsp:include page="common/footer.jsp"/>
 
         </div>
 

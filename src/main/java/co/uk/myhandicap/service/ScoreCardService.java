@@ -16,5 +16,4 @@ public interface ScoreCardService extends GenericService<ScoreCard,Long> {
 
     List<ScoreCard> retrieveUserScoredCardsById(User user);
 
-
 }

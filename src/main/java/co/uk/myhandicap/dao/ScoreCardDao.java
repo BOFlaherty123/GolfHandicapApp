@@ -12,7 +12,7 @@ import java.util.List;
  * @date Created on: 11/07/14
  * @project MyHandicapApp
  */
-public interface ScoreCardDao extends GenericDAO<ScoreCard, Long> {
+public interface ScoreCardDao extends GenericDao<ScoreCard, Long> {
 
     List<ScoreCard> retrieveUserScoreCardById(User user);
 

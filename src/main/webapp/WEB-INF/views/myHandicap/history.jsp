@@ -22,6 +22,9 @@
         <!-- Javascript -->
         <script src="${pageContext.request.contextPath}/resources/js/myHandicap_history.js"></script>
 
+        <!-- CSS -->
+        <link href="${pageContext.request.contextPath}/resources/css/template.css" rel="stylesheet">
+
     </head>
 
     <body>
@@ -54,7 +57,9 @@
                                     <li><a href="${pageContext.request.contextPath}/myAccount/deleteUserAccount">Delete Account</a></li>
                                 </ul>
                             </li>
-                            <li><a href="${pageContext.request.contextPath}/static/j_spring_security_logout">Logout</a></li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/static/j_spring_security_logout">Logout</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -66,12 +71,15 @@
                     <fieldset>
                         <legend>History</legend>
 
-                        <table>
+                        <table style="width: 100%">
                             <tr>
-                                <td>
+                                <td style="width: 20%">
                                     <h3>Player Handicap</h3>
-                                <td>
+                                <td style="width: 20%">
                                     <h1><c:out value="${playerHandicap.handicapScore}"/></h1>
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary pull-right" href="${pageContext.request.contextPath}/myHandicap/calculate">Add Scorecard</a>
                                 </td>
                             </tr>
                         </table>
@@ -102,8 +110,14 @@
                                             <td><c:out value="${golfRound.courseSSS}"/></td>
                                         </tr>
                                         <tr>
-                                            <td onclick="displayHoleDataForRound(${i.index}, 'show')"><b>+</b> Display Hole By Hole Data</td>
-                                            <td onclick="displayHoleDataForRound(${i.index}, 'hide')"><b>-</b> Hide Hole By Hole Data</td>
+                                            <%--<td onclick="displayHoleDataForRound(${i.index}, 'show')"><b>+</b> Display Hole By Hole Data</td>--%>
+                                            <%--<td onclick="displayHoleDataForRound(${i.index}, 'hide')"><b>-</b> Hide Hole By Hole Data</td>--%>
+                                            <td>
+                                                <a class="btn btn-sm btn-primary" onclick="displayHoleDataForRound(${i.index}, 'show')">Show Data</a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-sm btn-primary" onclick="displayHoleDataForRound(${i.index}, 'hide')">Hide Data</a>
+                                            </td>
                                         </tr>
                                         <!-- Hole by Hole -->
                                         <tr id="golf_hole_${i.index}">
@@ -131,6 +145,9 @@
                     </fieldset>
                 </div>
             </div>
+
+            <jsp:include page="../common/footer.jsp"/>
+
         </div>
     </body>
 </html>

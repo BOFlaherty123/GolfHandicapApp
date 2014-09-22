@@ -21,6 +21,50 @@
 
         <!-- Bootstrap -->
         <link href="${pageContext.request.contextPath}/resources/style/bootstrap/bootstrap.css" rel="stylesheet">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+
+        <!-- CSS -->
+        <link href="${pageContext.request.contextPath}/resources/css/template.css" rel="stylesheet">
+
+        <script>
+
+            $(function() {
+                $('#input-dateOfPlay').datepicker();
+            });
+
+            function addAndSubtractCountButton(fieldId, action, maxValue) {
+
+                var fieldValue = "";
+
+                if(action == "add") {
+
+                    if($('#' + fieldId).val() == "") {
+                        $('#' + fieldId).val(0);
+                    }
+
+                    // max value
+                    if($('#' + fieldId).val() < maxValue) {
+                        fieldValue = parseInt($('#' + fieldId).val(), 10) + 1;
+                    } else {
+                        fieldValue = parseInt($('#' + fieldId).val(), 10);
+                    }
+                }
+
+                if(action == "minus") {
+
+                    if($('#' + fieldId).val() == 1) {
+                        return;
+                    } else {
+                        fieldValue = parseInt($('#' + fieldId).val(), 10) - 1;
+                    }
+
+                }
+
+                $("#" + fieldId).val(fieldValue.toString());
+
+            };
+
+        </script>
 
     </head>
     <body>
@@ -84,13 +128,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="input-course-par" class="col-lg-2 control-label">Course Par</label>
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-2">
                                         <form:input id="input-course-par" path="golfRounds[0].coursePar" class="form-control" placeholder="Par of Golf Course"/>
                                     </div>
-                                </div>
-                                <div class="form-group">
+
                                     <label for="input-course-sss" class="col-lg-2 control-label">Course SSS</label>
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-2">
                                         <form:input id="input-course-sss" path="golfRounds[0].courseSSS" class="form-control" placeholder="SSS of Golf Course"/>
                                     </div>
                                 </div>
@@ -104,6 +147,10 @@
                                         <label for="input-hole${i}-par" class="col-lg-2 control-label">Hole ${i}</label>
                                         <div class="col-lg-8">
                                             <form:input id="input-hole${i}-par" path="golfRounds[0].holes[${i-1}].holePar" class="form-control" placeholder="Par"/>
+                                            <span class="input-group-addon">
+                                                <a class="btn btn-primary" onclick="addAndSubtractCountButton('input-hole${i}-par', 'add', 5)">+</a>
+                                                <a class="btn btn-primary" onclick="addAndSubtractCountButton('input-hole${i}-par', 'minus', 5)">-</a>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -119,6 +166,10 @@
                                     <div class="form-group">
                                         <div class="col-lg-8">
                                             <form:input id="input-hole${i}-score" path="golfRounds[0].holes[${i-1}].holeScore" class="form-control" placeholder="Your Score"/>
+                                            <span class="input-group-addon">
+                                                <a class="btn btn-primary" onclick="addAndSubtractCountButton('input-hole${i}-score', 'add', 9)">+</a>
+                                                <a class="btn btn-primary" onclick="addAndSubtractCountButton('input-hole${i}-score', 'minus', 9)">-</a>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -126,6 +177,10 @@
                                     <div class="form-group">
                                         <div class="col-lg-8">
                                             <form:input id="input-hole${i}-ssi" path="golfRounds[0].holes[${i-1}].holeSSI" class="form-control" placeholder="SSI"/>
+                                            <span class="input-group-addon">
+                                                <a class="btn btn-primary" onclick="addAndSubtractCountButton('input-hole${i}-ssi', 'add', 18)">+</a>
+                                                <a class="btn btn-primary" onclick="addAndSubtractCountButton('input-hole${i}-ssi', 'minus', 18)">-</a>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -142,6 +197,9 @@
                     </fieldset>
                 </form:form>
             </div>
+
+            <jsp:include page="../common/footer.jsp"/>
+
         </div>
     </body>
 </html>

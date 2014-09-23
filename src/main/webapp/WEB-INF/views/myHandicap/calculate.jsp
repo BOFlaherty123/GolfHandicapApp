@@ -23,60 +23,11 @@
         <link href="${pageContext.request.contextPath}/resources/style/bootstrap/bootstrap.css" rel="stylesheet">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
 
+        <!-- Javascript -->
+        <script src="${pageContext.request.contextPath}/resources/js/myHandicap/calculate.js"></script>
+
         <!-- CSS -->
         <link href="${pageContext.request.contextPath}/resources/css/template.css" rel="stylesheet">
-
-        <script>
-
-            $(function() {
-                $('#input-dateOfPlay').datepicker();
-
-                // setup page on load
-                $("[id^='row_']").hide();
-                $("#row_1").show();
-
-                // add additional rows as the user is completing the form
-                $("[id^='increase_par_value_']").click(function() {
-                    var value = $(this).attr('id').replace(/\D/g,'');
-
-                    $("#row_" + value).show();
-                });
-
-            });
-
-            function addAndSubtractCountButton(fieldId, action, maxValue) {
-
-                var fieldValue = "";
-
-                if(action == "add") {
-
-                    if($('#' + fieldId).val() == "") {
-                        $('#' + fieldId).val(0);
-                    }
-
-                    // max value
-                    if($('#' + fieldId).val() < maxValue) {
-                        fieldValue = parseInt($('#' + fieldId).val(), 10) + 1;
-                    } else {
-                        fieldValue = parseInt($('#' + fieldId).val(), 10);
-                    }
-                }
-
-                if(action == "minus") {
-
-                    if($('#' + fieldId).val() == 1) {
-                        return;
-                    } else {
-                        fieldValue = parseInt($('#' + fieldId).val(), 10) - 1;
-                    }
-
-                }
-
-                $("#" + fieldId).val(fieldValue.toString());
-
-            };
-
-        </script>
 
     </head>
     <body>

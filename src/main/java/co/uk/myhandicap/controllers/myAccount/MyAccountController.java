@@ -97,7 +97,7 @@ public class MyAccountController implements IAppController, IAppFormController<P
 
         if(errors.hasErrors()) {
             mav.addObject("failure", failureMessage);
-            logger.info(format(logInfoMsg, this.getClass().getName(), ".submitFormRequest()", format("%s errors triggered", errors.getErrorCount())));
+            logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, format("%s errors triggered", errors.getErrorCount())));
         } else {
 
             User user = userService.retrieveUserById(form.getId());

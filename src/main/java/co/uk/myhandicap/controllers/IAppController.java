@@ -13,6 +13,8 @@ import java.security.Principal;
  */
 public interface IAppController {
 
+    final String SUBMIT_FORM_METHOD_NAME = ".submitFormRequest()";
+
     ModelAndView handleRequest(ModelAndView mav, Principal principal);
 
 }

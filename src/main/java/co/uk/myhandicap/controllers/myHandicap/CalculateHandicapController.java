@@ -95,25 +95,23 @@ public class CalculateHandicapController implements IAppController, IAppFormCont
     @Override
     @RequestMapping(value="/submitRound", method = RequestMethod.POST)
     public ModelAndView submitFormRequest(ModelAndView mav, @Valid ScoreCardDto scoreCard, BindingResult errors) {
-        final String METHOD_NAME = ".submitFormRequest()";
 
         logger.entry(mav, scoreCard, errors);
 
         if(errors.hasErrors()) {
             mav.setViewName("myHandicap/calculate");
-            logger.info(format(logInfoMsg, this.getClass().getName(), METHOD_NAME, format("%s errors triggered", errors.getErrorCount())));
+            logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, format("%s errors triggered", errors.getErrorCount())));
 
         } else {
 
             mav.setViewName("myHandicap/history");
 
             // Dozer object mapping
-            logger.info(format(logInfoMsg, this.getClass().getName(), METHOD_NAME, "run Dozer mapping for ScoreCard ..."));
+            logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, "run Dozer mapping for ScoreCard ..."));
             ScoreCard sc = mapper.map(scoreCard, ScoreCard.class);
 
             scoreCardService.save(sc);
-            logger.info(format(logInfoMsg, this.getClass().getName(), METHOD_NAME, format("%s saved successfully ...", sc.toString())));
-
+            logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, format("%s saved successfully ...", sc.toString())));
         }
 
         logger.exit(mav);

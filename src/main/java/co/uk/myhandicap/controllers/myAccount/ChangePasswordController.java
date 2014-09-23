@@ -90,18 +90,21 @@ public class ChangePasswordController implements IAppController, IAppFormControl
 
         if(errors.hasErrors()) {
             mav.addObject("status", failureMessage);
-            logger.info(format(logInfoMsg, this.getClass().getName(), ".submitFormRequest()", format("%s errors triggered", errors.getErrorCount())));
+            logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, format("%s errors triggered", errors.getErrorCount())));
 
         } else {
+            logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, "retrieve user ..."));
 
             User user = userService.retrieveUserFromSecurityContext();
 
             // Encrypt the users password
             String password = encryptUserPassword.encryptPassword(changePassword.getPassword());
+            logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, "encrypt password for user %s ... " + user.getUsername()));
 
             user.setPassword(password);
 
             userService.update(user);
+            logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, "update password for user %s ..." + user.getUsername()));
         }
 
         mav.setViewName("myAccount/changePassword");

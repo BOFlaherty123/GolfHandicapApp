@@ -78,16 +78,15 @@ public class UserRegistrationController implements IAppController, IAppFormContr
     @Override
     @RequestMapping(value="/registerUser", method = RequestMethod.POST)
     public ModelAndView submitFormRequest(ModelAndView mav, @Valid UserRegistrationDto user, BindingResult errors) {
-        final String METHOD_NAME = ".submitFormRequest()";
 
         logger.entry(mav, user, errors);
 
         if(errors.hasErrors()) {
             mav.addObject("failure", failureMessage);
-            logger.info(format(logInfoMsg, this.getClass().getName(), METHOD_NAME, format("%s errors triggered", errors.getErrorCount())));
+            logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, format("%s errors triggered", errors.getErrorCount())));
         } else {
 
-            logger.info(format(logInfoMsg, this.getClass().getName(), METHOD_NAME, format("register new user %s ...", user.getUsername())));
+            logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, format("register new user %s ...", user.getUsername())));
 
             // Map an instance of UserRegistrationDto to the User domain user
             User registerUser = mapper.map(user, User.class);
@@ -96,11 +95,11 @@ public class UserRegistrationController implements IAppController, IAppFormContr
             // Encrypt the users password
             String password = encryptUserPassword.encryptPassword(user.getPassword());
             registerUser.setPassword(password);
-            logger.info(format(logInfoMsg, this.getClass().getName(), METHOD_NAME, "encrypt password for user ... " + user.getUsername()));
+            logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, "encrypt password for user ... " + user.getUsername()));
 
             // Save User to database
             userService.save(registerUser);
-            logger.info(format(logInfoMsg, this.getClass().getName(), METHOD_NAME, format("%s saved successfully ...", user.toString())));
+            logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, format("%s saved successfully ...", user.toString())));
 
             mav.addObject("success", successMessage);
         }

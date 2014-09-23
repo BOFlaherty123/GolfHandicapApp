@@ -20,7 +20,7 @@
         <link href="${pageContext.request.contextPath}/resources/style/bootstrap/bootstrap.css" rel="stylesheet">
 
         <!-- Javascript -->
-        <script src="${pageContext.request.contextPath}/resources/js/myHandicap_history.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/myHandicap/history.js"></script>
 
         <!-- CSS -->
         <link href="${pageContext.request.contextPath}/resources/css/template.css" rel="stylesheet">

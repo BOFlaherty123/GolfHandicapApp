@@ -1,7 +1,7 @@
 package main.java.co.uk.myhandicap.controllers.myAccount;
 
-import main.java.co.uk.myhandicap.controllers.AppController;
-import main.java.co.uk.myhandicap.controllers.AppFormController;
+import main.java.co.uk.myhandicap.controllers.IAppController;
+import main.java.co.uk.myhandicap.controllers.IAppFormController;
 import main.java.co.uk.myhandicap.encryption.EncryptUserPassword;
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.form.ChangePasswordDto;
@@ -30,21 +30,24 @@ import static java.lang.String.format;
  */
 @Controller
 @RequestMapping(value="/myAccount")
-public class ChangePasswordController implements AppController, AppFormController<ChangePasswordDto> {
+public class ChangePasswordController implements IAppController, IAppFormController<ChangePasswordDto> {
 
     private final XLogger logger = XLoggerFactory.getXLogger(ChangePasswordController.class);
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private EncryptUserPassword encryptUserPassword;
+    @Value("${logging.info}")
+    private String logInfoMsg;
 
     @Value("${exception.userNotFound}")
     private String userNotFoundException;
 
     @Value("${myAccount.changePassword.failure}")
     private String failureMessage;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private EncryptUserPassword encryptUserPassword;
 
     /**
      * handleRequest for MyAccount/ChangePassword (GET).
@@ -87,8 +90,7 @@ public class ChangePasswordController implements AppController, AppFormControlle
 
         if(errors.hasErrors()) {
             mav.addObject("status", failureMessage);
-            logger.info(format("class=[ " + this.getClass().getName() + "] method=[ .submitFormRequest() ] message=[ hasErrors() - %s triggered. ]",
-                    errors.getErrorCount()));
+            logger.info(format(logInfoMsg, this.getClass().getName(), ".submitFormRequest()", format("%s errors triggered", errors.getErrorCount())));
 
         } else {
 

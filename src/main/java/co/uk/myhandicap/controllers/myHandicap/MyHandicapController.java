@@ -2,7 +2,7 @@ package main.java.co.uk.myhandicap.controllers.myHandicap;
 
 import main.java.co.uk.myhandicap.calculation.handicap.Handicap;
 import main.java.co.uk.myhandicap.calculation.handicap.HandicapCalculation;
-import main.java.co.uk.myhandicap.controllers.AppController;
+import main.java.co.uk.myhandicap.controllers.IAppController;
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
 import main.java.co.uk.myhandicap.model.user.User;
@@ -19,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal;
 import java.util.List;
 
+import static java.lang.String.format;
+
 /**
  * My Handicap Controller
  *
@@ -28,9 +30,12 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value="/myHandicap")
-public class MyHandicapController implements AppController {
+public class MyHandicapController implements IAppController {
 
     private final XLogger logger = XLoggerFactory.getXLogger(MyHandicapController.class);
+
+    @Value("${logging.info}")
+    private String logInfoMsg;
 
     @Autowired
     private HandicapCalculation handicapCalculation;
@@ -54,18 +59,24 @@ public class MyHandicapController implements AppController {
     @Override
     @RequestMapping(value="/history")
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
+        final String METHOD_NAME = ".handleRequest()";
+
         mav.setViewName("myHandicap/history");
 
         try {
             User user = userService.findUserByUsername(principal.getName());
 
+            logger.info(format(logInfoMsg, this.getClass().getName(), METHOD_NAME, format("retrieve handicap score for user, %s ...", user.getUsername())));
             Handicap handicap = handicapCalculation.calculateUserHandicapScore(user.getId());
 
+            logger.info(format(logInfoMsg, this.getClass().getName(), METHOD_NAME, format("retrieve ScoreCards for user, %s ...", user.getUsername())));
             List<ScoreCard> scoreCardList = scoreCardService.retrieveUserScoredCardsById(user);
 
             // output message to user if there are no registered score cards
             if(scoreCardList.isEmpty()) {
                 mav.addObject("noPlayerScoreCards", noPlayerScoreCards);
+                logger.info(format(logInfoMsg, this.getClass().getName(), METHOD_NAME, format("there are no registered scores for user, %s ...", user.getUsername())));
+
             }
 
             mav.addObject("playerHandicap", handicap);

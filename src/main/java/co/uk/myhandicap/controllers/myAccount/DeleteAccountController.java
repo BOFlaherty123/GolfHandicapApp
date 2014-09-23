@@ -1,7 +1,7 @@
 package main.java.co.uk.myhandicap.controllers.myAccount;
 
-import main.java.co.uk.myhandicap.controllers.AppController;
-import main.java.co.uk.myhandicap.controllers.AppFormController;
+import main.java.co.uk.myhandicap.controllers.IAppController;
+import main.java.co.uk.myhandicap.controllers.IAppFormController;
 import main.java.co.uk.myhandicap.model.user.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -20,7 +20,7 @@ import java.security.Principal;
  */
 @Controller
 @RequestMapping(value="/myAccount")
-public class DeleteAccountController implements AppController, AppFormController<User> {
+public class DeleteAccountController implements IAppController, IAppFormController<User> {
 
     /**
      * handleRequest for MyAccount/DeleteUserAccount (GET).

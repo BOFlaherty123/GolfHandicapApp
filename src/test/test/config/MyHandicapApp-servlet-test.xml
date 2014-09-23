@@ -56,7 +56,7 @@
     <bean id="mapper" class="org.dozer.DozerBeanMapper">
         <property name="mappingFiles">
             <list>
-                <value>/main/dozer-bean-mappings.xml</value>
+                <value>dozer-bean-mappings-test.xml</value>
             </list>
         </property>
     </bean>

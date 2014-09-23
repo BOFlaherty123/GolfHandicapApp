@@ -1,7 +1,7 @@
 package main.java.co.uk.myhandicap.controllers.scoreanalysis;
 
 import main.java.co.uk.myhandicap.calculation.scoreanalysis.average.CalculateRequestedAverage;
-import main.java.co.uk.myhandicap.controllers.AppController;
+import main.java.co.uk.myhandicap.controllers.IAppController;
 import main.java.co.uk.myhandicap.dao.ScoreCardDao;
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.model.user.User;
@@ -23,7 +23,7 @@ import java.util.List;
  * @project MyHandicapApp
  */
 @Controller
-public class ScoreAnalysisController implements AppController {
+public class ScoreAnalysisController implements IAppController {
 
     // best/worst holes on courses played more than once.
     @Autowired
@@ -100,6 +100,17 @@ public class ScoreAnalysisController implements AppController {
         return calculateRequestedAverage.process(typeOfAvg, retrieveUserByPrinciple(principal), userInput);
     }
 
+
+    /**
+     * retrieve all distinct golf course names that a user has submitted.
+     *
+     * @param principal
+     * @return
+     */
+    private List<String> retrieveGolfCourseNamesForUser(Principal principal) {
+        return scoreCardDao.retrieveAllGolfCourseNamesForUserByScoreCard(retrieveUserByPrinciple(principal));
+    }
+
     /**
      * retrieve the user object by principle.
      *
@@ -117,16 +128,6 @@ public class ScoreAnalysisController implements AppController {
         }
 
         return user;
-    }
-
-    /**
-     * retrieve all distinct golf course names that a user has submitted.
-     *
-     * @param principal
-     * @return
-     */
-    private List<String> retrieveGolfCourseNamesForUser(Principal principal) {
-        return scoreCardDao.retrieveAllGolfCourseNamesForUserByScoreCard(retrieveUserByPrinciple(principal));
     }
 
 }

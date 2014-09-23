@@ -29,9 +29,18 @@ import static java.lang.String.format;
  * @project MyHandicapApp
  */
 @Controller
-public class UserRegistrationController implements AppController, AppFormController<UserRegistrationDto> {
+public class UserRegistrationController implements IAppController, IAppFormController<UserRegistrationDto> {
 
     private final XLogger logger = XLoggerFactory.getXLogger(UserRegistrationController.class);
+
+    @Value("${logging.info}")
+    private String logInfoMsg;
+
+    @Value("${registerUser.success}")
+    private String successMessage;
+
+    @Value("${registerUser.failure}")
+    private String failureMessage;
 
     @Autowired
     private UserService userService;
@@ -41,12 +50,6 @@ public class UserRegistrationController implements AppController, AppFormControl
 
     @Autowired
     private Mapper mapper;
-
-    @Value("${registerUser.success}")
-    private String successMessage;
-
-    @Value("${registerUser.failure}")
-    private String failureMessage;
 
     /**
      * handleRequest for register (GET).
@@ -75,14 +78,16 @@ public class UserRegistrationController implements AppController, AppFormControl
     @Override
     @RequestMapping(value="/registerUser", method = RequestMethod.POST)
     public ModelAndView submitFormRequest(ModelAndView mav, @Valid UserRegistrationDto user, BindingResult errors) {
+        final String METHOD_NAME = ".submitFormRequest()";
+
         logger.entry(mav, user, errors);
 
         if(errors.hasErrors()) {
             mav.addObject("failure", failureMessage);
-            logger.info(format("class=[ " + this.getClass().getName() + "] method=[ .submitFormRequest() ] message=[ hasErrors() - %s triggered. ]",
-                    errors.getErrorCount()));
-
+            logger.info(format(logInfoMsg, this.getClass().getName(), METHOD_NAME, format("%s errors triggered", errors.getErrorCount())));
         } else {
+
+            logger.info(format(logInfoMsg, this.getClass().getName(), METHOD_NAME, format("register new user %s ...", user.getUsername())));
 
             // Map an instance of UserRegistrationDto to the User domain user
             User registerUser = mapper.map(user, User.class);
@@ -91,10 +96,11 @@ public class UserRegistrationController implements AppController, AppFormControl
             // Encrypt the users password
             String password = encryptUserPassword.encryptPassword(user.getPassword());
             registerUser.setPassword(password);
+            logger.info(format(logInfoMsg, this.getClass().getName(), METHOD_NAME, "encrypt password for user ... " + user.getUsername()));
 
             // Save User to database
             userService.save(registerUser);
-
+            logger.info(format(logInfoMsg, this.getClass().getName(), METHOD_NAME, format("%s saved successfully ...", user.toString())));
 
             mav.addObject("success", successMessage);
         }

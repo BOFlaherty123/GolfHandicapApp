@@ -186,11 +186,7 @@
 
             </div>
 
-            <div class="row">
-                <div class="footer">
-                    <p style="text-align: center">Footer Links Go here</p>
-                </div>
-            </div>
+            <jsp:include page="../common/footer.jsp"/>
 
         </div>
     </body>

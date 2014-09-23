@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:/test/config/testContext.xml",
-        "classpath:/main/webapp/WEB-INF/MyHandicapApp-servlet.xml"})
+        "classpath:/test/config/MyHandicapApp-servlet-test.xml"})
 @WebAppConfiguration
 public class MyAccountControllerTest {
 

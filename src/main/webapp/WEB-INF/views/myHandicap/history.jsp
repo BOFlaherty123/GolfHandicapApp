@@ -98,10 +98,10 @@
                                         <!-- Round Details -->
                                         <tr class="bg-success">
                                             <th class="col-sm-3">Date of Play</th>
-                                            <th class="col-sm-3">Course Name</th>
-                                            <th class="col-sm-3">Course Par</th>
-                                            <th class="col-sm-3">Course SSS</th>
-                                            <th/>
+                                            <th class="col-sm-2">Course Name</th>
+                                            <th class="col-sm-2">Course Par</th>
+                                            <th class="col-sm-2">Course SSS</th>
+                                            <th class="col-sm-3">Total Score</th>
                                         </tr>
                                         <tr>
                                             <td><c:out value="${golfRound.playDate}"/></td>
@@ -110,8 +110,6 @@
                                             <td><c:out value="${golfRound.courseSSS}"/></td>
                                         </tr>
                                         <tr>
-                                            <%--<td onclick="displayHoleDataForRound(${i.index}, 'show')"><b>+</b> Display Hole By Hole Data</td>--%>
-                                            <%--<td onclick="displayHoleDataForRound(${i.index}, 'hide')"><b>-</b> Hide Hole By Hole Data</td>--%>
                                             <td>
                                                 <a class="btn btn-sm btn-primary" onclick="displayHoleDataForRound(${i.index}, 'show')">Show Data</a>
                                             </td>

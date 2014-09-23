@@ -1,7 +1,7 @@
 package main.java.co.uk.myhandicap.controllers.myHandicap;
 
-import main.java.co.uk.myhandicap.controllers.AppController;
-import main.java.co.uk.myhandicap.controllers.AppFormController;
+import main.java.co.uk.myhandicap.controllers.IAppController;
+import main.java.co.uk.myhandicap.controllers.IAppFormController;
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.form.ScoreCardDto;
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
@@ -12,6 +12,7 @@ import org.dozer.Mapper;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,9 +34,12 @@ import static java.lang.String.format;
  */
 @Controller
 @RequestMapping(value="/myHandicap")
-public class CalculateHandicapController implements AppController, AppFormController<ScoreCardDto> {
+public class CalculateHandicapController implements IAppController, IAppFormController<ScoreCardDto> {
 
     private static final XLogger logger = XLoggerFactory.getXLogger(CalculateHandicapController.class);
+
+    @Value("${logging.info}")
+    private String logInfoMsg;
 
     @Autowired
     private Mapper mapper;
@@ -91,20 +95,25 @@ public class CalculateHandicapController implements AppController, AppFormContro
     @Override
     @RequestMapping(value="/submitRound", method = RequestMethod.POST)
     public ModelAndView submitFormRequest(ModelAndView mav, @Valid ScoreCardDto scoreCard, BindingResult errors) {
+        final String METHOD_NAME = ".submitFormRequest()";
+
         logger.entry(mav, scoreCard, errors);
 
         if(errors.hasErrors()) {
             mav.setViewName("myHandicap/calculate");
-            logger.info(format("method=[ .submitFormRequest() ] message=[ hasErrors() - %s triggered. ]", errors.getErrorCount()));
+            logger.info(format(logInfoMsg, this.getClass().getName(), METHOD_NAME, format("%s errors triggered", errors.getErrorCount())));
 
         } else {
 
             mav.setViewName("myHandicap/history");
 
             // Dozer object mapping
+            logger.info(format(logInfoMsg, this.getClass().getName(), METHOD_NAME, "run Dozer mapping for ScoreCard ..."));
             ScoreCard sc = mapper.map(scoreCard, ScoreCard.class);
 
             scoreCardService.save(sc);
+            logger.info(format(logInfoMsg, this.getClass().getName(), METHOD_NAME, format("%s saved successfully ...", sc.toString())));
+
         }
 
         logger.exit(mav);

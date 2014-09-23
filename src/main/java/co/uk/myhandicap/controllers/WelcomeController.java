@@ -14,7 +14,7 @@ import java.security.Principal;
  * @project MyHandicapApp
  */
 @Controller
-public class WelcomeController implements AppController {
+public class WelcomeController implements IAppController {
 
     /**
      * Display the 'welcome' page to the application

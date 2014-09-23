@@ -30,6 +30,18 @@
 
             $(function() {
                 $('#input-dateOfPlay').datepicker();
+
+                // setup page on load
+                $("[id^='row_']").hide();
+                $("#row_1").show();
+
+                // add additional rows as the user is completing the form
+                $("[id^='increase_par_value_']").click(function() {
+                    var value = $(this).attr('id').replace(/\D/g,'');
+
+                    $("#row_" + value).show();
+                });
+
             });
 
             function addAndSubtractCountButton(fieldId, action, maxValue) {
@@ -141,14 +153,14 @@
                         </div>
 
                         <c:forEach var="i" begin="1" end="18">
-                            <div class="row">
+                            <div class="row row_colour" id="row_${i}">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="input-hole${i}-par" class="col-lg-2 control-label">Hole ${i}</label>
                                         <div class="col-lg-8">
                                             <form:input id="input-hole${i}-par" path="golfRounds[0].holes[${i-1}].holePar" class="form-control" placeholder="Par"/>
                                             <span class="input-group-addon">
-                                                <a class="btn btn-primary" onclick="addAndSubtractCountButton('input-hole${i}-par', 'add', 5)">+</a>
+                                                <a class="btn btn-primary" id="increase_par_value_${i+1}" onclick="addAndSubtractCountButton('input-hole${i}-par', 'add', 5)">+</a>
                                                 <a class="btn btn-primary" onclick="addAndSubtractCountButton('input-hole${i}-par', 'minus', 5)">-</a>
                                             </span>
                                         </div>

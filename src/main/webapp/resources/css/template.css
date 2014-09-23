@@ -14,3 +14,7 @@
 #input-hole-courseName, #input-hole-par, #input-hole-yardage {
     padding: 2%
 }
+
+.row_colour {
+    background: #F0FDF8;
+}

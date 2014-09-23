@@ -1,13 +1,13 @@
 package test.java.co.uk.myhandicap.controllers.scoreanalysis;
 
 import main.java.co.uk.myhandicap.calculation.scoreanalysis.average.CalculateRequestedAverage;
+import main.java.co.uk.myhandicap.dao.ScoreCardDao;
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -18,6 +18,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -32,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:/test/config/testContext.xml",
-        "classpath:/main/webapp/WEB-INF/MyHandicapApp-servlet.xml"})
+        "classpath:/test/config/MyHandicapApp-servlet-test.xml"})
 @WebAppConfiguration
 public class ScoreAnalysisControllerTest {
 
@@ -47,8 +49,8 @@ public class ScoreAnalysisControllerTest {
     @Autowired
     private UserService userService;
 
-    @Mock
-    private User user;
+    @Autowired
+    private ScoreCardDao scoreCardDao;
 
     private final String USER = "TEST_PRINCIPAL";
 
@@ -65,10 +67,12 @@ public class ScoreAnalysisControllerTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
-    @Test
-         public void scoreAnalysisControllerDefaultRequestMapping() throws Exception {
+     @Test
+     public void scoreAnalysisControllerDefaultRequestMapping() throws Exception {
 
-        mockMvc.perform(get("/scoreAnalysis"))
+        when(userService.findUserByUsername(principal.getName())).thenReturn(createMockUser());
+
+        mockMvc.perform(get("/scoreAnalysis").principal(principal))
                 .andExpect(status().isOk())
                 .andExpect(view().name("analysis/scoreAnalysis"))
                 .andExpect(forwardedUrl("/WEB-INF/views/analysis/scoreAnalysis.jsp"));
@@ -78,9 +82,13 @@ public class ScoreAnalysisControllerTest {
     @Test
     public void scoreAnalysisControllerAverageByCourseNameRequestMapping() throws Exception {
 
-        when(calculateRequestedAverage.process("avgByCourse", user, "Rivenhall Oaks")).thenReturn("5");
+        User user = createMockUser();
 
-        mockMvc.perform(get("/scoreAnalysis/averageCourseName")
+        when(userService.findUserByUsername(principal.getName())).thenReturn(user);
+        when(calculateRequestedAverage.process("avgByCourse", user, "Rivenhall Oaks")).thenReturn("5");
+        when(scoreCardDao.retrieveAllGolfCourseNamesForUserByScoreCard(user)).thenReturn(mockCourseNameList());
+
+        mockMvc.perform(get("/scoreAnalysis/averageCourseName/Rivenhall Oaks")
                 .principal(principal))
                 .andExpect(status().isOk())
                 .andExpect(view().name("analysis/scoreAnalysis"))
@@ -92,7 +100,11 @@ public class ScoreAnalysisControllerTest {
     @Test
     public void scoreAnalysisControllerAverageByParRequestMapping() throws Exception {
 
+        User user = createMockUser();
+
+        when(userService.findUserByUsername(principal.getName())).thenReturn(user);
         when(calculateRequestedAverage.process("avgByHolePar", user, "4")).thenReturn("4.25");
+        when(scoreCardDao.retrieveAllGolfCourseNamesForUserByScoreCard(user)).thenReturn(mockCourseNameList());
 
         mockMvc.perform(get("/scoreAnalysis/averagePar/4")
                 .principal(principal))
@@ -106,7 +118,11 @@ public class ScoreAnalysisControllerTest {
     @Test
     public void scoreAnalysisControllerAverageByHoleYardageRequestMapping() throws Exception {
 
+        User user = createMockUser();
+
+        when(userService.findUserByUsername(principal.getName())).thenReturn(user);
         when(calculateRequestedAverage.process("avgByHoleYardage", user, "250")).thenReturn("4.8");
+        when(scoreCardDao.retrieveAllGolfCourseNamesForUserByScoreCard(user)).thenReturn(mockCourseNameList());
 
         mockMvc.perform(get("/scoreAnalysis/averageYardage/250")
                 .principal(principal))
@@ -117,9 +133,10 @@ public class ScoreAnalysisControllerTest {
 
     }
 
-
     @Test
     public void scoreAnalysisControllerFailureAsUserNotFoundExceptionThrown() throws Exception {
+
+
         when(userService.findUserByUsername(principal.getName())).thenThrow(new UserNotFoundException());
 
         mockMvc.perform(get("/scoreAnalysis/averageYardage/250")
@@ -128,6 +145,23 @@ public class ScoreAnalysisControllerTest {
                 .andExpect(view().name("analysis/scoreAnalysis"))
                 .andExpect(forwardedUrl("/WEB-INF/views/analysis/scoreAnalysis.jsp"));
 
+    }
+
+    private User createMockUser() {
+
+        User user = new User();
+        user.setId(1L);
+        user.setUsername("TEST_PRINCIPAL");
+
+        return user;
+    }
+
+    private List<String> mockCourseNameList() {
+        List<String> courseNames = new ArrayList();
+        courseNames.add("Course Name 1");
+        courseNames.add("Course Name 2");
+
+        return courseNames;
     }
 
 }

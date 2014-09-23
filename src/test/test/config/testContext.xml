@@ -11,6 +11,10 @@
         <constructor-arg value="main.java.co.uk.myhandicap.service.ScoreCardService"/>
     </bean>
 
+    <bean id="scoreCardDao" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="main.java.co.uk.myhandicap.dao.ScoreCardDao"/>
+    </bean>
+
     <bean id="mapper" class="org.mockito.Mockito" factory-method="mock">
         <constructor-arg value="org.dozer.Mapper"/>
     </bean>

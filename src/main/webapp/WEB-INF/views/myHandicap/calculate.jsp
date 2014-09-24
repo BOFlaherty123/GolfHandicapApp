@@ -5,6 +5,7 @@
   Time: 14:23
   To change this template use File | Settings | File Templates.
 --%>
+<!DOCTYPE HTML>
 <%@ taglib prefix="field" uri="http://localhost:8080/MyHandicapApp/custom-tags.tld" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>

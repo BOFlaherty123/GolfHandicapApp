@@ -66,7 +66,6 @@
                             <legend>Login</legend>
 
                             <table class="table table-condensed">
-
                                 <tr>
                                     <th>Username: </th>
                                     <td>
@@ -84,7 +83,6 @@
                                         <input name="submit" type="submit" value="Login"/>
                                     </td>
                                 </tr>
-
                             </table>
 
                         </fieldset>

@@ -44,8 +44,8 @@ public class GolfHole {
             processCONGUAdjustment(hole);
 
             // add players score for the hole to the round total
-            BigDecimal holeScore = handicapCalculationHelper.createScore(hole.getHoleScore());
-            playerScore = handicapCalculationHelper.addValueToTotal(playerScore, holeScore);
+            playerScore = handicapCalculationHelper.addValueToTotal(playerScore,
+                    handicapCalculationHelper.createScore(hole.getHoleScore()));
 
         }
 
@@ -62,7 +62,7 @@ public class GolfHole {
     private void processCONGUAdjustment(Hole hole) {
         logger.entry(hole);
 
-        BigDecimal maxStroke = handicapCalculationHelper.setMaximumStrokeCountPerHole(Integer.valueOf(hole.getHolePar()) + 2);
+        BigDecimal maxStroke = handicapCalculationHelper.setMaximumStrokeCountPerHole(determineMaximumScoreAllowed(hole.getHolePar()));
         BigDecimal playerScore = handicapCalculationHelper.createScore(hole.getHoleScore());
 
         if(playerScore.compareTo(maxStroke) > 0) {
@@ -72,6 +72,10 @@ public class GolfHole {
         }
 
         logger.exit(hole.toString());
+    }
+
+    private int determineMaximumScoreAllowed(String holePar) {
+        return Integer.valueOf(holePar) + 2;
     }
 
 }

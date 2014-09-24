@@ -1,5 +1,6 @@
 package main.java.co.uk.myhandicap.calculation.handicap;
 
+import main.java.co.uk.myhandicap.calculation.handicap.helper.HandicapCalculationHelper;
 import main.java.co.uk.myhandicap.model.handicap.Round;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
@@ -8,9 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.List;
-
-import static main.java.co.uk.myhandicap.calculation.handicap.Score.createScore;
-import static main.java.co.uk.myhandicap.calculation.handicap.Score.subtractFromScore;
 
 /**
  * Process Data Per Golf Round
@@ -22,35 +20,38 @@ import static main.java.co.uk.myhandicap.calculation.handicap.Score.subtractFrom
 @Component
 public class GolfRound {
 
+    private static final XLogger logger = XLoggerFactory.getXLogger(GolfRound.class
+            .getName());
+
     @Autowired
     private GolfHole golfHole;
 
-    private static final XLogger logger = XLoggerFactory.getXLogger(GolfRound.class
-            .getName());
+    @Autowired
+    private HandicapCalculationHelper handicapCalculationHelper;
 
     private GolfRound() {}
 
     /**
      * Loop through each Round on the players scorecard and process data.
      *
-     * @param score
      * @param roundsOfGolf
      * @param adjustedScores
      */
-    public List<BigDecimal> processRoundOfGolf(Score score, List<Round> roundsOfGolf, List<BigDecimal> adjustedScores) {
-        logger.entry(score, roundsOfGolf, adjustedScores);
+    public List<BigDecimal> processRoundOfGolf(List<Round> roundsOfGolf, List<BigDecimal> adjustedScores) {
+        logger.entry(roundsOfGolf, adjustedScores);
 
         for(Round round : roundsOfGolf) {
 
-            BigDecimal playerScore = score.getPlayerScore();
-
-            score.setCourseSSS(createScore(round.getCourseSSS()));
+            // create a default value for player score
+            BigDecimal playerScore = handicapCalculationHelper.createBigDecimalDefault();
 
             // loop through each hole of the round and adjust the players score
-            playerScore = golfHole.processHoleData(score, round, playerScore);
+            playerScore = golfHole.processHoleData(round, playerScore);
 
             // calculate the players adjusted score for the round
-            BigDecimal adjustedScore = subtractFromScore(playerScore, score.getCourseSSS());
+            BigDecimal adjustedScore = handicapCalculationHelper.subtractFromScore(playerScore,
+                    handicapCalculationHelper.createScore(round.getCourseSSS()));
+
             adjustedScores.add(adjustedScore);
             logger.info(".processRoundOfGolf() - add adjustedScore=[ " + adjustedScore + " ]");
         }

@@ -1,7 +1,10 @@
 package main.java.co.uk.myhandicap.calculation.scoreanalysis.average;
 
+import main.java.co.uk.myhandicap.model.handicap.Hole;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
 /**
  * Common behavior for AverageCalculation classes.
@@ -23,6 +26,15 @@ public abstract class AbstractCalculateAverage {
     protected String calculate(BigDecimal total, int size, int decimalPlaces) {
         // divide total of score by number of times played @ averageRequested
         return String.valueOf(total.divide(new BigDecimal(String.valueOf(size)), decimalPlaces, RoundingMode.HALF_UP));
+    }
+
+    /**
+     * determines the number of holes with a registered score that match the averageRequested parameter.
+     *
+     * @return
+     */
+    protected int numberOfHoles(List<Hole> holeParList) {
+        return holeParList.size();
     }
 
 }

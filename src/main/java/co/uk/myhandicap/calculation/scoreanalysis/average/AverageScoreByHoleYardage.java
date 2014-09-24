@@ -17,7 +17,7 @@ import java.util.List;
  * @project MyHandicapApp
  */
 @Component
-public class AverageScoreByHoleYardage extends AbstractCalculateAverage implements AverageScore{
+public class AverageScoreByHoleYardage extends AbstractCalculateAverage implements IAverageScore {
 
     @Autowired
     private HoleDao holeDao = null;
@@ -63,15 +63,6 @@ public class AverageScoreByHoleYardage extends AbstractCalculateAverage implemen
         }
 
         return total;
-    }
-
-    /**
-     * determines the number of holes with a registered score that match the averageRequested parameter.
-     *
-     * @return
-     */
-    private int numberOfHoles(List<Hole> holeParList) {
-        return holeParList.size();
     }
 
 }

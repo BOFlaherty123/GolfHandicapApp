@@ -1,5 +1,6 @@
 package main.java.co.uk.myhandicap.calculation.handicap;
 
+import main.java.co.uk.myhandicap.calculation.handicap.helper.HandicapCalculationHelper;
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.model.handicap.Round;
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
@@ -17,9 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.String.format;
-import static main.java.co.uk.myhandicap.calculation.handicap.Score.addToAdjustmentScore;
-import static main.java.co.uk.myhandicap.calculation.handicap.Score.calculateHandicap;
-import static main.java.co.uk.myhandicap.calculation.handicap.Handicap.setupDefaultHandicap;
 
 /**
  * Calculate a users golf handicap
@@ -36,6 +34,9 @@ public class HandicapCalculation {
     private UserService userService;
 
     @Autowired
+    private HandicapCalculationHelper handicapCalculationHelper;
+
+    @Autowired
     private ScoreCardService scoreCardService;
 
     @Autowired
@@ -47,10 +48,7 @@ public class HandicapCalculation {
     @Value("${exception.userNotFound}")
     private String userNotFoundException;
 
-    private static final XLogger logger = XLoggerFactory.getXLogger(HandicapCalculation.class
-            .getName());
-
-    private HandicapCalculation() {}
+    private static final XLogger logger = XLoggerFactory.getXLogger(HandicapCalculation.class.getName());
 
     /**
      * calculate a players handicap.
@@ -62,17 +60,14 @@ public class HandicapCalculation {
     public Handicap calculateUserHandicapScore(Long userId) throws UserNotFoundException {
         logger.entry(userId);
 
-        // creates a new score object for the calculation
-        final Score score = new Score();
-
         // retrieve all score cards for the current user
         List<ScoreCard> scoreCardList = scoreCardService.retrieveUserScoredCardsById(getUser(userId));
 
         // retrieve all rounds of golf played by a user
-        List<Round> roundsOfGolf = extractRoundsOfGolfFromScoreCard(scoreCardList);
+        List<Round> roundsOfGolf = handicapCalculationHelper.extractRoundsOfGolfFromScoreCard(scoreCardList);
 
         // calculate the users handicap for this Round of golf
-        Handicap playerHandicap = calculateHandicapForRoundOfGolf(score, roundsOfGolf);
+        Handicap playerHandicap = calculateHandicapForRoundOfGolf(roundsOfGolf);
 
         if(playerHandicap == null) {
             throw new RuntimeException(format(handicapException, userId));
@@ -85,57 +80,25 @@ public class HandicapCalculation {
         return playerHandicap;
     }
 
-
-    /**
-     * extract all rounds of golf for the given user.
-     *
-     * @param scoreCardList
-     * @return
-     */
-    private List<Round> extractRoundsOfGolfFromScoreCard(List<ScoreCard> scoreCardList) {
-        logger.entry(scoreCardList);
-
-        List<Round> roundsOfGolf = new ArrayList<>();
-
-        for(ScoreCard scoreCard : scoreCardList) {
-            for(Round round : scoreCard.getGolfRounds()) {
-                roundsOfGolf.add(round);
-            }
-        }
-
-        logger.exit(roundsOfGolf);
-
-        return roundsOfGolf;
-    }
-
     /**
      * calculate a users handicap based on their submitted roundOFGolf data
      *
      * @param roundsOfGolf
      * @return
      */
-    private Handicap calculateHandicapForRoundOfGolf(Score score, List<Round> roundsOfGolf) {
-        logger.entry(score, roundsOfGolf);
+    private Handicap calculateHandicapForRoundOfGolf(List<Round> roundsOfGolf) {
+        logger.entry(roundsOfGolf);
 
         // Setup a handicap object with default values
-        Handicap playerHandicap = setupDefaultHandicap();
-        System.out.println("default player handicap: " + playerHandicap);
+        Handicap playerHandicap = handicapCalculationHelper.setupDefaultHandicap();
 
         if(!roundsOfGolf.isEmpty()) {
 
-            List<BigDecimal> adjustedScores = new ArrayList<>();
+            // calculate adjusted total player score
+            BigDecimal adjustedTotal = calculateAdjustedScoreTotal(roundsOfGolf);
 
-            // loop through each round of golf on the players scorecard
-            adjustedScores = golfRound.processRoundOfGolf(score, roundsOfGolf, adjustedScores);
-
-            // total all adjusted scores for each round of golf played by the user
-            BigDecimal adjustedTotal = score.getAdjustmentTotal();
-
-            for(BigDecimal adjustScore : adjustedScores) {
-                adjustedTotal = addToAdjustmentScore(adjustedTotal, adjustScore);
-            }
-
-            String handicap = calculateHandicap(roundsOfGolf.size(), adjustedTotal);
+            // calculate handicap and return value as a String
+            String handicap = handicapCalculationHelper.calculateHandicap(roundsOfGolf.size(), adjustedTotal);
 
             // add calculations to the handicap object
             playerHandicap.setHandicapScore(handicap);
@@ -147,6 +110,28 @@ public class HandicapCalculation {
         logger.exit();
 
         return playerHandicap;
+    }
+
+    /**
+     * calculate the players adjusted score total
+     *
+     * @param roundsOfGolf
+     * @return
+     */
+    private BigDecimal calculateAdjustedScoreTotal(List<Round> roundsOfGolf) {
+
+        // loop through each round of golf on the players scorecard
+        List<BigDecimal> adjustedScores = golfRound.processRoundOfGolf(roundsOfGolf, new ArrayList<BigDecimal>());
+
+        // total all adjusted scores for each round of golf played by the user
+        BigDecimal adjustedTotal = handicapCalculationHelper.createBigDecimalDefault();
+
+        // loop through all adjusted scores and add value to total
+        for(BigDecimal adjustScore : adjustedScores) {
+            adjustedTotal = handicapCalculationHelper.addValueToTotal(adjustedTotal, adjustScore);
+        }
+
+        return adjustedTotal;
     }
 
     /**

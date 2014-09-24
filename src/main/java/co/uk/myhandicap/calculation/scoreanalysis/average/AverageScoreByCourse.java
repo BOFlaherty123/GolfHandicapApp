@@ -19,7 +19,7 @@ import java.util.List;
  * @project MyHandicapApp
  */
 @Component
-public class AverageScoreByCourse extends AbstractCalculateAverage implements AverageScore {
+public class AverageScoreByCourse extends AbstractCalculateAverage implements IAverageScore {
 
     @Autowired
     private ScoreCardDao scoreCardDao = null;

@@ -29,6 +29,7 @@
         <!-- CSS -->
         <link href="${pageContext.request.contextPath}/resources/css/template.css" rel="stylesheet">
 
+
     </head>
     <body>
 
@@ -68,9 +69,14 @@
 
             <div class="container">
                 <!-- Round  -->
-                <form:form method="post" action="${pageContext.request.contextPath}/myHandicap/submitRound" commandName="scoreCardDto" class="form-horizontal">
+                <form:form id="calculateForm" method="post" action="${pageContext.request.contextPath}/myHandicap/submitRound"
+                           commandName="scoreCardDto" class="form-horizontal">
                     <fieldset>
                         <legend>Round Score</legend>
+
+                        <div class="form-group">
+                            <form:errors path="*" cssClass="text-danger"/>
+                        </div>
 
                         <div class="row">
                             <div class="col-md-8">
@@ -153,7 +159,8 @@
                         <!-- Submit Form -->
                         <div class="form-group">
                             <div class="col-lg-10 col-lg-offset-2">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <%--<button type="submit" class="btn btn-primary">Submit</button>--%>
+                                <input id="submit" class="button" type="submit" value="submit"/>
                             </div>
                         </div>
 

@@ -13,12 +13,46 @@ public class Handicap {
     private String handicapScore;
     private String numberOfRounds;
 
-    public String getCalculatedOn() {
-        return calculatedOn;
+    private Handicap(HandicapBuilder handicapBuilder) {
+        calculatedOn = handicapBuilder.calculatedOn;
+        handicapScore = handicapBuilder.handicapScore;
+        numberOfRounds = handicapBuilder.numberOfRounds;
     }
 
-    public void setCalculatedOn(String calculatedOn) {
-        this.calculatedOn = calculatedOn;
+    // builder pattern
+    public static class HandicapBuilder {
+
+        private String calculatedOn = null;
+        private String handicapScore = null;
+        private String numberOfRounds = null;
+
+        public HandicapBuilder(String calculatedOn, String handicapScore) {
+            this.calculatedOn = calculatedOn;
+            this.handicapScore = handicapScore;
+        }
+
+        public HandicapBuilder calculatedOn(String date) {
+            this.calculatedOn = date;
+
+            return this;
+        }
+
+        public HandicapBuilder withHandicapScore(String value) {
+            this.handicapScore = value;
+
+            return this;
+        }
+
+        public HandicapBuilder withNumberOfRounds(String value) {
+            this.numberOfRounds = value;
+
+            return this;
+        }
+
+        public Handicap build() {
+            return new Handicap(this);
+        }
+
     }
 
     public String getHandicapScore() {

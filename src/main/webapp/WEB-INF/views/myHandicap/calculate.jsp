@@ -99,12 +99,12 @@
                                 <div class="form-group">
                                     <label for="input-course-par" class="col-lg-2 control-label">Course Par</label>
                                     <div class="col-lg-2">
-                                        <form:input id="input-course-par" path="golfRounds[0].coursePar" class="form-control" placeholder="Par of Golf Course"/>
+                                        <form:input id="input-course-par" path="golfRounds[0].coursePar" class="form-control" placeholder="Par"/>
                                     </div>
 
                                     <label for="input-course-sss" class="col-lg-2 control-label">Course SSS</label>
                                     <div class="col-lg-2">
-                                        <form:input id="input-course-sss" path="golfRounds[0].courseSSS" class="form-control" placeholder="SSS of Golf Course"/>
+                                        <form:input id="input-course-sss" path="golfRounds[0].courseSSS" class="form-control" placeholder="SSS"/>
                                     </div>
                                 </div>
                             </div>
@@ -160,8 +160,7 @@
                         <!-- Submit Form -->
                         <div class="form-group">
                             <div class="col-lg-10 col-lg-offset-2">
-                                <%--<button type="submit" class="btn btn-primary">Submit</button>--%>
-                                <input id="submit" class="button" type="submit" value="submit"/>
+                                <input id="submit" class="button btn btn-primary" type="submit" value="submit"/>
                             </div>
                         </div>
 

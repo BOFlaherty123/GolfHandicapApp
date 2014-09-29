@@ -33,14 +33,10 @@ public class HandicapCalculationHelper {
      * @return
      */
     public Handicap setupDefaultHandicap() {
-        Handicap playerHandicap = new Handicap();
-
-        playerHandicap.setHandicapScore(String.valueOf(DEFAULT_HANDICAP));
 
         DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/yyyy");
-        playerHandicap.setCalculatedOn(fmt.print(new DateTime()));
 
-        return playerHandicap;
+        return new Handicap.HandicapBuilder(fmt.print(new DateTime()), String.valueOf(DEFAULT_HANDICAP)).build();
     }
 
     /**

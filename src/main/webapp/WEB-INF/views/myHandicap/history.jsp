@@ -104,11 +104,12 @@
                                             <th class="col-sm-2">Course SSS</th>
                                             <th class="col-sm-3">Total Score</th>
                                         </tr>
-                                        <tr>
+                                        <tr style="background-color: #ecf0f1">
                                             <td><c:out value="${golfRound.playDate}"/></td>
                                             <td><c:out value="${golfRound.courseName}"/></td>
                                             <td><c:out value="${golfRound.coursePar}"/></td>
                                             <td><c:out value="${golfRound.courseSSS}"/></td>
+                                            <td/>
                                         </tr>
                                         <tr>
                                             <td>

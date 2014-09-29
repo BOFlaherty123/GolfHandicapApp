@@ -87,14 +87,10 @@ public class MyHandicapControllerTest {
     @Test
     public void handicapValueIsReturnedFromHandicapCalculationProcessor() throws Exception {
 
-        String currentDate = fmt.print(new DateTime());
-
         User user = buildMockUser(21L);
 
-        Handicap handicap = new Handicap();
-        handicap.setCalculatedOn(currentDate);
-        handicap.setHandicapScore("22");
-        handicap.setNumberOfRounds("3");
+        Handicap handicap = new Handicap.HandicapBuilder("22"
+                ,fmt.print(new DateTime())).withNumberOfRounds("3").build();
 
         when(userService.findUserByUsername(USER)).thenReturn(user);
         when(handicapCalculationMock.calculateUserHandicapScore(21L)).thenReturn(handicap);
@@ -114,8 +110,11 @@ public class MyHandicapControllerTest {
 
         List<ScoreCard> scoreCardList = new ArrayList<>();
 
+        Handicap handicap = new Handicap.HandicapBuilder("22"
+                ,fmt.print(new DateTime())).withNumberOfRounds("3").build();
+
         when(userService.findUserByUsername(USER)).thenReturn(user);
-        when(handicapCalculationMock.calculateUserHandicapScore(21L)).thenReturn(new Handicap());
+        when(handicapCalculationMock.calculateUserHandicapScore(21L)).thenReturn(handicap);
         when(scoreCardService.retrieveUserScoredCardsById(user)).thenReturn(scoreCardList);
 
         mockMvc.perform(get("/myHandicap/history").principal(principal))
@@ -141,9 +140,12 @@ public class MyHandicapControllerTest {
 
         scoreCardList.add(scoreCard);
 
+        Handicap handicap = new Handicap.HandicapBuilder("22"
+                ,fmt.print(new DateTime())).withNumberOfRounds("3").build();
+
         when(userService.findUserByUsername(USER)).thenReturn(user);
         when(scoreCardService.retrieveUserScoredCardsById(user)).thenReturn(scoreCardList);
-        when(handicapCalculationMock.calculateUserHandicapScore(21L)).thenReturn(new Handicap());
+        when(handicapCalculationMock.calculateUserHandicapScore(21L)).thenReturn(handicap);
 
         mockMvc.perform(get("/myHandicap/history").principal(principal))
                 .andExpect(status().isOk())

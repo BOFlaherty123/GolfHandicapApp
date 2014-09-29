@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * ScoreCard Data Transfer Object
+ * ScoreCard Data Transfer Object.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 15/07/14

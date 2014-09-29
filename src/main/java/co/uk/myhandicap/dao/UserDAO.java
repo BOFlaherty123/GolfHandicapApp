@@ -14,4 +14,7 @@ public interface UserDao extends GenericDao<User, Long> {
     public User retrieveUserById(Long userId);
 
     User retrieveUserFromSecurityContext();
+
+    void disableUserAccount(String username);
+
 }

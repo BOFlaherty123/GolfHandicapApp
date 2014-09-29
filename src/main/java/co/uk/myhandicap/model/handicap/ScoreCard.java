@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * User Score Card Object
+ * User Score Card Object.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 08/07/2014

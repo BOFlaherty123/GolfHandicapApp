@@ -13,7 +13,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Password Match Annotation
+ * Password Match Annotation.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 30/07/2014

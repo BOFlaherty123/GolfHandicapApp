@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 /**
- * User Registration Dto
+ * User Registration Dto.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 01/08/2014
@@ -31,6 +31,7 @@ public class UserRegistrationDto {
     @NotBlank(message = "Password must have a value.")
     @Length(min = 6, max = 15, message = "Password must have a minimum of 6 and a maximum of 15 in length.")
     private String password;
+    private String active;
 
     public String getUsername() {
         return username;
@@ -72,6 +73,14 @@ public class UserRegistrationDto {
         this.password = password;
     }
 
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
+    }
+
     @Override
     public String toString() {
         return "UserRegistrationDto{" +
@@ -80,6 +89,7 @@ public class UserRegistrationDto {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", active='" + active + '\'' +
                 '}';
     }
 

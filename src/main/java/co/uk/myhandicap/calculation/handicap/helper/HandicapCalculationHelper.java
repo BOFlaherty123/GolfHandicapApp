@@ -25,9 +25,10 @@ public class HandicapCalculationHelper {
 
     private final static int ZERO_VALUE = 0;
     private final static int DEFAULT_HANDICAP = 28;
+    private final static BigDecimal MAX_HANDICAP = new BigDecimal("28");
 
     /**
-     *  setup the default handicap value (28)
+     *  setup the default handicap value (28).
      *
      * @return
      */
@@ -43,7 +44,7 @@ public class HandicapCalculationHelper {
     }
 
     /**
-     * create a default BigDecimal value
+     * create a default BigDecimal value.
      *
      * @return
      */
@@ -52,7 +53,7 @@ public class HandicapCalculationHelper {
     }
 
     /**
-     * create a new BigDecimal with the entered method value
+     * create a new BigDecimal with the entered method value.
      *
      * @param value
      * @return
@@ -62,7 +63,7 @@ public class HandicapCalculationHelper {
     }
 
     /**
-     * set maximum stroke count allowed for a players score
+     * set maximum stroke count allowed for a players score.
      *
      * @param value
      * @return
@@ -72,7 +73,7 @@ public class HandicapCalculationHelper {
     }
 
     /**
-     * add value to total
+     * add value to total.
      *
      * @param value1
      * @param value2
@@ -83,7 +84,7 @@ public class HandicapCalculationHelper {
     }
 
     /**
-     * subtract value from Score
+     * subtract value from Score.
      *
      * @param value1
      * @param value2
@@ -94,14 +95,18 @@ public class HandicapCalculationHelper {
     }
 
     /**
+     * calculate the players handicap, if the value is greater than 28, use the default maximum on 28.
      *
      * @param size
      * @param total
      * @return
      */
     public String calculateHandicap(int size, BigDecimal total) {
-        // TODO - no not allow for a handicap above 28 (max 28)
-        return String.valueOf(total.divide(new BigDecimal(size), RoundingMode.HALF_UP));
+
+        total = (total.divide(new BigDecimal(size), RoundingMode.HALF_UP).signum() > 28)
+                ? total : MAX_HANDICAP;
+
+        return String.valueOf(total);
     }
 
     /**

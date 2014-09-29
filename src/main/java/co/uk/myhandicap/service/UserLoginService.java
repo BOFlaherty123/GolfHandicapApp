@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 
 /**
- * Spring Security User Login Service
+ * Spring Security User Login Service.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 05/08/2014

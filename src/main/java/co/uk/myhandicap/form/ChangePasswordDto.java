@@ -4,7 +4,7 @@ import main.java.co.uk.myhandicap.validation.annotation.PasswordMatch;
 import org.hibernate.validator.constraints.Length;
 
 /**
- * Change Password Screen Dto
+ * Change Password Screen Dto.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 30/07/2014

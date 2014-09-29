@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * UserRole
+ * UserRole.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 03/07/14

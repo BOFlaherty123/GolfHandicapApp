@@ -7,6 +7,7 @@
 --%>
 <!DOCTYPE HTML>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
     <head>
         <title>My Account: Delete Account</title>
@@ -50,13 +51,57 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="${pageContext.request.contextPath}/myAccount/personalInformation">Personal Information</a></li>
                                     <li><a href="${pageContext.request.contextPath}/myAccount/changeAccountPassword">Change Password</a></li>
-                                    <li class="active"><a href="${pageContext.request.contextPath}/myAccount/deleteUserAccount">Delete Account</a></li>
+                                    <li class="active"><a href="${pageContext.request.contextPath}/myAccount/disableUserAccount">Delete Account</a></li>
                                 </ul>
                             </li>
                             <li><a href="${pageContext.request.contextPath}/static/j_spring_security_logout">Logout</a></li>
                         </ul>
                     </div>
                 </div>
+            </div>
+
+            <div class="row" style="background-color: #ecf0f1">
+                <div class="col-md-2"></div>
+
+                <div class="col-md-8">
+
+                    <fieldset>
+                        <legend>Disable User Account</legend>
+
+                        <form:form method="post" action="${pageContext.request.contextPath}/myAccount/disableUserAccount/update"
+                                   commandName="disableUserDto" class="form-horizontal">
+
+                            <div class="form-group">
+                                <label for="username" class="col-lg-2 control-label">Username</label>
+                                <div class="col-lg-10">
+                                    <form:input id="username" path="username" class="form-control" value="${user.username}" readonly="true"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="disableUser" class="col-lg-2 control-label">Active</label>
+                                <form:radiobutton id="disableUser" path="disableUser" value="Y" class="radio-inline"/>Yes
+                                <form:radiobutton id="disableUser" path="disableUser" value="N" class="radio-inline"/>No
+                            </div>
+
+                            <p>
+                                Please note, by clicking submit you will disable your account and you will no longer be able to login.
+                            </p>
+
+                            <div class="form-group">
+                                <div class="col-lg-10">
+                                    <button type="submit" class="btn btn-primary">Disable User</button>
+                                </div>
+                            </div>
+
+                        </form:form>
+
+                    </fieldset>
+
+                </div>
+
+                <div class="col-md-2"></div>
+
             </div>
 
             <jsp:include page="../common/footer.jsp"/>

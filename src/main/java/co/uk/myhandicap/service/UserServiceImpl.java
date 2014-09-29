@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * User Service Implementation
+ * User Service Implementation.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 07/07/2014
@@ -48,4 +48,10 @@ public class UserServiceImpl implements UserService {
     public User retrieveUserFromSecurityContext() {
         return userDAO.retrieveUserFromSecurityContext();
     }
+
+    @Override
+    public void disableUserAccount(String username) {
+        userDAO.disableUserAccount(username);
+    }
+
 }

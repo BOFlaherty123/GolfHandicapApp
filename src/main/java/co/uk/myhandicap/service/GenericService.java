@@ -3,7 +3,7 @@ package main.java.co.uk.myhandicap.service;
 import java.io.Serializable;
 
 /**
- * Generic Service Methods
+ * Generic Service Methods.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 11/07/14

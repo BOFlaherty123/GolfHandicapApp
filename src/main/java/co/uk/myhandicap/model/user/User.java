@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * User Entity
+ * User Entity.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 02/07/14
@@ -55,11 +55,13 @@ public class User {
     // One-to-One Mapping example (Entity to Entity)
     // @OneToOne(cascade = {CascadeType.ALL})
     // @JoinColumn(name = "ADDRESS_ID")
-
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Fetch(value = FetchMode.SUBSELECT)
     @JoinTable(joinColumns = @JoinColumn(name="USER_ID"), inverseJoinColumns = @JoinColumn(name="ADDRESS_ID"))
     private List<Address> address = new ArrayList<>();
+
+    @Column(name="ACTIVE")
+    private String active;
 
     public long getId() {
         return id;
@@ -133,6 +135,14 @@ public class User {
         this.address = address;
     }
 
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -145,6 +155,8 @@ public class User {
                 ", password='" + password + '\'' +
                 ", userRoles=" + userRoles +
                 ", address=" + address +
+                ", active='" + active + '\'' +
                 '}';
     }
+
 }

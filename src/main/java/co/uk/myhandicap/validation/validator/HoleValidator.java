@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Hole Validation
+ * Hole Validation.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 14/07/14

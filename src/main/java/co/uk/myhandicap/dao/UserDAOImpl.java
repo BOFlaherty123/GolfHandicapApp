@@ -131,6 +131,32 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+    @Override
+    public void disableUserAccount(String username) {
+        logger.entry(username);
+
+        Session session = sessionFactory.openSession();
+
+        session.beginTransaction();
+
+        // retrieve user query
+        Query query = session.createQuery("from User where username = :username");
+        query.setParameter("username", username);
+
+        // update active field on user object
+        User user = (User) query.list().get(0);
+        user.setActive("N");
+
+        session.update(user);
+
+        // Commit and close the transaction
+        session.getTransaction().commit();
+
+        session.close();
+
+        logger.exit();
+    }
+
     public User findUserByUsername(String username) throws UserNotFoundException {
         logger.entry(username);
 

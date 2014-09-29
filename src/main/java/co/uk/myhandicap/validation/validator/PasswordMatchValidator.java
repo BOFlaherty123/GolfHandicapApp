@@ -8,7 +8,7 @@ import javax.validation.ConstraintValidatorContext;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * Password Match Validator
+ * Password Match Validator.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 30/07/2014

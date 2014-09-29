@@ -3,7 +3,7 @@ package main.java.co.uk.myhandicap.form;
 import main.java.co.uk.myhandicap.validation.annotation.HoleValid;
 
 /**
- * Hole Data Transfer Object
+ * Hole Data Transfer Object.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 14/07/14

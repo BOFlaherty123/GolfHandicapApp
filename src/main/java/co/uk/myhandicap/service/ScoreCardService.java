@@ -6,7 +6,7 @@ import main.java.co.uk.myhandicap.model.user.User;
 import java.util.List;
 
 /**
- * ScoreCard Interface
+ * ScoreCard Interface.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 11/07/14

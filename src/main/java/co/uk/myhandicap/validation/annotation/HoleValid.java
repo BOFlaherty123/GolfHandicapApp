@@ -13,7 +13,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Hole Validation
+ * Hole Validation.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 14/07/14

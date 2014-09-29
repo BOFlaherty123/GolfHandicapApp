@@ -29,7 +29,7 @@ public class GolfHole {
     private GolfHole() {}
 
     /**
-     * loop through each hole and make the necessary adjustments to the players overal score.
+     * loop through each hole and make the necessary adjustments to the players overall score.
      *
      * @param round
      * @param playerScore

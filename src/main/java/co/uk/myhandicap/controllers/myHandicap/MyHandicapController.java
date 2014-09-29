@@ -22,7 +22,7 @@ import java.util.List;
 import static java.lang.String.format;
 
 /**
- * My Handicap Controller
+ * My Handicap Controller.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 08/07/2014

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Hole Dao Implementation
+ * Hole Dao Implementation.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 18/09/2014
@@ -26,19 +26,13 @@ public class HoleDaoImpl implements HoleDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public void save(Hole saveObj) {
-
-    }
+    public void save(Hole saveObj) {}
 
     @Override
-    public void update(Hole updateObj) {
-
-    }
+    public void update(Hole updateObj) {}
 
     @Override
-    public void delete(Hole deleteObj) {
-
-    }
+    public void delete(Hole deleteObj) {}
 
     @Override
     public List<Hole> retrieveHoleAverageByHolePar(User user, String holePar) {

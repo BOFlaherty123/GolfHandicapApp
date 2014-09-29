@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 /**
- * Personal Information DTO
+ * Personal Information DTO.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 29/07/2014

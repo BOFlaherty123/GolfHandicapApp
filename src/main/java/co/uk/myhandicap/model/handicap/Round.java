@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * Round of Golf Object
+ * Round of Golf Object.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 08/07/2014

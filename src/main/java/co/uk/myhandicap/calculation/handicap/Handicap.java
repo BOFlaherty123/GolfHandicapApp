@@ -1,7 +1,7 @@
 package main.java.co.uk.myhandicap.calculation.handicap;
 
 /**
- * Handicap Object
+ * Handicap Object.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 16/07/14

@@ -6,7 +6,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * Round Data Transfer Object
+ * Round Data Transfer Object.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 14/07/14

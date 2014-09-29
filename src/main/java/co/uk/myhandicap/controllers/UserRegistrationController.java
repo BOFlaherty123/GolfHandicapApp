@@ -97,6 +97,9 @@ public class UserRegistrationController implements IAppController, IAppFormContr
             registerUser.setPassword(password);
             logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, "encrypt password for user ... " + user.getUsername()));
 
+            // Register new user as active
+            registerUser.setActive("Y");
+
             // Save User to database
             userService.save(registerUser);
             logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, format("%s saved successfully ...", user.toString())));

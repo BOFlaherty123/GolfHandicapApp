@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * ScoreCard Service Implementation
+ * ScoreCard Service Implementation.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 11/07/14

@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal;
 
 /**
- * Welcome Controller
+ * Welcome Controller.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 02/07/14
@@ -17,7 +17,7 @@ import java.security.Principal;
 public class WelcomeController implements IAppController {
 
     /**
-     * Display the 'welcome' page to the application
+     * Display the 'welcome' page to the application.
      *
      * @return
      */

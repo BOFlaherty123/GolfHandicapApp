@@ -81,6 +81,7 @@ public class HoleDaoImpl implements HoleDao {
             golfHoles = query.list();
 
             session.getTransaction().commit();
+
         } catch(GenericJDBCException ex) {
             logger.error("class=[" + this.getClass().getName() + "] method=[.save()]", ex);
         } finally {

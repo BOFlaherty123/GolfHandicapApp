@@ -89,8 +89,8 @@ public class MyHandicapControllerTest {
 
         User user = buildMockUser(21L);
 
-        Handicap handicap = new Handicap.HandicapBuilder("22"
-                ,fmt.print(new DateTime())).withNumberOfRounds("3").build();
+        Handicap handicap = new Handicap.HandicapBuilder(fmt.print(new DateTime()), "22")
+                .withNumberOfRounds("3").build();
 
         when(userService.findUserByUsername(USER)).thenReturn(user);
         when(handicapCalculationMock.calculateUserHandicapScore(21L)).thenReturn(handicap);
@@ -110,8 +110,8 @@ public class MyHandicapControllerTest {
 
         List<ScoreCard> scoreCardList = new ArrayList<>();
 
-        Handicap handicap = new Handicap.HandicapBuilder("22"
-                ,fmt.print(new DateTime())).withNumberOfRounds("3").build();
+        Handicap handicap = new Handicap.HandicapBuilder(fmt.print(new DateTime()), "22")
+                .withNumberOfRounds("3").build();
 
         when(userService.findUserByUsername(USER)).thenReturn(user);
         when(handicapCalculationMock.calculateUserHandicapScore(21L)).thenReturn(handicap);
@@ -140,8 +140,8 @@ public class MyHandicapControllerTest {
 
         scoreCardList.add(scoreCard);
 
-        Handicap handicap = new Handicap.HandicapBuilder("22"
-                ,fmt.print(new DateTime())).withNumberOfRounds("3").build();
+        Handicap handicap = new Handicap.HandicapBuilder(fmt.print(new DateTime()), "22")
+                .withNumberOfRounds("3").build();
 
         when(userService.findUserByUsername(USER)).thenReturn(user);
         when(scoreCardService.retrieveUserScoredCardsById(user)).thenReturn(scoreCardList);

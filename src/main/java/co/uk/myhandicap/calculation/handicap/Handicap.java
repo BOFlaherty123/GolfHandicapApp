@@ -19,7 +19,7 @@ public class Handicap {
         numberOfRounds = handicapBuilder.numberOfRounds;
     }
 
-    // builder pattern
+    // builder design pattern
     public static class HandicapBuilder {
 
         private String calculatedOn = null;
@@ -53,6 +53,14 @@ public class Handicap {
             return new Handicap(this);
         }
 
+    }
+
+    public String getCalculatedOn() {
+        return calculatedOn;
+    }
+
+    public void setCalculatedOn(String calculatedOn) {
+        this.calculatedOn = calculatedOn;
     }
 
     public String getHandicapScore() {

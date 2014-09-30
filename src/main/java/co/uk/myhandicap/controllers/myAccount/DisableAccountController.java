@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal;
 
 /**
- * Delete User Account
+ * Disable a User Account
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 11/07/14
@@ -28,6 +28,8 @@ public class DisableAccountController implements IAppController, IAppFormControl
 
     @Autowired
     private UserService userService;
+
+    private static final String VIEW_NAME = "myAccount/deleteAccount";
 
     /**
      * handleRequest for MyAccount/DeleteUserAccount (GET).
@@ -53,7 +55,7 @@ public class DisableAccountController implements IAppController, IAppFormControl
         mav.addObject("user", user);
 
         // set view name to myAccount/deleteAccount
-        mav.setViewName("myAccount/deleteAccount");
+        mav.setViewName(VIEW_NAME);
 
         return mav;
     }
@@ -76,7 +78,7 @@ public class DisableAccountController implements IAppController, IAppFormControl
         }
 
         // set view name to myAccount/deleteAccount
-        mav.setViewName("myAccount/deleteAccount");
+        mav.setViewName(VIEW_NAME);
 
         return mav;
     }

@@ -34,12 +34,14 @@ public class ScoreAnalysisController implements IAppController {
     private ScoreCardDao scoreCardDao;
 
     private static final String GOLF_COURSE_NAMES_ATTR = "golfCourseNames";
+    private static final String VIEW_NAME = "analysis/scoreAnalysis";
 
     @Override
     @RequestMapping(value="/scoreAnalysis")
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
 
-        mav = new ModelAndView("analysis/scoreAnalysis");
+        // set view name
+        mav = new ModelAndView(VIEW_NAME);
 
         // retrieve golf courses the user has played
         mav.addObject(GOLF_COURSE_NAMES_ATTR, retrieveGolfCourseNamesForUser(principal));
@@ -51,7 +53,8 @@ public class ScoreAnalysisController implements IAppController {
     public ModelAndView averageByCourseName(@PathVariable("userInput") String userInput,
                                             ModelAndView mav, Principal principal) {
 
-        mav = new ModelAndView("analysis/scoreAnalysis");
+        // set view name
+        mav = new ModelAndView(VIEW_NAME);
 
         // calculate and add returned average to model
         mav.addObject("avgByCourseName", calculateAverage("avgByCourse", userInput, principal));
@@ -65,7 +68,8 @@ public class ScoreAnalysisController implements IAppController {
     @RequestMapping(value="/scoreAnalysis/averagePar/{userInput}")
     public ModelAndView averagePar(@PathVariable("userInput") String userInput, ModelAndView mav, Principal principal) {
 
-        mav = new ModelAndView("analysis/scoreAnalysis");
+        // set view name
+        mav = new ModelAndView(VIEW_NAME);
         // calculate and add returned average to model
         mav.addObject("avgByHolePar", calculateAverage("avgByHolePar", userInput, principal));
 
@@ -78,7 +82,8 @@ public class ScoreAnalysisController implements IAppController {
     @RequestMapping(value="/scoreAnalysis/averageYardage/{userInput}")
     public ModelAndView averageYardage(@PathVariable("userInput") String userInput, ModelAndView mav, Principal principal) {
 
-        mav = new ModelAndView("analysis/scoreAnalysis");
+        // set view name
+        //mav = new ModelAndView(VIEW_NAME);
         // calculate and add returned average to model
         mav.addObject("avgByHoleYardage", calculateAverage("avgByHoleYardage", userInput, principal));
 

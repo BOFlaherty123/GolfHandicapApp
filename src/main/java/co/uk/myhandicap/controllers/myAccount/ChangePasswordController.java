@@ -49,6 +49,8 @@ public class ChangePasswordController implements IAppController, IAppFormControl
     @Autowired
     private EncryptUserPassword encryptUserPassword;
 
+    private static final String VIEW_NAME = "myAccount/changePassword";
+
     /**
      * handleRequest for MyAccount/ChangePassword (GET).
      *
@@ -59,7 +61,7 @@ public class ChangePasswordController implements IAppController, IAppFormControl
     @Override
     @RequestMapping(value="/changeAccountPassword")
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
-        mav.setViewName("myAccount/changePassword");
+        mav.setViewName(VIEW_NAME);
 
         // retrieve the user
         User user = null;
@@ -107,7 +109,7 @@ public class ChangePasswordController implements IAppController, IAppFormControl
             logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, "update password for user %s ..." + user.getUsername()));
         }
 
-        mav.setViewName("myAccount/changePassword");
+        mav.setViewName(VIEW_NAME);
 
         return mav;
     }

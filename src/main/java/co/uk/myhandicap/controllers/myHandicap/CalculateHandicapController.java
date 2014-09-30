@@ -50,6 +50,8 @@ public class CalculateHandicapController implements IAppController, IAppFormCont
     @Autowired
     private ScoreCardServiceImpl scoreCardService;
 
+    private static final String VIEW_NAME = "myHandicap/calculate";
+
     /**
      * handleRequest for myHandicap/calculate (GET).
      *
@@ -62,7 +64,7 @@ public class CalculateHandicapController implements IAppController, IAppFormCont
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
         logger.entry(mav);
 
-        mav.setViewName("myHandicap/calculate");
+        mav.setViewName(VIEW_NAME);
 
         User user = null;
         ScoreCardDto scoreCardDto = new ScoreCardDto();
@@ -99,11 +101,12 @@ public class CalculateHandicapController implements IAppController, IAppFormCont
         logger.entry(mav, scoreCard, errors);
 
         if(errors.hasErrors()) {
-            mav.setViewName("myHandicap/calculate");
+            mav.setViewName(VIEW_NAME);
             logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, format("%s errors triggered", errors.getErrorCount())));
 
         } else {
 
+            // set view name
             mav.setViewName("myHandicap/history");
 
             // Dozer object mapping

@@ -61,6 +61,7 @@ public class MyHandicapController implements IAppController {
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
         final String METHOD_NAME = ".handleRequest()";
 
+        // set view name
         mav.setViewName("myHandicap/history");
 
         try {
@@ -76,7 +77,6 @@ public class MyHandicapController implements IAppController {
             if(scoreCardList.isEmpty()) {
                 mav.addObject("noPlayerScoreCards", noPlayerScoreCards);
                 logger.info(format(logInfoMsg, this.getClass().getName(), METHOD_NAME, format("there are no registered scores for user, %s ...", user.getUsername())));
-
             }
 
             mav.addObject("playerHandicap", handicap);

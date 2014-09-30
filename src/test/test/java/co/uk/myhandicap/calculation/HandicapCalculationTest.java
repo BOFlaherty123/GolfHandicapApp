@@ -138,13 +138,8 @@ public class HandicapCalculationTest {
     }
 
     private Handicap mockPlayerHandicap(String handicap, List<Round> listOfRounds) {
-
-        Handicap handicapMock = new Handicap();
-        handicapMock.setCalculatedOn(fmt.print(new DateTime()));
-        handicapMock.setHandicapScore(handicap);
-        handicapMock.setNumberOfRounds(String.valueOf(listOfRounds.size()));
-
-        return handicapMock;
+        return new Handicap.HandicapBuilder(fmt.print(new DateTime()), handicap)
+                .withNumberOfRounds(String.valueOf(listOfRounds.size())).build();
     }
 
 

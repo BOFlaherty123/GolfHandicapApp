@@ -144,7 +144,7 @@ public class UserDaoImpl implements UserDao {
         query.setParameter("username", username);
 
         // update active field on user object
-        User user = (User) query.list().get(0);
+        User user = (User) query.uniqueResult();
         user.setActive("N");
 
         session.update(user);
@@ -172,7 +172,7 @@ public class UserDaoImpl implements UserDao {
             query.setParameter("username", username);
 
             // user is equal to the first user object found
-            user = (User) query.list().get(0);
+            user = (User) query.uniqueResult();
 
             if(user == null) {
                 throw new UserNotFoundException(format(userNotFoundException, username));

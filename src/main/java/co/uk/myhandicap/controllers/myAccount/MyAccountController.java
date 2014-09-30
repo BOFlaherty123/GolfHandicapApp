@@ -49,6 +49,8 @@ public class MyAccountController implements IAppController, IAppFormController<P
     @Value("${myAccount.personal.failure}")
     private String failureMessage;
 
+    private static final String VIEW_NAME = "myAccount/personal";
+
     /**
      * handleRequest for MyAccount/personalInformation (GET).
      *
@@ -61,7 +63,7 @@ public class MyAccountController implements IAppController, IAppFormController<P
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
         logger.entry(mav);
 
-        mav.setViewName("myAccount/personal");
+        mav.setViewName(VIEW_NAME);
 
         // retrieve the user
         User user = null;
@@ -93,7 +95,7 @@ public class MyAccountController implements IAppController, IAppFormController<P
     public ModelAndView submitFormRequest(ModelAndView mav, @Valid PersonalInformationDto form, BindingResult errors) {
         logger.entry(mav, form, errors);
 
-        mav.setViewName("myAccount/personal");
+        mav.setViewName(VIEW_NAME);
 
         if(errors.hasErrors()) {
             mav.addObject("failure", failureMessage);

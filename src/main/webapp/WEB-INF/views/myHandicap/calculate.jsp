@@ -54,6 +54,13 @@
                         <ul class="nav navbar-nav">
                             <li><a href="${pageContext.request.contextPath}/">Home</a></li>
                             <li class="active"><a href="${pageContext.request.contextPath}/myHandicap/history">My Handicap</a></li>
+                            <li class="active dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Analysis <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li class="active"><a href="${pageContext.request.contextPath}/scoreAnalysis/overall">Overall Stats</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/scoreAnalysis/courseName">Course Stats</a></li>
+                                </ul>
+                            </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
                                 <ul class="dropdown-menu">

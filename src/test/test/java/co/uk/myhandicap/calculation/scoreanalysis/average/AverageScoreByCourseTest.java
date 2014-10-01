@@ -1,6 +1,6 @@
 package test.java.co.uk.myhandicap.calculation.scoreanalysis.average;
 
-import main.java.co.uk.myhandicap.calculation.scoreanalysis.average.AverageScoreByCourse;
+import main.java.co.uk.myhandicap.calculation.scoreanalysis.calc.average.AverageScoreByCourse;
 import main.java.co.uk.myhandicap.dao.ScoreCardDao;
 import main.java.co.uk.myhandicap.model.handicap.Round;
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;

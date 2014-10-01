@@ -1,7 +1,7 @@
 package test.java.co.uk.myhandicap.calculation.scorestatistics;
 
-import main.java.co.uk.myhandicap.calculation.scoreanalysis.average.scorestatistics.DetermineTypeOfScore;
-import main.java.co.uk.myhandicap.calculation.scoreanalysis.average.scorestatistics.DisplayScoreStatisticsByCourse;
+import main.java.co.uk.myhandicap.calculation.scoreanalysis.calc.statistics.DetermineTypeOfScore;
+import main.java.co.uk.myhandicap.calculation.scoreanalysis.calc.statistics.DisplayScoreStatisticsByCourse;
 import main.java.co.uk.myhandicap.dao.ScoreCardDao;
 import main.java.co.uk.myhandicap.model.handicap.Hole;
 import main.java.co.uk.myhandicap.model.handicap.Round;
@@ -74,6 +74,8 @@ public class DisplayScoreStatisticsByCourseTest {
     // and keep a running total of the number of pars, birdies, bogeys etc)
     // 4. return list<object> containing the data to the controller for output in the model
 
+
+    // TODO - tidy up this code to use the same code as within AverageScoreTest (rename this class and extend)
     protected ScoreCard addScoreCard(Long playerId, List<Round> golfRounds, int timesPlayed) {
 
         ScoreCard scoreCard = new ScoreCard();

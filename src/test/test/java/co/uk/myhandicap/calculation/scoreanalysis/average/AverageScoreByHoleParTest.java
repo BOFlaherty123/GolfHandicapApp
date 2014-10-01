@@ -1,6 +1,6 @@
 package test.java.co.uk.myhandicap.calculation.scoreanalysis.average;
 
-import main.java.co.uk.myhandicap.calculation.scoreanalysis.average.AverageScoreByHolePar;
+import main.java.co.uk.myhandicap.calculation.scoreanalysis.calc.average.AverageScoreByHolePar;
 import main.java.co.uk.myhandicap.dao.HoleDao;
 import main.java.co.uk.myhandicap.model.handicap.Hole;
 import main.java.co.uk.myhandicap.model.user.User;

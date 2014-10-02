@@ -44,7 +44,6 @@ public class PasswordMatchValidator implements ConstraintValidator<PasswordMatch
             return false;
         }
 
-        System.out.println("passed validation");
         return true;
     }
 }

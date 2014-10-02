@@ -67,7 +67,8 @@ public class CalculateHandicapControllerTest {
         mockMvc.perform(get("/myHandicap/calculate").principal(principal))
                 .andExpect(status().isOk())
                 .andExpect(view().name("myHandicap/calculate"))
-                .andExpect(forwardedUrl("/WEB-INF/views/myHandicap/calculate.jsp"));
+                .andExpect(forwardedUrl("/WEB-INF/views/myHandicap/calculate.jsp"))
+        .andExpect(model().attributeExists("scoreCardDto"));
 
     }
 

@@ -100,7 +100,9 @@ public class MyHandicapControllerTest {
                 .andExpect(view().name("myHandicap/history"))
                 .andExpect(forwardedUrl("/WEB-INF/views/myHandicap/history.jsp")
             )
-                .andExpect(model().attribute("playerHandicap", handicap));
+                .andExpect(model().attributeExists("noPlayerScoreCards"))
+                .andExpect(model().attributeExists("playerHandicap"))
+                .andExpect(model().attributeExists("playerScoreCards"));
     }
 
     @Test
@@ -123,7 +125,8 @@ public class MyHandicapControllerTest {
                 .andExpect(forwardedUrl("/WEB-INF/views/myHandicap/history.jsp")
                 )
                 .andExpect(model().attribute("playerScoreCards", hasSize(0)))
-                .andExpect(model().attribute("noPlayerScoreCards", "No Player ScoreCards Found."));
+                .andExpect(model().attribute("noPlayerScoreCards", "No Player ScoreCards Found."))
+                .andExpect(model().attribute("playerScoreCards", hasSize(0)));
 
     }
 

@@ -51,8 +51,8 @@ public class DisableAccountController implements IAppController, IAppFormControl
         }
 
         // add default model objects
-        mav.addObject("disableUserDto", new DisableUserDto());
-        mav.addObject("user", user);
+        mav.addObject(new DisableUserDto());
+        mav.addObject(user);
 
         // set view name to myAccount/deleteAccount
         mav.setViewName(VIEW_NAME);

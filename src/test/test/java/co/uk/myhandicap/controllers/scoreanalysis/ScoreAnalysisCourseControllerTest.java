@@ -20,6 +20,8 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -74,7 +76,8 @@ public class ScoreAnalysisCourseControllerTest {
         mockMvc.perform(get("/scoreAnalysis/courseName").principal(principal))
                 .andExpect(status().isOk())
                 .andExpect(view().name("analysis/courseAnalysis"))
-                .andExpect(forwardedUrl("/WEB-INF/views/analysis/courseAnalysis.jsp"));
+                .andExpect(forwardedUrl("/WEB-INF/views/analysis/courseAnalysis.jsp"))
+                .andExpect(model().attributeExists("golfCourseNames"));
 
     }
 
@@ -92,7 +95,12 @@ public class ScoreAnalysisCourseControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("analysis/courseAnalysis"))
                 .andExpect(forwardedUrl("/WEB-INF/views/analysis/courseAnalysis.jsp"))
-        .andExpect(model().attributeExists("avgByCourseName"));
+        .andExpect(model().attributeExists("avgByCourseName"))
+        .andExpect(model().attribute("avgByCourseName", equalTo("5")))
+        .andExpect(model().attributeExists("golfCourseNames"))
+        .andExpect(model().attribute("golfCourseNames", hasItem("Course Name 1")))
+        .andExpect(model().attribute("golfCourseNames", hasItem("Course Name 2")))
+        .andExpect(model().attributeExists("courseStatistics"));
 
     }
 

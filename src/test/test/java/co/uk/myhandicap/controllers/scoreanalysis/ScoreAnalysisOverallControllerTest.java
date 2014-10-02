@@ -18,6 +18,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.security.Principal;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -87,7 +88,8 @@ public class ScoreAnalysisOverallControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("analysis/overallAnalysis"))
                 .andExpect(forwardedUrl("/WEB-INF/views/analysis/overallAnalysis.jsp"))
-                .andExpect(model().attributeExists("avgByHolePar"));
+                .andExpect(model().attributeExists("avgByHolePar"))
+                .andExpect(model().attribute("avgByHolePar", equalTo("4.25")));
 
     }
 
@@ -104,7 +106,8 @@ public class ScoreAnalysisOverallControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("analysis/overallAnalysis"))
                 .andExpect(forwardedUrl("/WEB-INF/views/analysis/overallAnalysis.jsp"))
-                .andExpect(model().attributeExists("avgByHoleYardage"));
+                .andExpect(model().attributeExists("avgByHoleYardage"))
+                .andExpect(model().attribute("avgByHolePar", equalTo("4.8")));
 
     }
 

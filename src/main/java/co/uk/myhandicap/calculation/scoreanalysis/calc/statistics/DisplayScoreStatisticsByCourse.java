@@ -49,8 +49,6 @@ public class DisplayScoreStatisticsByCourse {
             processScoreCardData(holeScoreTypeList, scoreCard);
         }
 
-        // TODO - Look at renaming some of the classes within 'statistics' to better describe the class function
-
         return holeScoreTypeList;
 
     }

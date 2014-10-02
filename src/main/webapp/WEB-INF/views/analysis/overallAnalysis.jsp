@@ -77,6 +77,9 @@
 
                 <div class="col-md-5">
 
+                    <!-- hidden field for user search selection, retrieve value from session -->
+                    <input type="hidden" id="_parSelection" name="_parSelection" value="${parValue}">
+
                     <div class="averageDiv">
                         <!-- Average Score, by Hole Par -->
                         <fieldset>
@@ -110,6 +113,9 @@
                 </div>
 
                 <div class="col-md-5">
+
+                    <!-- hidden field for user search selection, retrieve value from session -->
+                    <input type="hidden" id="_yardSelection" name="_parSelection" value="${yardageValue}">
 
                     <div class="averageDiv">
                         <!-- Average Score, by Hole Par -->

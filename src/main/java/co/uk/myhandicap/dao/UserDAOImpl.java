@@ -83,6 +83,12 @@ public class UserDaoImpl implements UserDao {
 
     }
 
+    /**
+     * retrieve a user object by the user's id.
+     *
+     * @param userId
+     * @return
+     */
     public User retrieveUserById(Long userId) {
         logger.entry(userId);
 
@@ -116,6 +122,11 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+    /**
+     * retrieve the user object from the security context (username).
+     *
+     * @return
+     */
     @Override
     public User retrieveUserFromSecurityContext() {
 
@@ -131,6 +142,11 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+    /**
+     * disable a user's account by their username
+     *
+     * @param username
+     */
     @Override
     public void disableUserAccount(String username) {
         logger.entry(username);
@@ -157,6 +173,13 @@ public class UserDaoImpl implements UserDao {
         logger.exit();
     }
 
+    /**
+     * find a user object by username (String).
+     *
+     * @param username
+     * @return
+     * @throws UserNotFoundException
+     */
     public User findUserByUsername(String username) throws UserNotFoundException {
         logger.entry(username);
 

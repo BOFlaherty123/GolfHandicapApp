@@ -77,6 +77,9 @@
 
                 <div class="col-md-10">
 
+                    <!-- hidden field for user search selection, retrieve value from session -->
+                    <input type="hidden" id="_courseSelection" name="_courseSelection" value="${courseName}">
+
                     <div class="averageDiv">
                         <!-- Average Score, by Course -->
                         <fieldset>
@@ -85,9 +88,7 @@
                             <div id="input-hole-courseName">
                                 <table class="table">
                                     <tr>
-                                        <td>
-                                            <label for="courseNameSelection" class="form-control">Please Select a Golf Course:</label>
-                                        </td>
+                                        <td><label for="courseNameSelection" class="form-control">Please Select a Golf Course:</label></td>
                                         <td>
                                             <!-- Golf Course Name Dropdown Menu -->
                                             <select id="courseNameSelection" class="form-control">
@@ -98,14 +99,10 @@
                                                 </c:forEach>
                                             </select>
                                         </td>
-                                        <td>
-                                            <input id="selectedCourse" class="form-control" name="selectedCourse" type="text" readonly value="" min="20" max="50"/>
-                                        </td>
+                                        <td><input id="selectedCourse" class="form-control" name="selectedCourse" type="text" readonly value="" min="20" max="50"/></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <a class="btn btn-primary" id="calculateAvgByCourseName" href="#">Calculate</a>
-                                        </td>
+                                        <td><a class="btn btn-primary" id="calculateAvgByCourseName" href="#">Calculate</a></td>
                                     </tr>
                                     <c:if test="${not empty avgByCourseName}">
                                         <tr>
@@ -115,7 +112,6 @@
                                     </c:if>
                                 </table>
                             </div>
-
                         </fieldset>
                     </div>
 
@@ -142,9 +138,7 @@
 
                                     <table class="table">
                                         <tr class="bg-success">
-                                            <td>
-                                                <b>Hole #</b>
-                                            </td>
+                                            <td><b>Hole #</b></td>
                                             <td>Eagle</td>
                                             <td>Birdie</td>
                                             <td>Par</td>

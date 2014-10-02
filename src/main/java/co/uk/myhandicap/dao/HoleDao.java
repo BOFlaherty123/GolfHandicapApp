@@ -6,7 +6,7 @@ import main.java.co.uk.myhandicap.model.user.User;
 import java.util.List;
 
 /**
- * Description Here
+ * Hole Dao Interface.
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 18/09/2014

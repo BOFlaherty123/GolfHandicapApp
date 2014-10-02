@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
@@ -24,9 +25,9 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value="/scoreAnalysis")
+@SessionAttributes("courseName")
 public class ScoreAnalysisCourseController extends AbstractScoreAnalysisController implements IAppController {
 
-    // best/worst holes on courses played more than once.
     @Autowired
     private ScoreCardDao scoreCardDao;
     @Autowired
@@ -48,15 +49,15 @@ public class ScoreAnalysisCourseController extends AbstractScoreAnalysisControll
         return mav;
     }
 
-    @RequestMapping(value="/averageCourseName/{userInput}")
-    public ModelAndView averageByCourseName(@PathVariable("userInput") String userInput,
+    @RequestMapping(value="/averageCourseName/{courseName}")
+    public ModelAndView averageByCourseName(@PathVariable("courseName") String courseName,
                                             ModelAndView mav, Principal principal) {
 
         // set view name
         mav = new ModelAndView(VIEW_NAME);
 
         // calculate and add returned average to model
-        mav.addObject("avgByCourseName", calculateAverage("avgByCourse", userInput, principal));
+        mav.addObject("avgByCourseName", calculateAverage("avgByCourse", courseName, principal));
 
         // retrieve golf courses the user has played
         mav.addObject(GOLF_COURSE_NAMES_ATTR, retrieveGolfCourseNamesForUser(principal));
@@ -70,7 +71,7 @@ public class ScoreAnalysisCourseController extends AbstractScoreAnalysisControll
         }
 
         // Hole by Hole Score Analysis (total)
-        List<HoleScoreType> holeScoreTypeList = statisticsByCourse.execute(userInput, user);
+        List<HoleScoreType> holeScoreTypeList = statisticsByCourse.execute(courseName, user);
         // add result set to model
         mav.addObject("courseStatistics", holeScoreTypeList);
 

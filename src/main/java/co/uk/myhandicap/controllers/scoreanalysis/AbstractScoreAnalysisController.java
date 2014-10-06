@@ -48,6 +48,8 @@ public abstract class AbstractScoreAnalysisController {
             user = userService.findUserByUsername(principal.getName());
         } catch (UserNotFoundException e) {
             e.printStackTrace();
+        } catch (NullPointerException np) {
+            np.printStackTrace();
         }
 
         return user;

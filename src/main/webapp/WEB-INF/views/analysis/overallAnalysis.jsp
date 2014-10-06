@@ -40,9 +40,6 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">
-                            Brand
-                        </a>
                     </div>
                     <div class="navbar-collapse collapse navbar-inverse-collapse">
                         <ul class="nav navbar-nav">
@@ -69,6 +66,56 @@
                         </ul>
                     </div>
                 </div>
+            </div>
+
+            <div class="row" style="background-color: #ecf0f1">
+
+                <div class="col-md-1"></div>
+
+                <div class="col-md-10">
+
+                    <div id="holeByHoleStats" class="averageDiv">
+                        <!-- Average Score, by Hole Par -->
+                        <fieldset>
+                            <legend>Hole-by-Hole Statistics</legend>
+
+                            <div class="table-responsive">
+
+                                <table class="table">
+                                    <tr class="bg-success">
+                                        <td><b>Hole #</b></td>
+                                        <td>Eagle</td>
+                                        <td>Birdie</td>
+                                        <td>Par</td>
+                                        <td>Bogey</td>
+                                        <td>Bogey (2)</td>
+                                        <td>Bogey (3)</td>
+                                        <td>Other</td>
+                                    </tr>
+                                    <!-- output course statistics for a given course -->
+                                    <c:forEach var="courseStats" items="${courseStatistics}">
+                                        <tr>
+                                            <td>${courseStats.holeNumber}.</td>
+                                            <td>${courseStats.eagle}</td>
+                                            <td>${courseStats.birdie}</td>
+                                            <td>${courseStats.par}</td>
+                                            <td>${courseStats.bogey}</td>
+                                            <td>${courseStats.doubleBogey}</td>
+                                            <td>${courseStats.tripleBogey}</td>
+                                            <td>${courseStats.other}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </table>
+
+                            </div>
+
+                        </fieldset>
+                    </div>
+
+                </div>
+
+                <div class="col-md-1"></div>
+
             </div>
 
             <div class="row" style="background-color: #ecf0f1">

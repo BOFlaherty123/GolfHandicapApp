@@ -110,7 +110,7 @@ public class MyHandicapControllerTest {
 
         User user = buildMockUser(21L);
 
-        List<ScoreCard> scoreCardList = new ArrayList<>();
+        List<ScoreCard> scoreCardList = new ArrayList<ScoreCard>();
 
         Handicap handicap = new Handicap.HandicapBuilder(fmt.print(new DateTime()), "22")
                 .withNumberOfRounds("3").build();

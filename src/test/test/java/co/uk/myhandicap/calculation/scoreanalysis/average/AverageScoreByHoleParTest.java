@@ -40,7 +40,7 @@ public class AverageScoreByHoleParTest extends AverageScoreTest {
     @Test
     public void executeWithTwoGolfRoundsForAverageScoreOnPar3ReturnValidAverageValue() {
 
-        List<Hole> list = new ArrayList<>();
+        List<Hole> list = new ArrayList<Hole>();
         setupHoles(list, 18, "3");
 
         when(holeDao.retrieveHoleAverageByHolePar(user, "3")).thenReturn(list);
@@ -53,7 +53,7 @@ public class AverageScoreByHoleParTest extends AverageScoreTest {
     @Test
     public void executeWithTwoGolfRoundsForAverageScoreOnPar4ReturnValidAverageValue() {
 
-        List list = new ArrayList<>();
+        List list = new ArrayList();
         setupHoles(list, 36, "4");
 
         when(holeDao.retrieveHoleAverageByHolePar(user, "4")).thenReturn(list);
@@ -66,7 +66,7 @@ public class AverageScoreByHoleParTest extends AverageScoreTest {
     @Test
     public void executeWithTwoGolfRoundsForAverageScoreOnPar5ReturnValidAverageValue() {
 
-        List list = new ArrayList<>();
+        List list = new ArrayList();
         setupHoles(list, 12, "5");
 
         when(holeDao.retrieveHoleAverageByHolePar(user, "5")).thenReturn(list);
@@ -79,7 +79,7 @@ public class AverageScoreByHoleParTest extends AverageScoreTest {
     @Test
     public void executeWithTwoGolfRoundsForAverageScoreOnInvalidParReturnValidAverageValue() {
 
-        List list = new ArrayList<>();
+        List list = new ArrayList();
         setupHoles(list, 0, "-");
 
         when(holeDao.retrieveHoleAverageByHolePar(user, "-")).thenReturn(list);

@@ -39,7 +39,7 @@ public class HoleDaoImpl implements HoleDao {
 
         Session session = sessionFactory.openSession();
 
-        List<Hole> golfHoles = new ArrayList<>();
+        List<Hole> golfHoles = new ArrayList<Hole>();
 
         try {
             session.beginTransaction();
@@ -67,7 +67,7 @@ public class HoleDaoImpl implements HoleDao {
 
         Session session = sessionFactory.openSession();
 
-        List<Hole> golfHoles = new ArrayList<>();
+        List<Hole> golfHoles = new ArrayList<Hole>();
 
         try {
             session.beginTransaction();

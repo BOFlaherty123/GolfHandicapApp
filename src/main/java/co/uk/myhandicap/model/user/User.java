@@ -50,7 +50,7 @@ public class User {
     @Column(name="ROLES")
     @ElementCollection(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name="USER_ID"))
-    private List<UserRole> userRoles = new ArrayList<>();
+    private List<UserRole> userRoles = new ArrayList<UserRole>();
 
     // One-to-One Mapping example (Entity to Entity)
     // @OneToOne(cascade = {CascadeType.ALL})
@@ -58,7 +58,7 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Fetch(value = FetchMode.SUBSELECT)
     @JoinTable(joinColumns = @JoinColumn(name="USER_ID"), inverseJoinColumns = @JoinColumn(name="ADDRESS_ID"))
-    private List<Address> address = new ArrayList<>();
+    private List<Address> address = new ArrayList<Address>();
 
     @Column(name="ACTIVE")
     private String active;

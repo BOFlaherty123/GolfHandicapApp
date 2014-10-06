@@ -35,8 +35,12 @@ public class PasswordMatchValidator implements ConstraintValidator<PasswordMatch
         try {
             pwd = BeanUtils.getProperty(o, password).trim();
             confirmPwd = BeanUtils.getProperty(o, confirmPassword).trim();
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            e.printStackTrace();
+        } catch (IllegalAccessException iA) {
+            iA.printStackTrace();
+        } catch (InvocationTargetException iT) {
+            iT.printStackTrace();
+        } catch (NoSuchMethodException nM) {
+            nM.printStackTrace();
         }
 
         // if the two password inputs do not match, validation should fail

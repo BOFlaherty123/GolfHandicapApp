@@ -44,7 +44,7 @@ public class HoleValidator implements ConstraintValidator<HoleValid, Object> {
 
             if(isHoleFieldNotEmpty(par, score, ssi, yards)) {
 
-                List<String> formVals = new ArrayList<>(
+                List<String> formVals = new ArrayList<String>(
                     Arrays.asList(par, score, ssi, yards)
                 );
 
@@ -56,8 +56,12 @@ public class HoleValidator implements ConstraintValidator<HoleValid, Object> {
 
             }
 
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            e.printStackTrace();
+        } catch (IllegalAccessException ie) {
+            ie.printStackTrace();
+        } catch (InvocationTargetException it) {
+            it.printStackTrace();
+        } catch (NoSuchMethodException nM) {
+            nM.printStackTrace();
         }
 
         return true;

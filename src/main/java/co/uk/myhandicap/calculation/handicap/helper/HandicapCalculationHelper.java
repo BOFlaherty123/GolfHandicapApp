@@ -112,7 +112,7 @@ public class HandicapCalculationHelper {
      * @return
      */
     public List<Round> extractRoundsOfGolfFromScoreCard(List<ScoreCard> scoreCardList) {
-        List<Round> roundsOfGolf = new ArrayList<>();
+        List<Round> roundsOfGolf = new ArrayList<Round>();
 
         for(ScoreCard scoreCard : scoreCardList) {
             for(Round round : scoreCard.getGolfRounds()) {

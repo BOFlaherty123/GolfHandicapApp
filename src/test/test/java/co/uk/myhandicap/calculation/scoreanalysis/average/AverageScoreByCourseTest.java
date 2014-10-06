@@ -41,7 +41,7 @@ public class AverageScoreByCourseTest extends AverageScoreTest {
     @Test
     public void executeWithTwoGolfRoundsOnTheSameCourseReturnValidAverageValue() {
 
-        List<ScoreCard> list = new ArrayList<>();
+        List<ScoreCard> list = new ArrayList<ScoreCard>();
         list.add(addScoreCard(1L, new ArrayList<Round>(), 2));
 
         when(scoreCardDao.retrieveScoreCardAverageByGolfCourse(user, "Course Name Here")).thenReturn(list);
@@ -53,7 +53,7 @@ public class AverageScoreByCourseTest extends AverageScoreTest {
     @Test
     public void executeWithNullUserObjectDefaultReturnValueOf0Returned() {
 
-        List<ScoreCard> list = new ArrayList<>();
+        List<ScoreCard> list = new ArrayList<ScoreCard>();
         list.add(addScoreCard(1L, new ArrayList<Round>(), 2));
 
         when(scoreCardDao.retrieveScoreCardAverageByGolfCourse(null, null)).thenReturn(null);
@@ -65,7 +65,7 @@ public class AverageScoreByCourseTest extends AverageScoreTest {
     @Test
     public void executeWithOneGolfRoundsWithAnInvalidCourseNameReturnValidAverageValue() {
 
-        List<ScoreCard> list = new ArrayList<>();
+        List<ScoreCard> list = new ArrayList<ScoreCard>();
         list.add(addScoreCard(1L, new ArrayList<Round>(), 2));
 
         when(scoreCardDao.retrieveScoreCardAverageByGolfCourse(user, "$%*$$%aaf^$*")).thenReturn(null);

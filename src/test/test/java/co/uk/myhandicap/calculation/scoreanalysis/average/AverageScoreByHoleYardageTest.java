@@ -39,7 +39,7 @@ public class AverageScoreByHoleYardageTest extends AverageScoreTest {
     @Test
     public void executeWith25HolesOfYardageBetween150And200ReturnValidAverageValue() {
 
-        List<Hole> list = new ArrayList<>();
+        List<Hole> list = new ArrayList<Hole>();
         setupHoles(list, 25, 150, 200);
 
         when(holeDao.retrieveHoleAverageByHoleYardage(user, "155")).thenReturn(list);

@@ -88,7 +88,7 @@ public class HandicapCalculationTest {
         ScoreCard scoreCard = setupScoreCard(1L, 2L, "10/10/1985");
 
         // setup mock list of golf rounds
-        List<Round> listOfRounds = new ArrayList<>();
+        List<Round> listOfRounds = new ArrayList<Round>();
         listOfRounds.add(setupGolfRound(scoreCard, 1L, "24/09/2014", "72", "72"));
 
         // add mocked rounds of golf to scoreCard

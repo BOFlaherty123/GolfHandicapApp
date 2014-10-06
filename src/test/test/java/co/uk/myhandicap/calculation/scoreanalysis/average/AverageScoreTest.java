@@ -49,7 +49,7 @@ public class AverageScoreTest {
 
     protected List<Hole> addHoleScores() {
 
-        List<Hole> holeScores = new ArrayList<>();
+        List<Hole> holeScores = new ArrayList<Hole>();
 
         for(int i = 1; i <= 18; i++) {
 

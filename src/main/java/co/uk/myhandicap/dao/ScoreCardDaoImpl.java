@@ -61,13 +61,19 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
 
     }
 
+    /**
+     * retrieve score cards for a user by id.
+     *
+     * @param user
+     * @return
+     */
     @Override
     public List<ScoreCard> retrieveUserScoreCardById(User user) {
         logger.entry(user);
 
         Session session = sessionFactory.openSession();
 
-        List<ScoreCard> scoreCardList = new ArrayList<>();
+        List<ScoreCard> scoreCardList = new ArrayList<ScoreCard>();
 
         try {
             // Create a session transaction (usually within a try block)
@@ -94,11 +100,18 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
         return scoreCardList;
     }
 
+    /**
+     * retrieve the average score for the user on a particular golf course.
+     *
+     * @param user
+     * @param courseName
+     * @return
+     */
     public List<ScoreCard> retrieveScoreCardAverageByGolfCourse(User user, String courseName) {
 
         Session session = sessionFactory.openSession();
 
-        List<ScoreCard> scoreCardList = new ArrayList<>();
+        List<ScoreCard> scoreCardList = new ArrayList<ScoreCard>();
 
         try {
 
@@ -122,12 +135,18 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
         return scoreCardList;
     }
 
+    /**
+     * retrieve all golf course names (String) that a user has played on.
+     *
+     * @param user
+     * @return
+     */
     @Override
     public List<String> retrieveAllGolfCourseNamesForUserByScoreCard(User user) {
 
         Session session = sessionFactory.openSession();
 
-        List<String> golfCourseNames = new ArrayList<>();
+        List<String> golfCourseNames = new ArrayList<String>();
 
         try {
 
@@ -150,12 +169,19 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
         return golfCourseNames;
     }
 
+    /**
+     * retrieve score cards for a user for a given course.
+     *
+     * @param user
+     * @param courseName
+     * @return
+     */
     @Override
     public List<ScoreCard> retrieveScoreCardsByCourseName(User user, String courseName) {
 
         Session session = sessionFactory.openSession();
 
-        List<ScoreCard> scoreCardList = new ArrayList<>();
+        List<ScoreCard> scoreCardList = new ArrayList<ScoreCard>();
 
         try {
 
@@ -182,6 +208,13 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
         }
 
         return scoreCardList;
+    }
+
+    @Override
+    public List<ScoreCard> retrieveScoreCardsByUser(User user) {
+
+
+        return null;
     }
 
 }

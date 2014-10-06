@@ -1,34 +1,41 @@
 package main.java.co.uk.myhandicap.calculation.scoreanalysis.calc.statistics;
 
+import main.java.co.uk.myhandicap.dao.ScoreCardDao;
+import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
+import main.java.co.uk.myhandicap.model.user.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
 /**
- * Description Here
+ * Display Overall Score Statistics for a User
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 30/09/2014
  * @project MyHandicapApp
  */
+@Component
 public class DisplayOverallScoreStatistics {
 
-    // for a particular course, display the users score by hole using the breakdown:
-    // - number of birdies
-    // - number of pars
-    // - number of  bogeys
-    // - number of double bogeys
-    // - number of triple bogeys
+    @Autowired
+    private ScoreCardDao scoreCardDao;
 
-    // additional variables
-    // - number of times played the course
+    @Autowired
+    private DisplayScoreStatisticsHelper displayOverallHelper;
 
-    /*
-            eagle | birdie | par | bogey | double bogey | triple bogey |
+    public List<HoleScoreType> execute(User user) {
 
-        1 |   0  |    1    |  1   |  4   |      0       |      2       |
-        2 |   0  |    0    |  1   |  5   |      1       |      2       |
+        // retrieve all ScoreCard objects for the user
+        List<ScoreCard> scoreCardList = scoreCardDao.retrieveUserScoreCardById(user);
 
-       cont.
-     */
+        List<HoleScoreType> holeScoreTypeList = displayOverallHelper.buildScoreTypeList();
 
-    // - Over how many rounds of golf/holes played.
-    // - provide percentages i.e over 36 holes of golf, the user has achieved 45% par etc
+        for(ScoreCard scoreCard : scoreCardList) {
+            displayOverallHelper.processScoreCardData(holeScoreTypeList, scoreCard);
+        }
+
+        return holeScoreTypeList;
+    }
 
 }

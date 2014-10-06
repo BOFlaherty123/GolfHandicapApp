@@ -21,9 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Description Here
@@ -55,7 +53,7 @@ public class DisplayScoreStatisticsByCourseTest {
     @Test
     public void scoreCardsAreRetrievedByCourseNameProvidedByUser() {
 
-        List<ScoreCard> list = new ArrayList<>();
+        List<ScoreCard> list = new ArrayList<ScoreCard>();
         list.add(addScoreCard(1L, new ArrayList<Round>(), 2));
 
         when(scoreCardDao.retrieveScoreCardsByCourseName(Matchers.<User>any(), Matchers.<String>any())).thenReturn(list);
@@ -99,7 +97,6 @@ public class DisplayScoreStatisticsByCourseTest {
             golfRound.setHoles(addHoleScores());
 
             golfRounds.add(golfRound);
-
         }
 
         return golfRounds;
@@ -107,7 +104,7 @@ public class DisplayScoreStatisticsByCourseTest {
 
     protected List<Hole> addHoleScores() {
 
-        List<Hole> holeScores = new ArrayList<>();
+        List<Hole> holeScores = new ArrayList<Hole>();
 
         for(int i = 1; i <= 18; i++) {
 

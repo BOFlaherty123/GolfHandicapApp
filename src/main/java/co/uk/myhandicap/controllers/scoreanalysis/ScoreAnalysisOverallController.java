@@ -1,9 +1,8 @@
 package main.java.co.uk.myhandicap.controllers.scoreanalysis;
 
 import main.java.co.uk.myhandicap.calculation.scoreanalysis.calc.statistics.DisplayOverallScoreStatistics;
-import main.java.co.uk.myhandicap.calculation.scoreanalysis.calc.statistics.HoleScoreType;
+import main.java.co.uk.myhandicap.calculation.scoreanalysis.calc.statistics.PlayerScoreType;
 import main.java.co.uk.myhandicap.controllers.IAppController;
-import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
-import java.util.List;
 
 /**
  * Score Analysis for Overall Player Statistics
@@ -39,18 +37,13 @@ public class ScoreAnalysisOverallController extends AbstractScoreAnalysisControl
         // set view name
         mav = new ModelAndView(VIEW_NAME);
 
-        User user = null;
-
-        try {
-            user = userService.findUserByUsername(principal.getName());
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        }
+        // retrieve the user object
+        User user = retrieveUserByPrinciple(principal);
 
         // Overall Hole by Hole Score Analysis for given User
-        List<HoleScoreType> holeScoreTypeList = displayOverallScoreStatistics.execute(user);
+        PlayerScoreType playerScoreType = displayOverallScoreStatistics.execute(user);
         // add result set to model
-        mav.addObject("courseStatistics", holeScoreTypeList);
+        mav.addObject("playerScoreType", playerScoreType);
 
         return mav;
     }

@@ -24,18 +24,38 @@ public class DisplayOverallScoreStatistics {
     @Autowired
     private DisplayScoreStatisticsHelper displayOverallHelper;
 
-    public List<HoleScoreType> execute(User user) {
+    public PlayerScoreType execute(User user) {
 
         // retrieve all ScoreCard objects for the user
         List<ScoreCard> scoreCardList = scoreCardDao.retrieveUserScoreCardById(user);
 
+        // setup the default list
         List<HoleScoreType> holeScoreTypeList = displayOverallHelper.buildScoreTypeList();
 
+        // retrieve score types by hole for the user
         for(ScoreCard scoreCard : scoreCardList) {
-            displayOverallHelper.processScoreCardData(holeScoreTypeList, scoreCard);
+            holeScoreTypeList = displayOverallHelper.processScoreCardData(holeScoreTypeList, scoreCard);
         }
 
-        return holeScoreTypeList;
+        return buildTotals(holeScoreTypeList);
+    }
+
+    public PlayerScoreType buildTotals(List<HoleScoreType> holeScoreTypeList) {
+
+        int eagle = 0; int birdie = 0; int par = 0; int bogey = 0; int double_bogey = 0; int triple_bogey = 0; int other = 0;
+
+        // calculation here
+        for(HoleScoreType hS : holeScoreTypeList) {
+            eagle += hS.getEagle();
+            birdie += hS.getBirdie();
+            par += hS.getPar();
+            bogey += hS.getBogey();
+            double_bogey += hS.getDoubleBogey();
+            triple_bogey += hS.getTripleBogey();
+            other += hS.getOther();
+        }
+
+        return new PlayerScoreType(eagle, birdie, par, bogey, double_bogey, triple_bogey, other);
     }
 
 }

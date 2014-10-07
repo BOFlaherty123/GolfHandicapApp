@@ -4,7 +4,6 @@ import main.java.co.uk.myhandicap.calculation.scoreanalysis.calc.statistics.Disp
 import main.java.co.uk.myhandicap.calculation.scoreanalysis.calc.statistics.HoleScoreType;
 import main.java.co.uk.myhandicap.controllers.IAppController;
 import main.java.co.uk.myhandicap.dao.ScoreCardDao;
-import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,12 +62,7 @@ public class ScoreAnalysisCourseController extends AbstractScoreAnalysisControll
         mav.addObject(GOLF_COURSE_NAMES_ATTR, retrieveGolfCourseNamesForUser(principal));
 
         // retrieve the user
-        User user = null;
-        try {
-            user = userService.findUserByUsername(principal.getName());
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        }
+        User user = retrieveUserByPrinciple(principal);
 
         // Hole by Hole Score Analysis (total)
         List<HoleScoreType> holeScoreTypeList = statisticsByCourse.execute(courseName, user);

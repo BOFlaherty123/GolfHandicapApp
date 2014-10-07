@@ -77,13 +77,12 @@
                     <div id="holeByHoleStats" class="averageDiv">
                         <!-- Average Score, by Hole Par -->
                         <fieldset>
-                            <legend>Hole-by-Hole Statistics</legend>
+                            <legend>Overall Score Type Totals</legend>
 
                             <div class="table-responsive">
 
                                 <table class="table">
                                     <tr class="bg-success">
-                                        <td><b>Hole #</b></td>
                                         <td>Eagle</td>
                                         <td>Birdie</td>
                                         <td>Par</td>
@@ -93,18 +92,15 @@
                                         <td>Other</td>
                                     </tr>
                                     <!-- output course statistics for a given course -->
-                                    <c:forEach var="courseStats" items="${courseStatistics}">
-                                        <tr>
-                                            <td>${courseStats.holeNumber}.</td>
-                                            <td>${courseStats.eagle}</td>
-                                            <td>${courseStats.birdie}</td>
-                                            <td>${courseStats.par}</td>
-                                            <td>${courseStats.bogey}</td>
-                                            <td>${courseStats.doubleBogey}</td>
-                                            <td>${courseStats.tripleBogey}</td>
-                                            <td>${courseStats.other}</td>
-                                        </tr>
-                                    </c:forEach>
+                                    <tr>
+                                        <td>${playerScoreType.total_eagle}</td>
+                                        <td>${playerScoreType.total_birdie}</td>
+                                        <td>${playerScoreType.total_par}</td>
+                                        <td>${playerScoreType.total_bogey}</td>
+                                        <td>${playerScoreType.total_double_bogey}</td>
+                                        <td>${playerScoreType.total_triple_bogey}</td>
+                                        <td>${playerScoreType.total_other}</td>
+                                    </tr>
                                 </table>
 
                             </div>

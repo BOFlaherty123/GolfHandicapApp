@@ -15,7 +15,6 @@ import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -51,26 +50,19 @@ public class DisplayOverallScoreStatisticsTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
-    public void testUserServiceReturnsAValidUserObject() throws UserNotFoundException {
-
-       displayOverallScoreStatistics.execute("testUser");
-
-       verify(userService, times(1)).findUserByUsername(anyString());
-    }
 
     @Test
     public void testScoreCardDaoIsCalled() throws UserNotFoundException {
 
-        displayOverallScoreStatistics.execute("testUser");
+        displayOverallScoreStatistics.execute(user);
 
-        verify(dao, times(1)).retrieveScoreCardsByUser(Matchers.<User>any());
+        verify(dao, times(1)).retrieveUserScoreCardById(Matchers.<User>any());
     }
 
     @Test
     public void testDetermineTypeOfScoreIsCalled() {
 
-        displayOverallScoreStatistics.execute("testUser");
+        displayOverallScoreStatistics.execute(user);
 
         verify(determineTypeOfScore, times(1)).execute(Matchers.<HoleScoreType>any(), Matchers.<String>any(), Matchers.<String>any());
 
@@ -79,7 +71,7 @@ public class DisplayOverallScoreStatisticsTest {
     @Test
     public void testInitialSetupOfScoreTypeListIsValid() {
 
-        displayOverallScoreStatistics.execute("testUser");
+        displayOverallScoreStatistics.execute(user);
         verify(helper, times(1)).buildScoreTypeList();
 
     }

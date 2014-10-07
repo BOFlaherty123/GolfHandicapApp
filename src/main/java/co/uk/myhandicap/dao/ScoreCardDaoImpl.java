@@ -210,11 +210,4 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
         return scoreCardList;
     }
 
-    @Override
-    public List<ScoreCard> retrieveScoreCardsByUser(User user) {
-
-
-        return null;
-    }
-
 }

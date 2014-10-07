@@ -111,5 +111,4 @@ public class UserRegistrationController implements IAppController, IAppFormContr
 
         return mav;
     }
-
 }

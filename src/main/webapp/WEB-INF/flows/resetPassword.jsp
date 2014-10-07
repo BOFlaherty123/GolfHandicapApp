@@ -1,12 +1,16 @@
-<%@ taglib prefix ="spring" uri="http://www.springframework.org/tags" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%--
+  Created by IntelliJ IDEA.
+  User: BO034731
+  Date: 07/10/2014
+  Time: 14:50
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
     <head>
-        <title>Login</title>
+        <title>Reset Password</title>
 
-        <!-- JQuery -->
-        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>
 
         <!-- Bootstrap -->
@@ -18,6 +22,7 @@
     </head>
 
     <body>
+
         <div class="container">
 
             <div class="row">
@@ -53,52 +58,25 @@
             </div>
 
             <div class="row" style="background-color: #ecf0f1">
-
-                <spring:url var="authUrl" value="/static/j_spring_security_check" />
-
                 <div class="col-md-2"></div>
 
                 <div class="col-md-8">
-                    <form method="post" action="${authUrl}">
 
-                        <fieldset>
-                            <legend>Login</legend>
+                    Rest Password<br/>
 
-                            <table class="table table-condensed">
-                                <tr>
-                                    <th>Username: </th>
-                                    <td>
-                                        <input id=username_or_email" name="j_username" type="text"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Password: </th>
-                                    <td>
-                                        <input id="password" name="j_password" type="password"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input name="submit" type="submit" value="Login"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td/>
-                                    <td>
-                                        <a href="${pageContext.request.contextPath}/resetPassword">Forgotten Password?</a>
-                                    </td>
-                                </tr>
-                            </table>
+                    <form:form>
+                        <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>
 
-                        </fieldset>
-                    </form>
+                        <input type="text" name="username"/>
+
+                        <input type="submit" name="_eventId_next" value="Submit" />
+                    </form:form>
+
                 </div>
 
                 <div class="col-md-2"></div>
 
             </div>
-
-            <jsp:include page="common/footer.jsp"/>
 
         </div>
 

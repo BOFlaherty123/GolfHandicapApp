@@ -22,5 +22,4 @@ public interface ScoreCardDao extends GenericDao<ScoreCard, Long> {
 
     List<ScoreCard> retrieveScoreCardsByCourseName(User user, String courseName);
 
-    List<ScoreCard> retrieveScoreCardsByUser(User user);
 }

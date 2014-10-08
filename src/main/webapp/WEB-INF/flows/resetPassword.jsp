@@ -62,15 +62,21 @@
 
                 <div class="col-md-8">
 
-                    Rest Password<br/>
+                    <fieldset>
+                        <legend>Reset User Password</legend>
 
-                    <form:form>
-                        <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>
+                        <form:form>
+                            <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>
 
-                        <input type="text" name="username"/>
+                            <p>
+                                <label>Username:</label>
+                                <input type="text" name="username"/>
+                            </p>
 
-                        <input type="submit" name="_eventId_next" value="Submit" />
-                    </form:form>
+                            <input type="submit" name="_eventId_next" value="Submit" />
+                        </form:form>
+
+                    </fieldset>
 
                 </div>
 

@@ -1,8 +1,8 @@
 package main.java.co.uk.myhandicap.controllers.myAccount;
 
+import main.java.co.uk.myhandicap.controllers.AbstractController;
 import main.java.co.uk.myhandicap.controllers.IAppController;
 import main.java.co.uk.myhandicap.controllers.IAppFormController;
-import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.form.PersonalInformationDto;
 import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.UserService;
@@ -30,7 +30,8 @@ import static java.lang.String.format;
  */
 @Controller
 @RequestMapping(value="/myAccount")
-public class MyAccountController implements IAppController, IAppFormController<PersonalInformationDto> {
+public class MyAccountController extends AbstractController
+        implements IAppController, IAppFormController<PersonalInformationDto> {
 
     private static final XLogger logger = XLoggerFactory.getXLogger(MyAccountController.class);
 
@@ -66,12 +67,7 @@ public class MyAccountController implements IAppController, IAppFormController<P
         mav.setViewName(VIEW_NAME);
 
         // retrieve the user
-        User user = null;
-        try {
-            user = userService.findUserByUsername(principal.getName());
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        }
+        User user = retrieveUser(principal.getName());
 
         // Map a user object to personal information dto to populate the screen
         PersonalInformationDto userInfo = mapper.map(user, PersonalInformationDto.class);

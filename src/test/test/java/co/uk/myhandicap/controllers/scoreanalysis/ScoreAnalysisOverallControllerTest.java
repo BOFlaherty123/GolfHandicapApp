@@ -81,7 +81,7 @@ public class ScoreAnalysisOverallControllerTest {
         User user = createMockUser();
 
         when(userService.findUserByUsername(principal.getName())).thenReturn(user);
-        when(calculateRequestedAverage.process("avgByHolePar", user, "4")).thenReturn("4.25");
+        when(calculateRequestedAverage.processRequestedAverage("avgByHolePar", user, "4")).thenReturn("4.25");
 
         mockMvc.perform(get("/scoreAnalysis/averagePar/4")
                 .principal(principal))
@@ -99,7 +99,7 @@ public class ScoreAnalysisOverallControllerTest {
         User user = createMockUser();
 
         when(userService.findUserByUsername(principal.getName())).thenReturn(user);
-        when(calculateRequestedAverage.process("avgByHoleYardage", user, "250")).thenReturn("4.8");
+        when(calculateRequestedAverage.processRequestedAverage("avgByHoleYardage", user, "250")).thenReturn("4.8");
 
         mockMvc.perform(get("/scoreAnalysis/averageYardage/250")
                 .principal(principal))

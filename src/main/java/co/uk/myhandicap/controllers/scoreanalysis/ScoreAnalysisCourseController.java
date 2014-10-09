@@ -62,7 +62,7 @@ public class ScoreAnalysisCourseController extends AbstractScoreAnalysisControll
         mav.addObject(GOLF_COURSE_NAMES_ATTR, retrieveGolfCourseNamesForUser(principal));
 
         // retrieve the user
-        User user = retrieveUserByPrinciple(principal);
+        User user = retrieveUser(principal.getName());
 
         // Hole by Hole Score Analysis (total)
         List<HoleScoreType> holeScoreTypeList = statisticsByCourse.execute(courseName, user);
@@ -79,7 +79,7 @@ public class ScoreAnalysisCourseController extends AbstractScoreAnalysisControll
      * @return
      */
     private List<String> retrieveGolfCourseNamesForUser(Principal principal) {
-        return scoreCardDao.retrieveAllGolfCourseNamesForUserByScoreCard(retrieveUserByPrinciple(principal));
+        return scoreCardDao.retrieveAllGolfCourseNamesForUserByScoreCard(retrieveUser(principal.getName()));
     }
 
 }

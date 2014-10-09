@@ -27,7 +27,7 @@ public class UserLoginService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String input) {
 
-        User user = null;
+        User user;
         String username = null;
         String password = null;
         try {

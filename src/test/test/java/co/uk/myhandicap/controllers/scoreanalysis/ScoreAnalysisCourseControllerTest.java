@@ -87,7 +87,7 @@ public class ScoreAnalysisCourseControllerTest {
         User user = createMockUser();
 
         when(userService.findUserByUsername(principal.getName())).thenReturn(user);
-        when(calculateRequestedAverage.process("avgByCourse", user, "Rivenhall Oaks")).thenReturn("5");
+        when(calculateRequestedAverage.processRequestedAverage("avgByCourse", user, "Rivenhall Oaks")).thenReturn("5");
         when(scoreCardDao.retrieveAllGolfCourseNamesForUserByScoreCard(user)).thenReturn(mockCourseNameList());
 
         mockMvc.perform(get("/scoreAnalysis/averageCourseName/Rivenhall Oaks")

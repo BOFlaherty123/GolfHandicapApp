@@ -1,18 +1,14 @@
 package main.java.co.uk.myhandicap.controllers;
 
-import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.UserService;
-import org.slf4j.ext.XLogger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
- * Abstract Controller to implement common behavior
+ * Abstract Controller
  *
  * @author Benjamin O'Flaherty
- * @date Created on: 07/08/2014
+ * @date Created on: 09/10/2014
  * @project MyHandicapApp
  */
 public abstract class AbstractController {
@@ -20,22 +16,22 @@ public abstract class AbstractController {
     @Autowired
     private UserService userService;
 
-    protected User retrieveUserFromSecurityContext() {
-
-        // retrieve the user from the security context
-        SecurityContext ctx = SecurityContextHolder.getContext();
-
+    /**
+     * retrieve the user object from the database
+     *
+     * @param username
+     * @return
+     */
+    protected User retrieveUser(String username) {
         User user = null;
 
         try {
-            user = userService.findUserByUsername(ctx.getAuthentication().getName());
-        } catch (UserNotFoundException e) {
+            user = userService.findUserByUsername(username);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return user;
     }
-
-    protected abstract XLogger initiateXLoggerInstance(String className);
 
 }

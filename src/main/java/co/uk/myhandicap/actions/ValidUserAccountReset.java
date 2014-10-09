@@ -29,21 +29,23 @@ public class ValidUserAccountReset implements Action {
 
         // retrieve the username from the request scope
         String username = requestContext.getRequestScope().getString("username");
-        requestContext.getFlowScope().put("username", username);
+
+        // generate a new password for the user
+        String password = encryptPassword();
 
         // retrieve the user
         User user = retrieveUser(username);
 
-        // generate a new password for the user
-        String password = encryptPassword();
-        requestContext.getFlowScope().put("password", password);
+        // add values to the flowScope
+        addParameterToFlowScope(requestContext, "username", username);
+        addParameterToFlowScope(requestContext, "password", password);
 
         // encrypt new password and update the user object
-        user.setPassword(encryptUserPassword.encryptPassword(password));
-        userService.update(user);
+        updateUser(user, password);
 
         return (user != null) ? new Event(this, "yes") : new Event(this, "no");
     }
+
 
     /**
      * retrieve the user object from the database
@@ -70,6 +72,28 @@ public class ValidUserAccountReset implements Action {
      */
     private String encryptPassword() {
         return RandomStringUtils.randomAlphanumeric(20);
+    }
+
+    /**
+     * add a parameter to the flowScope (username & password)
+     *
+     * @param requestContext
+     * @param key
+     * @param value
+     */
+    private void addParameterToFlowScope(RequestContext requestContext, String key, String value) {
+        requestContext.getFlowScope().put(key, value);
+    }
+
+    /**
+     * update the user object containing the newly encrypted password
+     *
+     * @param user
+     * @param password
+     */
+    private void updateUser(User user, String password) {
+        user.setPassword(encryptUserPassword.encryptPassword(password));
+        userService.update(user);
     }
 
 }

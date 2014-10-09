@@ -29,7 +29,7 @@ public class CalculateRequestedAverage {
      * @param averageRequested
      * @return
      */
-    public String process(String userRequest, User user, String averageRequested) {
+    public String processRequestedAverage(String userRequest, User user, String averageRequested) {
         return (userRequest.equals("avgByHolePar")) ? averageScoreByHolePar.execute(user, averageRequested) :
                 (userRequest.equals("avgByCourse")) ?  averageScoreByCourse.execute(user, averageRequested) :
                         averageScoreByHoleYardage.execute(user, averageRequested);

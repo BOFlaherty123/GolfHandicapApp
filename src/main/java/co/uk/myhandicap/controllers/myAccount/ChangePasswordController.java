@@ -1,9 +1,9 @@
 package main.java.co.uk.myhandicap.controllers.myAccount;
 
+import main.java.co.uk.myhandicap.controllers.AbstractController;
 import main.java.co.uk.myhandicap.controllers.IAppController;
 import main.java.co.uk.myhandicap.controllers.IAppFormController;
 import main.java.co.uk.myhandicap.encryption.EncryptUserPassword;
-import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.form.ChangePasswordDto;
 import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.UserService;
@@ -30,7 +30,8 @@ import static java.lang.String.format;
  */
 @Controller
 @RequestMapping(value="/myAccount")
-public class ChangePasswordController implements IAppController, IAppFormController<ChangePasswordDto> {
+public class ChangePasswordController extends AbstractController
+        implements IAppController, IAppFormController<ChangePasswordDto> {
 
     private final XLogger logger = XLoggerFactory.getXLogger(ChangePasswordController.class);
 
@@ -64,12 +65,7 @@ public class ChangePasswordController implements IAppController, IAppFormControl
         mav.setViewName(VIEW_NAME);
 
         // retrieve the user
-        User user = null;
-        try {
-            user = userService.findUserByUsername(principal.getName());
-        } catch (UserNotFoundException e) {
-           logger.error(format(userNotFoundException, principal.getName()));
-        }
+        User user = retrieveUser(principal.getName());
 
         mav.addObject(user);
         mav.addObject(new ChangePasswordDto());

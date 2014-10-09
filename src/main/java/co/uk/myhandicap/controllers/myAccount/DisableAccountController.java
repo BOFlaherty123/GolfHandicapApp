@@ -1,8 +1,8 @@
 package main.java.co.uk.myhandicap.controllers.myAccount;
 
+import main.java.co.uk.myhandicap.controllers.AbstractController;
 import main.java.co.uk.myhandicap.controllers.IAppController;
 import main.java.co.uk.myhandicap.controllers.IAppFormController;
-import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.form.DisableUserDto;
 import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.UserService;
@@ -24,7 +24,8 @@ import java.security.Principal;
  */
 @Controller
 @RequestMapping(value="/myAccount")
-public class DisableAccountController implements IAppController, IAppFormController<DisableUserDto> {
+public class DisableAccountController extends AbstractController
+        implements IAppController, IAppFormController<DisableUserDto> {
 
     @Autowired
     private UserService userService;
@@ -42,13 +43,8 @@ public class DisableAccountController implements IAppController, IAppFormControl
     @RequestMapping(value="/disableUserAccount")
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
 
-        User user = null;
-
-        try {
-            user = userService.findUserByUsername(principal.getName());
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        }
+        // retrieve the user
+        User user = retrieveUser(principal.getName());
 
         // add default model objects
         mav.addObject(new DisableUserDto());

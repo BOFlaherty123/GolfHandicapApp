@@ -2,12 +2,12 @@ package main.java.co.uk.myhandicap.controllers.myHandicap;
 
 import main.java.co.uk.myhandicap.calculation.handicap.Handicap;
 import main.java.co.uk.myhandicap.calculation.handicap.HandicapCalculation;
+import main.java.co.uk.myhandicap.controllers.AbstractController;
 import main.java.co.uk.myhandicap.controllers.IAppController;
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
 import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.ScoreCardService;
-import main.java.co.uk.myhandicap.service.UserService;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ import static java.lang.String.format;
  */
 @Controller
 @RequestMapping(value="/myHandicap")
-public class MyHandicapController implements IAppController {
+public class MyHandicapController extends AbstractController implements IAppController {
 
     private final XLogger logger = XLoggerFactory.getXLogger(MyHandicapController.class);
 
@@ -42,9 +42,6 @@ public class MyHandicapController implements IAppController {
 
     @Autowired
     private ScoreCardService scoreCardService;
-
-    @Autowired
-    private UserService userService;
 
     @Value("${calculateHandicap.noPlayerScoreCards}")
     private String noPlayerScoreCards;
@@ -64,8 +61,10 @@ public class MyHandicapController implements IAppController {
         // set view name
         mav.setViewName("myHandicap/history");
 
+        // retrieve the user
+        User user = retrieveUser(principal.getName());
+
         try {
-            User user = userService.findUserByUsername(principal.getName());
 
             logger.info(format(logInfoMsg, this.getClass().getName(), METHOD_NAME, format("retrieve handicap score for user, %s ...", user.getUsername())));
             Handicap handicap = handicapCalculation.calculateUserHandicapScore(user.getId());

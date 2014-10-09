@@ -38,7 +38,7 @@ public class ScoreAnalysisOverallController extends AbstractScoreAnalysisControl
         mav = new ModelAndView(VIEW_NAME);
 
         // retrieve the user object
-        User user = retrieveUserByPrinciple(principal);
+        User user = retrieveUser(principal.getName());
 
         // Overall Hole by Hole Score Analysis for given User
         PlayerScoreType playerScoreType = displayOverallScoreStatistics.execute(user);

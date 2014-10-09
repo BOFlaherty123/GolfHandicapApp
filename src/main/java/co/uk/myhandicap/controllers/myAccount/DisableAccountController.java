@@ -43,7 +43,6 @@ public class DisableAccountController extends AbstractController
     @RequestMapping(value="/disableUserAccount")
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
 
-        // retrieve the user
         User user = retrieveUser(principal.getName());
 
         // add default model objects

@@ -109,7 +109,6 @@ public class CalculateHandicapController extends AbstractController
             logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, format("%s errors triggered", errors.getErrorCount())));
 
         } else {
-            // set view name
             mav.setViewName("myHandicap/history");
 
             // Dozer object mapping

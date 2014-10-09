@@ -64,7 +64,6 @@ public class ChangePasswordController extends AbstractController
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
         mav.setViewName(VIEW_NAME);
 
-        // retrieve the user
         User user = retrieveUser(principal.getName());
 
         mav.addObject(user);

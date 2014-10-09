@@ -58,10 +58,8 @@ public class MyHandicapController extends AbstractController implements IAppCont
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
         final String METHOD_NAME = ".handleRequest()";
 
-        // set view name
         mav.setViewName("myHandicap/history");
 
-        // retrieve the user
         User user = retrieveUser(principal.getName());
 
         try {

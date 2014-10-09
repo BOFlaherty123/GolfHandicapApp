@@ -34,15 +34,12 @@ public class ScoreAnalysisOverallController extends AbstractScoreAnalysisControl
     @RequestMapping(value="/overall")
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
 
-        // set view name
-        mav = new ModelAndView(VIEW_NAME);
+        mav.setViewName(VIEW_NAME);
 
-        // retrieve the user object
         User user = retrieveUser(principal.getName());
 
         // Overall Hole by Hole Score Analysis for given User
         PlayerScoreType playerScoreType = displayOverallScoreStatistics.execute(user);
-        // add result set to model
         mav.addObject("playerScoreType", playerScoreType);
 
         return mav;
@@ -51,8 +48,7 @@ public class ScoreAnalysisOverallController extends AbstractScoreAnalysisControl
     @RequestMapping(value="averagePar/{parValue}")
     public ModelAndView averagePar(@PathVariable("parValue") String parValue, ModelAndView mav, Principal principal) {
 
-        // set view name
-        mav = new ModelAndView(VIEW_NAME);
+        mav.setViewName(VIEW_NAME);
         // calculate and add returned average to model
         mav.addObject("avgByHolePar", calculateAverage("avgByHolePar", parValue, principal));
 
@@ -62,8 +58,7 @@ public class ScoreAnalysisOverallController extends AbstractScoreAnalysisControl
     @RequestMapping(value="averageYardage/{yardageValue}")
     public ModelAndView averageYardage(@PathVariable("yardageValue") String yardageValue, ModelAndView mav, Principal principal) {
 
-        // set view name
-        mav = new ModelAndView(VIEW_NAME);
+        mav.setViewName(VIEW_NAME);
         // calculate and add returned average to model
         mav.addObject("avgByHoleYardage", calculateAverage("avgByHoleYardage", yardageValue, principal));
 

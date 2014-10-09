@@ -92,7 +92,7 @@ public class UserRegistrationController implements IAppController, IAppFormContr
             User registerUser = mapper.map(user, User.class);
             registerUser.setCreatedDate(new Date());
 
-            // Encrypt the users password
+            // Encrypt the user password
             String password = encryptUserPassword.encryptPassword(user.getPassword());
             registerUser.setPassword(password);
             logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, "encrypt password for user ... " + user.getUsername()));
@@ -100,7 +100,6 @@ public class UserRegistrationController implements IAppController, IAppFormContr
             // Register new user as active
             registerUser.setActive("Y");
 
-            // Save User to database
             userService.save(registerUser);
             logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, format("%s saved successfully ...", user.toString())));
 

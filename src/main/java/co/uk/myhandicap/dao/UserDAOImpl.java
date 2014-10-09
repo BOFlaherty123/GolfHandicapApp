@@ -34,7 +34,7 @@ public class UserDaoImpl implements UserDao {
     public void save(User user) {
         logger.entry(user);
 
-        Session session = sessionFactory.openSession();
+        Session session = openSession();
 
         try {
             // Create a session transaction (usually within a try block)
@@ -60,7 +60,7 @@ public class UserDaoImpl implements UserDao {
     public void update(User updateObj) {
         logger.entry(updateObj);
 
-        Session session = sessionFactory.openSession();
+        Session session = openSession();
 
         session.beginTransaction();
 
@@ -92,7 +92,7 @@ public class UserDaoImpl implements UserDao {
     public User retrieveUserById(Long userId) {
         logger.entry(userId);
 
-        Session session = sessionFactory.openSession();
+        Session session = openSession();
 
         User user = null;
         try {
@@ -151,7 +151,7 @@ public class UserDaoImpl implements UserDao {
     public void disableUserAccount(String username) {
         logger.entry(username);
 
-        Session session = sessionFactory.openSession();
+        Session session = openSession();
 
         session.beginTransaction();
 
@@ -183,7 +183,7 @@ public class UserDaoImpl implements UserDao {
     public User findUserByUsername(String username) throws UserNotFoundException {
         logger.entry(username);
 
-        Session session = sessionFactory.openSession();
+        Session session = openSession();
 
         User user = null;
         try {
@@ -211,5 +211,15 @@ public class UserDaoImpl implements UserDao {
 
         return user;
     }
+
+    /**
+     * Open a new session
+     *
+     * @return
+     */
+    private Session openSession() {
+        return sessionFactory.openSession();
+    }
+
 
 }

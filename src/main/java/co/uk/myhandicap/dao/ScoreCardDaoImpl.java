@@ -29,13 +29,12 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
     public void save(ScoreCard scoreCard) {
         logger.entry(scoreCard);
 
-        Session session = sessionFactory.openSession();
+        Session session = openSession();
 
         try {
             // Create a session transaction (usually within a try block)
             session.beginTransaction();
 
-            // Save User object
             session.save(scoreCard);
 
             // Commit and close the transaction
@@ -71,7 +70,7 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
     public List<ScoreCard> retrieveUserScoreCardById(User user) {
         logger.entry(user);
 
-        Session session = sessionFactory.openSession();
+        Session session = openSession();
 
         List<ScoreCard> scoreCardList = new ArrayList<ScoreCard>();
 
@@ -109,7 +108,7 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
      */
     public List<ScoreCard> retrieveScoreCardAverageByGolfCourse(User user, String courseName) {
 
-        Session session = sessionFactory.openSession();
+        Session session = openSession();
 
         List<ScoreCard> scoreCardList = new ArrayList<ScoreCard>();
 
@@ -144,7 +143,7 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
     @Override
     public List<String> retrieveAllGolfCourseNamesForUserByScoreCard(User user) {
 
-        Session session = sessionFactory.openSession();
+        Session session = openSession();
 
         List<String> golfCourseNames = new ArrayList<String>();
 
@@ -179,7 +178,7 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
     @Override
     public List<ScoreCard> retrieveScoreCardsByCourseName(User user, String courseName) {
 
-        Session session = sessionFactory.openSession();
+        Session session = openSession();
 
         List<ScoreCard> scoreCardList = new ArrayList<ScoreCard>();
 
@@ -208,6 +207,15 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
         }
 
         return scoreCardList;
+    }
+
+    /**
+     * Open a new session
+     *
+     * @return
+     */
+    private Session openSession() {
+        return sessionFactory.openSession();
     }
 
 }

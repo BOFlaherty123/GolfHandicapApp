@@ -30,22 +30,20 @@ public class ValidUserAccountReset implements Action {
         // retrieve the username from the request scope
         String username = requestContext.getRequestScope().getString("username");
 
-        // generate a new password for the user
         String password = encryptPassword();
 
-        // retrieve the user
         User user = retrieveUser(username);
 
-        // add values to the flowScope
         addParameterToFlowScope(requestContext, "username", username);
         addParameterToFlowScope(requestContext, "password", password);
+
+        //TODO - ensure that the user's 'active' flag is set to 'Y'
 
         // encrypt new password and update the user object
         updateUser(user, password);
 
         return (user != null) ? new Event(this, "yes") : new Event(this, "no");
     }
-
 
     /**
      * retrieve the user object from the database

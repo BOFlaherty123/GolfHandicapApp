@@ -53,13 +53,8 @@
 
     <mvc:resources mapping="/resources/**" location="/resources/" />
 
-    <bean id="mapper" class="org.dozer.DozerBeanMapper">
-        <property name="mappingFiles">
-            <list>
-                <value>dozer-bean-mappings-test.xml</value>
-            </list>
-        </property>
-    </bean>
+    <!-- Model Mapper -->
+    <bean id="modelMapper" class="org.modelmapper.ModelMapper"/>
 
     <mvc:view-controller path="/login" view-name="login"/>
 

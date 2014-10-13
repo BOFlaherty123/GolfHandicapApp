@@ -6,7 +6,7 @@ import main.java.co.uk.myhandicap.controllers.IAppFormController;
 import main.java.co.uk.myhandicap.form.PersonalInformationDto;
 import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.UserService;
-import org.dozer.Mapper;
+import org.modelmapper.ModelMapper;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class MyAccountController extends AbstractController
     private UserService userService;
 
     @Autowired
-    private Mapper mapper;
+    private ModelMapper modelMapper;
 
     @Value("${myAccount.personal.success}")
     private String successMessage;
@@ -70,7 +70,7 @@ public class MyAccountController extends AbstractController
         User user = retrieveUser(principal.getName());
 
         // Map a user object to personal information dto to populate the screen
-        PersonalInformationDto userInfo = mapper.map(user, PersonalInformationDto.class);
+        PersonalInformationDto userInfo = modelMapper.map(user, PersonalInformationDto.class);
         mav.addObject(userInfo);
 
         logger.exit(mav);
@@ -99,9 +99,7 @@ public class MyAccountController extends AbstractController
         } else {
 
             User user = userService.retrieveUserById(form.getId());
-            user.setFirstName(form.getFirstName());
-            user.setLastName(form.getLastName());
-            user.setEmail(form.getEmail());
+            modelMapper.map(form, user);
 
             // update user
             userService.update(user);

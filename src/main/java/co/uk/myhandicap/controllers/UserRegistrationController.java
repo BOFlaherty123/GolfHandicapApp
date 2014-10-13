@@ -4,7 +4,7 @@ import main.java.co.uk.myhandicap.encryption.EncryptUserPassword;
 import main.java.co.uk.myhandicap.form.UserRegistrationDto;
 import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.UserService;
-import org.dozer.Mapper;
+import org.modelmapper.ModelMapper;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,7 @@ public class UserRegistrationController implements IAppController, IAppFormContr
     private EncryptUserPassword encryptUserPassword;
 
     @Autowired
-    private Mapper mapper;
+    private ModelMapper modelMapper;
 
     /**
      * handleRequest for register (GET).
@@ -89,7 +89,7 @@ public class UserRegistrationController implements IAppController, IAppFormContr
             logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, format("register new user %s ...", user.getUsername())));
 
             // Map an instance of UserRegistrationDto to the User domain user
-            User registerUser = mapper.map(user, User.class);
+            User registerUser = modelMapper.map(user, User.class);
             registerUser.setCreatedDate(new Date());
 
             // Encrypt the user password

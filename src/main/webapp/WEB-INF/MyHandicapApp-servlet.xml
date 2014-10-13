@@ -54,14 +54,6 @@
 
     <mvc:resources mapping="/resources/**" location="/resources/" />
 
-    <bean id="mapper" class="org.dozer.DozerBeanMapper">
-        <property name="mappingFiles">
-            <list>
-                <value>/main/dozer-bean-mappings.xml</value>
-            </list>
-        </property>
-    </bean>
-
     <mvc:view-controller path="/login" view-name="login"/>
 
     <bean id="passwordEncoder" class="org.jasypt.springsecurity3.authentication.encoding.PasswordEncoder">
@@ -102,5 +94,8 @@
 
     <!-- custom web flow action -->
     <bean id="validUserAccountReset" class="main.java.co.uk.myhandicap.actions.ValidUserAccountReset"/>
+
+    <!-- Model Mapper -->
+    <bean id="modelMapper" class="org.modelmapper.ModelMapper"/>
 
 </beans>

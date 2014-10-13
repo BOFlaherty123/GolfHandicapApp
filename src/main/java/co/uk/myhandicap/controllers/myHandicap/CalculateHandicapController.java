@@ -7,7 +7,7 @@ import main.java.co.uk.myhandicap.form.ScoreCardDto;
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
 import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.ScoreCardServiceImpl;
-import org.dozer.Mapper;
+import org.modelmapper.ModelMapper;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class CalculateHandicapController extends AbstractController
     private String logInfoMsg;
 
     @Autowired
-    private Mapper mapper;
+    private ModelMapper modelMapper;
 
     @Autowired
     private ScoreCardServiceImpl scoreCardService;
@@ -111,9 +111,9 @@ public class CalculateHandicapController extends AbstractController
         } else {
             mav.setViewName("myHandicap/history");
 
-            // Dozer object mapping
-            logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, "run Dozer mapping for ScoreCard ..."));
-            ScoreCard sc = mapper.map(scoreCard, ScoreCard.class);
+            // model object mapping
+            logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, "run model mapping for ScoreCard ..."));
+            ScoreCard sc = modelMapper.map(scoreCard, ScoreCard.class);
 
             scoreCardService.save(sc);
             logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, format("%s saved successfully ...", sc.toString())));

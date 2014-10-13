@@ -15,8 +15,8 @@
         <constructor-arg value="main.java.co.uk.myhandicap.dao.ScoreCardDao"/>
     </bean>
 
-    <bean id="mapper" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="org.dozer.Mapper"/>
+    <bean id="modelMapper" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="org.modelmapper.ModelMapper"/>
     </bean>
 
     <bean id="holeValidator" class="org.mockito.Mockito" factory-method="mock">

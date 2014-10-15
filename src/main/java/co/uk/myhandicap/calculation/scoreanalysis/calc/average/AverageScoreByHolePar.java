@@ -23,6 +23,7 @@ public class AverageScoreByHolePar extends AbstractCalculateAverage implements I
     private HoleDao holeDao = null;
 
     public String execute(User user, String averageRequested) {
+
         // retrieve a scoreCard(s) for the user;
         List<Hole> holeParList = holeDao.retrieveHoleAverageByHolePar(user, averageRequested);
 

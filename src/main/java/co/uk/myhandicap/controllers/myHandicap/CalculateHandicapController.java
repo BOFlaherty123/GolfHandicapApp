@@ -76,21 +76,6 @@ public class CalculateHandicapController extends AbstractController
     }
 
     /**
-     * setup the a new scoreCard dto object using the User object
-     *
-     * @param user
-     * @return
-     */
-    private ScoreCardDto setupScoreCard(User user) {
-
-        ScoreCardDto scoreCardDto = new ScoreCardDto();
-        scoreCardDto.setPlayerId(user.getId());
-        scoreCardDto.setSubmittedDate(new Date().toString());
-
-        return scoreCardDto;
-    }
-
-    /**
      * submitFormRequest for myHandicap/submitRound (POST).
      *
      * @param mav
@@ -122,6 +107,21 @@ public class CalculateHandicapController extends AbstractController
         logger.exit(mav);
 
         return mav;
+    }
+
+    /**
+     * setup the a new scoreCard dto object using the User object
+     *
+     * @param user
+     * @return
+     */
+    private ScoreCardDto setupScoreCard(User user) {
+
+        ScoreCardDto scoreCardDto = new ScoreCardDto();
+        scoreCardDto.setPlayerId(user.getId());
+        scoreCardDto.setSubmittedDate(new Date().toString());
+
+        return scoreCardDto;
     }
 
 }

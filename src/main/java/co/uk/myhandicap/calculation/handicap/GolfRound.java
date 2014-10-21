@@ -26,9 +26,6 @@ public class GolfRound {
     @Autowired
     private GolfHole golfHole;
 
-    @Autowired
-    private HandicapCalculationHelper handicapCalculationHelper;
-
     private GolfRound() {}
 
     /**
@@ -43,14 +40,14 @@ public class GolfRound {
         for(Round round : roundsOfGolf) {
 
             // create a default value for player score
-            BigDecimal playerScore = handicapCalculationHelper.createBigDecimalDefault();
+            BigDecimal playerScore = HandicapCalculationHelper.createBigDecimalDefault();
 
             // loop through each hole of the round and adjust the players score
             playerScore = golfHole.processHoleData(round, playerScore);
 
             // calculate the players adjusted score for the round
-            BigDecimal adjustedScore = handicapCalculationHelper.subtractFromScore(playerScore,
-                    handicapCalculationHelper.createScore(round.getCourseSSS()));
+            BigDecimal adjustedScore = HandicapCalculationHelper.subtractFromScore(playerScore,
+                    HandicapCalculationHelper.createScore(round.getCourseSSS()));
 
             adjustedScores.add(adjustedScore);
             logger.info(".processRoundOfGolf() - add adjustedScore=[ " + adjustedScore + " ]");

@@ -5,7 +5,6 @@ import main.java.co.uk.myhandicap.model.handicap.Hole;
 import main.java.co.uk.myhandicap.model.handicap.Round;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -22,9 +21,6 @@ public class GolfHole {
 
     private static final XLogger logger = XLoggerFactory.getXLogger(GolfHole.class
             .getName());
-
-    @Autowired
-    private HandicapCalculationHelper handicapCalculationHelper;
 
     private GolfHole() {}
 
@@ -44,8 +40,8 @@ public class GolfHole {
             processCONGUAdjustment(hole);
 
             // add players score for the hole to the round total
-            playerScore = handicapCalculationHelper.addValueToTotal(playerScore,
-                    handicapCalculationHelper.createScore(hole.getHoleScore()));
+            playerScore = HandicapCalculationHelper.addValueToTotal(playerScore,
+                    HandicapCalculationHelper.createScore(hole.getHoleScore()));
 
         }
 
@@ -62,8 +58,8 @@ public class GolfHole {
     private void processCONGUAdjustment(Hole hole) {
         logger.entry(hole);
 
-        BigDecimal maxStroke = handicapCalculationHelper.setMaximumStrokeCountPerHole(determineMaximumScoreAllowed(hole.getHolePar()));
-        BigDecimal playerScore = handicapCalculationHelper.createScore(hole.getHoleScore());
+        BigDecimal maxStroke = HandicapCalculationHelper.setMaximumStrokeCountPerHole(determineMaximumScoreAllowed(hole.getHolePar()));
+        BigDecimal playerScore = HandicapCalculationHelper.createScore(hole.getHoleScore());
 
         if(playerScore.compareTo(maxStroke) > 0) {
             playerScore = maxStroke;

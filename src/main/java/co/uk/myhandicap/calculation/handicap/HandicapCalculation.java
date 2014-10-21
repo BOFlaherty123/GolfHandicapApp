@@ -34,9 +34,6 @@ public class HandicapCalculation {
     private UserService userService;
 
     @Autowired
-    private HandicapCalculationHelper handicapCalculationHelper;
-
-    @Autowired
     private ScoreCardService scoreCardService;
 
     @Autowired
@@ -64,7 +61,7 @@ public class HandicapCalculation {
         List<ScoreCard> scoreCardList = scoreCardService.retrieveUserScoredCardsById(getUser(userId));
 
         // retrieve all rounds of golf played by a user
-        List<Round> roundsOfGolf = handicapCalculationHelper.extractRoundsOfGolfFromScoreCard(scoreCardList);
+        List<Round> roundsOfGolf = HandicapCalculationHelper.extractRoundsOfGolfFromScoreCard(scoreCardList);
 
         // calculate the users handicap for this Round of golf
         Handicap playerHandicap = calculateHandicapForRoundOfGolf(roundsOfGolf);
@@ -90,7 +87,7 @@ public class HandicapCalculation {
         logger.entry(roundsOfGolf);
 
         // Setup a handicap object with default values
-        Handicap playerHandicap = handicapCalculationHelper.setupDefaultHandicap();
+        Handicap playerHandicap = HandicapCalculationHelper.setupDefaultHandicap();
 
         if(!roundsOfGolf.isEmpty()) {
 
@@ -98,7 +95,7 @@ public class HandicapCalculation {
             BigDecimal adjustedTotal = calculateAdjustedScoreTotal(roundsOfGolf);
 
             // calculate handicap and return value as a String
-            String handicap = handicapCalculationHelper.calculateHandicap(roundsOfGolf.size(), adjustedTotal);
+            String handicap = HandicapCalculationHelper.calculateHandicap(roundsOfGolf.size(), adjustedTotal);
 
             // add calculations to the handicap object
 
@@ -125,11 +122,11 @@ public class HandicapCalculation {
         List<BigDecimal> adjustedScores = golfRound.processRoundOfGolf(roundsOfGolf, new ArrayList<BigDecimal>());
 
         // total all adjusted scores for each round of golf played by the user
-        BigDecimal adjustedTotal = handicapCalculationHelper.createBigDecimalDefault();
+        BigDecimal adjustedTotal = HandicapCalculationHelper.createBigDecimalDefault();
 
         // loop through all adjusted scores and add value to total
         for(BigDecimal adjustScore : adjustedScores) {
-            adjustedTotal = handicapCalculationHelper.addValueToTotal(adjustedTotal, adjustScore);
+            adjustedTotal = HandicapCalculationHelper.addValueToTotal(adjustedTotal, adjustScore);
         }
 
         return adjustedTotal;

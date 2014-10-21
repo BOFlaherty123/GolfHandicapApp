@@ -6,7 +6,6 @@ import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -20,7 +19,6 @@ import java.util.List;
  * @date Created on: 24/09/2014
  * @project MyHandicapApp
  */
-@Component
 public class HandicapCalculationHelper {
 
     private final static int ZERO_VALUE = 0;
@@ -32,7 +30,7 @@ public class HandicapCalculationHelper {
      *
      * @return
      */
-    public Handicap setupDefaultHandicap() {
+    public static Handicap setupDefaultHandicap() {
 
         DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/yyyy");
 
@@ -44,7 +42,7 @@ public class HandicapCalculationHelper {
      *
      * @return
      */
-    public BigDecimal createBigDecimalDefault() {
+    public static BigDecimal createBigDecimalDefault() {
         return new BigDecimal(ZERO_VALUE);
     }
 
@@ -54,7 +52,7 @@ public class HandicapCalculationHelper {
      * @param value
      * @return
      */
-    public BigDecimal createScore(String value) {
+    public static BigDecimal createScore(String value) {
         return new BigDecimal(value);
     }
 
@@ -64,7 +62,7 @@ public class HandicapCalculationHelper {
      * @param value
      * @return
      */
-    public BigDecimal setMaximumStrokeCountPerHole(Integer value) {
+    public static BigDecimal setMaximumStrokeCountPerHole(Integer value) {
         return new BigDecimal(value);
     }
 
@@ -75,7 +73,7 @@ public class HandicapCalculationHelper {
      * @param value2
      * @return
      */
-    public BigDecimal addValueToTotal(BigDecimal value1, BigDecimal value2) {
+    public static BigDecimal addValueToTotal(BigDecimal value1, BigDecimal value2) {
         return value1.add(value2);
     }
 
@@ -86,7 +84,7 @@ public class HandicapCalculationHelper {
      * @param value2
      * @return
      */
-    public BigDecimal subtractFromScore(BigDecimal value1, BigDecimal value2) {
+    public static BigDecimal subtractFromScore(BigDecimal value1, BigDecimal value2) {
         return value1.subtract(value2);
     }
 
@@ -97,7 +95,7 @@ public class HandicapCalculationHelper {
      * @param total
      * @return
      */
-    public String calculateHandicap(int size, BigDecimal total) {
+    public static String calculateHandicap(int size, BigDecimal total) {
 
         total = (total.divide(new BigDecimal(size), RoundingMode.HALF_UP).signum() > 28)
                 ? total : MAX_HANDICAP;
@@ -111,7 +109,7 @@ public class HandicapCalculationHelper {
      * @param scoreCardList
      * @return
      */
-    public List<Round> extractRoundsOfGolfFromScoreCard(List<ScoreCard> scoreCardList) {
+    public static List<Round> extractRoundsOfGolfFromScoreCard(List<ScoreCard> scoreCardList) {
         List<Round> roundsOfGolf = new ArrayList<Round>();
 
         for(ScoreCard scoreCard : scoreCardList) {

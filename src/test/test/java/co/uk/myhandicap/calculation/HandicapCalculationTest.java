@@ -77,6 +77,8 @@ public class HandicapCalculationTest {
 //
 //    }
 
+    // TODO - use PowerMock to move Static methods, Mockito will not support static methods
+
     @Test
     public void defaultHandicapSetIfTheUserHasNotSubmittedAnyRoundsOfGolf() throws UserNotFoundException {
 
@@ -99,12 +101,12 @@ public class HandicapCalculationTest {
 
         when(userService.retrieveUserById(anyLong())).thenReturn(user);
         when(scoreCardService.retrieveUserScoredCardsById(user)).thenReturn(scoreCardList);
-        when(handicapCalculationHelper.extractRoundsOfGolfFromScoreCard(scoreCardList)).thenReturn(listOfRounds);
+        when(HandicapCalculationHelper.extractRoundsOfGolfFromScoreCard(scoreCardList)).thenReturn(listOfRounds);
 
         Handicap handicapMock = mockPlayerHandicap("28", listOfRounds);
 
-        when(handicapCalculationHelper.setupDefaultHandicap()).thenReturn(handicapMock);
-        when(handicapCalculationHelper.calculateHandicap(anyInt(), (BigDecimal) any())).thenReturn(handicapMock.getHandicapScore());
+        when(HandicapCalculationHelper.setupDefaultHandicap()).thenReturn(handicapMock);
+        when(HandicapCalculationHelper.calculateHandicap(anyInt(), (BigDecimal) any())).thenReturn(handicapMock.getHandicapScore());
 
         Handicap playerHandicap = processor.calculateUserHandicapScore(1L);
 

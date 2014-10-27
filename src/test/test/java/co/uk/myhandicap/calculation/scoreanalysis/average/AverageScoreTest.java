@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Description Here
+ * Abstract Average Score Test Case (common behavior)
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 16/09/2014
  * @project MyHandicapApp
  */
-public class AverageScoreTest {
+public abstract class AverageScoreTest {
 
     protected ScoreCard addScoreCard(Long playerId, List<Round> golfRounds, int timesPlayed) {
 

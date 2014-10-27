@@ -1,5 +1,6 @@
 package main.java.co.uk.myhandicap.calculation.scoreanalysis.calc.average;
 
+import main.java.co.uk.myhandicap.calculation.scoreanalysis.calc.average.factory.CalculateUserAverages;
 import main.java.co.uk.myhandicap.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,11 +16,7 @@ import org.springframework.stereotype.Component;
 public class CalculateRequestedAverage {
 
     @Autowired
-    private AverageScoreByHolePar averageScoreByHolePar;
-    @Autowired
-    private AverageScoreByCourse averageScoreByCourse;
-    @Autowired
-    private AverageScoreByHoleYardage averageScoreByHoleYardage;
+    private CalculateUserAverages factory;
 
     /**
      * determine which calculation class to use based on user selection
@@ -30,9 +27,7 @@ public class CalculateRequestedAverage {
      * @return
      */
     public String processRequestedAverage(String userRequest, User user, String averageRequested) {
-        return (userRequest.equals("avgByHolePar")) ? averageScoreByHolePar.execute(user, averageRequested) :
-                (userRequest.equals("avgByCourse")) ?  averageScoreByCourse.execute(user, averageRequested) :
-                        averageScoreByHoleYardage.execute(user, averageRequested);
+        return factory.requestAverage(user, userRequest, averageRequested);
     }
 
 }

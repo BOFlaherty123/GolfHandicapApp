@@ -1,12 +1,11 @@
 package test.java.co.uk.myhandicap.calculation.scoreanalysis.average;
 
-import main.java.co.uk.myhandicap.calculation.scoreanalysis.calc.average.AverageScoreByHolePar;
+import main.java.co.uk.myhandicap.calculation.scoreanalysis.calc.average.product.AverageScoreByHolePar;
 import main.java.co.uk.myhandicap.dao.HoleDao;
 import main.java.co.uk.myhandicap.model.handicap.Hole;
 import main.java.co.uk.myhandicap.model.user.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -19,7 +18,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.Mockito.when;
 
 /**
- * Description Here
+ * Average Score By Hole Par Test
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 16/09/2014
@@ -28,7 +27,6 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class AverageScoreByHoleParTest extends AverageScoreTest {
 
-    @InjectMocks
     private AverageScoreByHolePar averageScoreByHolePar = new AverageScoreByHolePar();
 
     @Mock

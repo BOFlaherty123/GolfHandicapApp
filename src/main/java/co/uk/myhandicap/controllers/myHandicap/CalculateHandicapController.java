@@ -1,8 +1,8 @@
 package main.java.co.uk.myhandicap.controllers.myHandicap;
 
 import main.java.co.uk.myhandicap.controllers.AbstractController;
-import main.java.co.uk.myhandicap.controllers.IAppController;
-import main.java.co.uk.myhandicap.controllers.IAppFormController;
+import main.java.co.uk.myhandicap.controllers.AppController;
+import main.java.co.uk.myhandicap.controllers.AppFormController;
 import main.java.co.uk.myhandicap.form.ScoreCardDto;
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
 import main.java.co.uk.myhandicap.model.user.User;
@@ -34,7 +34,7 @@ import static java.lang.String.format;
 @Controller
 @RequestMapping(value="/myHandicap")
 public class CalculateHandicapController extends AbstractController
-        implements IAppController, IAppFormController<ScoreCardDto> {
+        implements AppController, AppFormController<ScoreCardDto> {
 
     private static final XLogger logger = XLoggerFactory.getXLogger(CalculateHandicapController.class);
 
@@ -96,7 +96,6 @@ public class CalculateHandicapController extends AbstractController
         } else {
             mav.setViewName("myHandicap/history");
 
-            // model object mapping
             logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, "run model mapping for ScoreCard ..."));
             ScoreCard sc = modelMapper.map(scoreCard, ScoreCard.class);
 

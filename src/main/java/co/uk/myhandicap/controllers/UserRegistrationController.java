@@ -29,7 +29,7 @@ import static java.lang.String.format;
  * @project MyHandicapApp
  */
 @Controller
-public class UserRegistrationController implements IAppController, IAppFormController<UserRegistrationDto> {
+public class UserRegistrationController implements AppController, AppFormController<UserRegistrationDto> {
 
     private final XLogger logger = XLoggerFactory.getXLogger(UserRegistrationController.class);
 
@@ -88,16 +88,13 @@ public class UserRegistrationController implements IAppController, IAppFormContr
 
             logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, format("register new user %s ...", user.getUsername())));
 
-            // Map an instance of UserRegistrationDto to the User domain user
             User registerUser = modelMapper.map(user, User.class);
             registerUser.setCreatedDate(new Date());
 
-            // Encrypt the user password
             String password = encryptUserPassword.encryptPassword(user.getPassword());
             registerUser.setPassword(password);
             logger.info(format(logInfoMsg, this.getClass().getName(), SUBMIT_FORM_METHOD_NAME, "encrypt password for user ... " + user.getUsername()));
 
-            // Register new user as active
             registerUser.setActive("Y");
 
             userService.save(registerUser);

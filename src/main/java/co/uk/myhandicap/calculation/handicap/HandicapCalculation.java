@@ -98,7 +98,6 @@ public class HandicapCalculation {
             String handicap = HandicapCalculationHelper.calculateHandicap(roundsOfGolf.size(), adjustedTotal);
 
             // add calculations to the handicap object
-
             playerHandicap.setHandicapScore(handicap);
             playerHandicap.setNumberOfRounds(String.valueOf(roundsOfGolf.size()));
 

@@ -27,9 +27,7 @@ public class ValidUserAccountReset implements Action {
     @Override
     public Event execute(RequestContext requestContext) throws Exception {
 
-        // retrieve the username from the request scope
         String username = requestContext.getRequestScope().getString("username");
-
         String password = encryptPassword();
 
         User user = retrieveUser(username);
@@ -37,20 +35,11 @@ public class ValidUserAccountReset implements Action {
         addParameterToFlowScope(requestContext, "username", username);
         addParameterToFlowScope(requestContext, "password", password);
 
-        //TODO - ensure that the user's 'active' flag is set to 'Y'
-
-        // encrypt new password and update the user object
-        updateUser(user, password);
+        encryptPasswordAndUpdateUser(user, password);
 
         return (user != null) ? new Event(this, "yes") : new Event(this, "no");
     }
 
-    /**
-     * retrieve the user object from the database
-     *
-     * @param username
-     * @return
-     */
     private User retrieveUser(String username) {
         User user = null;
 
@@ -63,33 +52,15 @@ public class ValidUserAccountReset implements Action {
         return user;
     }
 
-    /**
-     * encrypt the password String
-     *
-     * @return
-     */
     private String encryptPassword() {
         return RandomStringUtils.randomAlphanumeric(20);
     }
 
-    /**
-     * add a parameter to the flowScope (username & password)
-     *
-     * @param requestContext
-     * @param key
-     * @param value
-     */
     private void addParameterToFlowScope(RequestContext requestContext, String key, String value) {
         requestContext.getFlowScope().put(key, value);
     }
 
-    /**
-     * update the user object containing the newly encrypted password
-     *
-     * @param user
-     * @param password
-     */
-    private void updateUser(User user, String password) {
+    private void encryptPasswordAndUpdateUser(User user, String password) {
         user.setPassword(encryptUserPassword.encryptPassword(password));
         userService.update(user);
     }

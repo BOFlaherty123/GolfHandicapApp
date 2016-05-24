@@ -30,10 +30,9 @@ public class UserLoginService implements UserDetailsService {
         User user;
         String username = null;
         String password = null;
+
         try {
             user = userService.findUserByUsername(input);
-
-            // if the user is found, store their current username and password
             username = user.getUsername();
             password = user.getPassword();
 
@@ -41,7 +40,6 @@ public class UserLoginService implements UserDetailsService {
             e.printStackTrace();
         }
 
-        // Assign user the role, ROLE_USER on a successful login
         Collection<? extends GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_USER");
 
         return new org.springframework.security.core.userdetails.User(username,

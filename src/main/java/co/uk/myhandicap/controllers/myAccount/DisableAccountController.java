@@ -1,8 +1,8 @@
 package main.java.co.uk.myhandicap.controllers.myAccount;
 
 import main.java.co.uk.myhandicap.controllers.AbstractController;
-import main.java.co.uk.myhandicap.controllers.IAppController;
-import main.java.co.uk.myhandicap.controllers.IAppFormController;
+import main.java.co.uk.myhandicap.controllers.AppController;
+import main.java.co.uk.myhandicap.controllers.AppFormController;
 import main.java.co.uk.myhandicap.form.DisableUserDto;
 import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.UserService;
@@ -25,7 +25,7 @@ import java.security.Principal;
 @Controller
 @RequestMapping(value="/myAccount")
 public class DisableAccountController extends AbstractController
-        implements IAppController, IAppFormController<DisableUserDto> {
+        implements AppController, AppFormController<DisableUserDto> {
 
     @Autowired
     private UserService userService;

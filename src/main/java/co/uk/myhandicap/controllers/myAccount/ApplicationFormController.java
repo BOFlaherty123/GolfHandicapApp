@@ -1,8 +1,8 @@
 package main.java.co.uk.myhandicap.controllers.myAccount;
 
 import main.java.co.uk.myhandicap.controllers.AbstractController;
-import main.java.co.uk.myhandicap.controllers.IAppController;
-import main.java.co.uk.myhandicap.controllers.IAppFormController;
+import main.java.co.uk.myhandicap.controllers.AppController;
+import main.java.co.uk.myhandicap.controllers.AppFormController;
 import main.java.co.uk.myhandicap.form.PersonalInformationDto;
 import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.UserService;
@@ -30,10 +30,10 @@ import static java.lang.String.format;
  */
 @Controller
 @RequestMapping(value="/myAccount")
-public class MyAccountController extends AbstractController
-        implements IAppController, IAppFormController<PersonalInformationDto> {
+public class ApplicationFormController extends AbstractController
+        implements AppController, AppFormController<PersonalInformationDto> {
 
-    private static final XLogger logger = XLoggerFactory.getXLogger(MyAccountController.class);
+    private static final XLogger logger = XLoggerFactory.getXLogger(ApplicationFormController.class);
 
     @Value("${logging.info}")
     private String logInfoMsg;
@@ -66,10 +66,8 @@ public class MyAccountController extends AbstractController
 
         mav.setViewName(VIEW_NAME);
 
-        // retrieve the user
-        User user = retrieveUser(principal.getName());
+        User user = this.retrieveUser(principal.getName());
 
-        // Map a user object to personal information dto to populate the screen
         PersonalInformationDto userInfo = modelMapper.map(user, PersonalInformationDto.class);
         mav.addObject(userInfo);
 
@@ -101,7 +99,6 @@ public class MyAccountController extends AbstractController
             User user = userService.retrieveUserById(form.getId());
             modelMapper.map(form, user);
 
-            // update user
             userService.update(user);
 
             mav.addObject("success", successMessage);

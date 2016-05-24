@@ -14,13 +14,8 @@ import java.security.Principal;
  * @project MyHandicapApp
  */
 @Controller
-public class WelcomeController implements IAppController {
+public class WelcomeController implements AppController {
 
-    /**
-     * Display the 'welcome' page to the application.
-     *
-     * @return
-     */
     @Override
     @RequestMapping(value="/")
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {

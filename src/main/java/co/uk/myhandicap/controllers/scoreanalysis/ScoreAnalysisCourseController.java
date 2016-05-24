@@ -2,7 +2,7 @@ package main.java.co.uk.myhandicap.controllers.scoreanalysis;
 
 import main.java.co.uk.myhandicap.calculation.scoreanalysis.calc.statistics.DisplayScoreStatisticsByCourse;
 import main.java.co.uk.myhandicap.calculation.scoreanalysis.calc.statistics.HoleScoreType;
-import main.java.co.uk.myhandicap.controllers.IAppController;
+import main.java.co.uk.myhandicap.controllers.AppController;
 import main.java.co.uk.myhandicap.dao.ScoreCardDao;
 import main.java.co.uk.myhandicap.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value="/scoreAnalysis")
 @SessionAttributes("courseName")
-public class ScoreAnalysisCourseController extends AbstractScoreAnalysisController implements IAppController {
+public class ScoreAnalysisCourseController extends AbstractScoreAnalysisController implements AppController {
 
     @Autowired
     private ScoreCardDao scoreCardDao;

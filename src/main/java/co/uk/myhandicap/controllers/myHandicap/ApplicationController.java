@@ -3,7 +3,7 @@ package main.java.co.uk.myhandicap.controllers.myHandicap;
 import main.java.co.uk.myhandicap.calculation.handicap.Handicap;
 import main.java.co.uk.myhandicap.calculation.handicap.HandicapCalculation;
 import main.java.co.uk.myhandicap.controllers.AbstractController;
-import main.java.co.uk.myhandicap.controllers.IAppController;
+import main.java.co.uk.myhandicap.controllers.AppController;
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
 import main.java.co.uk.myhandicap.model.user.User;
@@ -30,9 +30,9 @@ import static java.lang.String.format;
  */
 @Controller
 @RequestMapping(value="/myHandicap")
-public class MyHandicapController extends AbstractController implements IAppController {
+public class ApplicationController extends AbstractController implements AppController {
 
-    private final XLogger logger = XLoggerFactory.getXLogger(MyHandicapController.class);
+    private final XLogger logger = XLoggerFactory.getXLogger(ApplicationController.class);
 
     @Value("${logging.info}")
     private String logInfoMsg;

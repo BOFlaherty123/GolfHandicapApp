@@ -1,8 +1,8 @@
 package main.java.co.uk.myhandicap.controllers.myAccount;
 
 import main.java.co.uk.myhandicap.controllers.AbstractController;
-import main.java.co.uk.myhandicap.controllers.IAppController;
-import main.java.co.uk.myhandicap.controllers.IAppFormController;
+import main.java.co.uk.myhandicap.controllers.AppController;
+import main.java.co.uk.myhandicap.controllers.AppFormController;
 import main.java.co.uk.myhandicap.encryption.EncryptUserPassword;
 import main.java.co.uk.myhandicap.form.ChangePasswordDto;
 import main.java.co.uk.myhandicap.model.user.User;
@@ -30,10 +30,10 @@ import static java.lang.String.format;
  */
 @Controller
 @RequestMapping(value="/myAccount")
-public class ChangePasswordController extends AbstractController
-        implements IAppController, IAppFormController<ChangePasswordDto> {
+public class ApplicationController extends AbstractController
+        implements AppController, AppFormController<ChangePasswordDto> {
 
-    private final XLogger logger = XLoggerFactory.getXLogger(ChangePasswordController.class);
+    private final XLogger logger = XLoggerFactory.getXLogger(ApplicationController.class);
 
     @Value("${logging.info}")
     private String logInfoMsg;

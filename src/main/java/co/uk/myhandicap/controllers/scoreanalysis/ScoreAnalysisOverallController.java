@@ -2,7 +2,7 @@ package main.java.co.uk.myhandicap.controllers.scoreanalysis;
 
 import main.java.co.uk.myhandicap.calculation.scoreanalysis.calc.statistics.DisplayOverallScoreStatistics;
 import main.java.co.uk.myhandicap.calculation.scoreanalysis.calc.statistics.PlayerScoreType;
-import main.java.co.uk.myhandicap.controllers.IAppController;
+import main.java.co.uk.myhandicap.controllers.AppController;
 import main.java.co.uk.myhandicap.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ import java.security.Principal;
 @Controller
 @RequestMapping(value="/scoreAnalysis")
 @SessionAttributes({"parValue", "yardageValue"})
-public class ScoreAnalysisOverallController extends AbstractScoreAnalysisController implements IAppController {
+public class ScoreAnalysisOverallController extends AbstractScoreAnalysisController implements AppController {
 
     private static final String VIEW_NAME = "analysis/overallAnalysis";
 

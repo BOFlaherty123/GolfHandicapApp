@@ -11,7 +11,7 @@ import java.security.Principal;
  * @date Created on: 15/07/14
  * @project MyHandicapApp
  */
-public interface IAppController {
+public interface AppController {
 
     final String SUBMIT_FORM_METHOD_NAME = ".submitFormRequest()";
 

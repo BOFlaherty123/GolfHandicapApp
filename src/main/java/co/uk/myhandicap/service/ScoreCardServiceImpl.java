@@ -27,14 +27,10 @@ public class ScoreCardServiceImpl implements ScoreCardService {
     }
 
     @Override
-    public void update(ScoreCard scoreCard) {
-
-    }
+    public void update(ScoreCard scoreCard) {}
 
     @Override
-    public void delete(ScoreCard scoreCard) {
-
-    }
+    public void delete(ScoreCard scoreCard) {}
 
     @Override
     public List<ScoreCard> retrieveUserScoredCardsById(User user) {

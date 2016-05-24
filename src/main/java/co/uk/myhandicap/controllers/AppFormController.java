@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @date Created on: 15/07/14
  * @project MyHandicapApp
  */
-public interface IAppFormController<T> {
+public interface AppFormController<T> {
 
     ModelAndView submitFormRequest(ModelAndView mav, T object,  BindingResult errors);
 

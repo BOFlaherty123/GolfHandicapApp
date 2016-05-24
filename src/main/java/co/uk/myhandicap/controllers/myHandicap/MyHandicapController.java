@@ -30,9 +30,9 @@ import static java.lang.String.format;
  */
 @Controller
 @RequestMapping(value="/myHandicap")
-public class ApplicationController extends AbstractController implements AppController {
+public class MyHandicapController extends AbstractController implements AppController {
 
-    private final XLogger logger = XLoggerFactory.getXLogger(ApplicationController.class);
+    private final XLogger logger = XLoggerFactory.getXLogger(MyHandicapController.class);
 
     @Value("${logging.info}")
     private String logInfoMsg;

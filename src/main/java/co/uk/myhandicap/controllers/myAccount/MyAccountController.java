@@ -30,10 +30,10 @@ import static java.lang.String.format;
  */
 @Controller
 @RequestMapping(value="/myAccount")
-public class ApplicationFormController extends AbstractController
+public class MyAccountController extends AbstractController
         implements AppController, AppFormController<PersonalInformationDto> {
 
-    private static final XLogger logger = XLoggerFactory.getXLogger(ApplicationFormController.class);
+    private static final XLogger logger = XLoggerFactory.getXLogger(MyAccountController.class);
 
     @Value("${logging.info}")
     private String logInfoMsg;

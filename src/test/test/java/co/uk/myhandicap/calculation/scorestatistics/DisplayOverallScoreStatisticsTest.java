@@ -1,4 +1,4 @@
-package test.java.co.uk.myhandicap.calculation.scorestatistics;
+package test.test.java.co.uk.myhandicap.calculation.scorestatistics;
 
 import main.java.co.uk.myhandicap.calculation.scoreanalysis.calc.statistics.DetermineTypeOfScore;
 import main.java.co.uk.myhandicap.calculation.scoreanalysis.calc.statistics.DisplayOverallScoreStatistics;

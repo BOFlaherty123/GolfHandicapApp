@@ -1,6 +1,6 @@
 package main.java.co.uk.myhandicap.service;
 
-import main.java.co.uk.myhandicap.dao.UserDaoImpl;
+import main.java.co.uk.myhandicap.dao.UserDAOImpl;
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDaoImpl userDAO;
+    private UserDAOImpl userDAO;
 
     @Override
     public void save(User user) {
@@ -30,9 +30,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(User user) {
-
-    }
+    public void delete(User user) {}
 
     @Override
     public User retrieveUserById(Long id) {

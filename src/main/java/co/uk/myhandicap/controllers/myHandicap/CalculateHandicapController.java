@@ -63,10 +63,7 @@ public class CalculateHandicapController extends AbstractController
 
         mav.setViewName(VIEW_NAME);
 
-        // retrieve the user
         User user = retrieveUser(principal.getName());
-
-        // setup ScoreCard object
         ScoreCardDto scoreCardDto = setupScoreCard(user);
         mav.addObject(scoreCardDto);
 

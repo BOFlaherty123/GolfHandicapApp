@@ -33,17 +33,12 @@ public class AverageScoreByCourse extends AbstractCalculateAverage implements IA
      */
     @Override
     public String execute(User user, String averageRequested) {
-
-        // retrieve a scoreCard(s) for the user;
         List<ScoreCard> scoreCardList = scoreCardDao.retrieveScoreCardAverageByGolfCourse(user, averageRequested);
-
-        // calculate average score
         return calculateAverage(scoreCardList);
     }
 
     @Override
     public String calculateAverage(List scoreCardList) {
-        // return average as String
         return iterateOverAndProcessQueryResults(scoreCardList);
     }
 
@@ -54,7 +49,6 @@ public class AverageScoreByCourse extends AbstractCalculateAverage implements IA
      */
     private String iterateOverAndProcessQueryResults(List<ScoreCard> scoreCardList) {
 
-        // Default average value
         BigDecimal totalScore = new BigDecimal(ZERO);
         int numberOfRounds = 0;
 
@@ -67,18 +61,10 @@ public class AverageScoreByCourse extends AbstractCalculateAverage implements IA
             }
         }
 
-        // if total is zero return, else calculate the user's avg score by course
         return (totalScore.signum() == 0) ?
                 ZERO : calculate(totalScore, numberOfRounds, 0);
-
     }
 
-    /**
-     *
-     *
-     * @param golfRound
-     * @return
-     */
     private BigDecimal processRoundsOfGolfByCourseName(Round golfRound) {
 
         BigDecimal roundTotal = new BigDecimal(ZERO);

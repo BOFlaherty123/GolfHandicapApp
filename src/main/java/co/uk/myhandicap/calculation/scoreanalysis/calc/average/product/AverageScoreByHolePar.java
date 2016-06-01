@@ -23,25 +23,17 @@ public class AverageScoreByHolePar extends AbstractCalculateAverage implements I
     private HoleDao holeDao = null;
 
     public String execute(User user, String averageRequested) {
-
-        // retrieve a scoreCard(s) for the user;
         List<Hole> holeParList = holeDao.retrieveHoleAverageByHolePar(user, averageRequested);
-
         return calculateAverage(holeParList);
     }
 
     public String calculateAverage(List holeParList) {
-        // averageRequested equals holePar parameter requested by the user, valid values 3, 4 or 5
         return iterateOverAndProcessQueryResults(holeParList);
     }
 
     private String iterateOverAndProcessQueryResults(List<Hole> holeParList) {
-
-        // Default average value
         BigDecimal total = new BigDecimal(ZERO);
         total = total.add(calculateTotalHoleScoreForGivenPar(total, holeParList));
-
-        // if total is zero return, else calculate the user's avg score by par
         return (total.signum() == 0) ?
                 ZERO : calculate(total, numberOfHoles(holeParList), 2);
     }

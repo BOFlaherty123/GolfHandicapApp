@@ -70,7 +70,6 @@ public class MyHandicapController extends AbstractController implements AppContr
             logger.info(format(logInfoMsg, this.getClass().getName(), METHOD_NAME, format("retrieve ScoreCards for user, %s ...", user.getUsername())));
             List<ScoreCard> scoreCardList = scoreCardService.retrieveUserScoredCardsById(user);
 
-            // output message to user if there are no registered score cards
             if(scoreCardList.isEmpty()) {
                 mav.addObject("noPlayerScoreCards", noPlayerScoreCards);
                 logger.info(format(logInfoMsg, this.getClass().getName(), METHOD_NAME, format("there are no registered scores for user, %s ...", user.getUsername())));

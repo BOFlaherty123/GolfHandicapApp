@@ -34,14 +34,9 @@ public class DisplayScoreStatisticsByCourse {
      * @param user
      */
     public List<HoleScoreType> execute(String courseName, User user) {
-
-        // retrieve all matching scoreCards for a given courseName
         List<ScoreCard> scoreCardList = scoreCardDao.retrieveScoreCardsByCourseName(user, courseName);
-
-        // build the initial HoleScoreType list (default construction)
         List<HoleScoreType> holeScoreTypeList = displayCourseHelper.buildScoreTypeList();
 
-        // loop through each matching scoreCard and process the hole data
         for(ScoreCard scoreCard : scoreCardList) {
             displayCourseHelper.processScoreCardData(holeScoreTypeList, scoreCard);
         }

@@ -15,14 +15,14 @@ import org.springframework.stereotype.Component;
 import static java.lang.String.format;
 
 /**
- * User Dao
+ * UserDAO
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 02/07/14
  * @project MyHandicapApp
  */
 @Component
-public class UserDaoImpl implements UserDao {
+public class UserDAOImpl implements UserDAO {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -32,49 +32,40 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void save(User user) {
-        logger.entry(user);
+        GenericDAO.logger.entry(user);
 
         Session session = openSession();
 
         try {
-            // Create a session transaction (usually within a try block)
             session.beginTransaction();
 
-            // Save User object
             session.save(user);
 
-            // Commit and close the transaction
             session.getTransaction().commit();
-
-            // Close the session (usually within a finally block)
             session.close();
 
         } catch(GenericJDBCException ex) {
-            logger.error("class=[" + this.getClass().getName() + "] method=[.save()]", ex);
+            GenericDAO.logger.error("class=[" + this.getClass().getName() + "] method=[.save()]", ex);
         }
 
-        logger.exit();
+        GenericDAO.logger.exit();
     }
 
     @Override
     public void update(User updateObj) {
-        logger.entry(updateObj);
+        GenericDAO.logger.entry(updateObj);
 
         Session session = openSession();
-
         session.beginTransaction();
 
-        // Update User object
-        logger.info("update User=[ " + updateObj.toString() + " ]");
+        GenericDAO.logger.info("update User=[ " + updateObj.toString() + " ]");
         session.update(updateObj);
         session.flush();
 
-        // Commit and close the transaction
         session.getTransaction().commit();
-
         session.close();
 
-        logger.exit(updateObj);
+        GenericDAO.logger.exit(updateObj);
     }
 
     // TODO - code delete user method
@@ -90,7 +81,7 @@ public class UserDaoImpl implements UserDao {
      * @return
      */
     public User retrieveUserById(Long userId) {
-        logger.entry(userId);
+        GenericDAO.logger.entry(userId);
 
         Session session = openSession();
 
@@ -99,7 +90,6 @@ public class UserDaoImpl implements UserDao {
 
             session.beginTransaction();
 
-            // Retrieve a User object from the Database
             try{
                 user = (User) session.get(User.class, userId);
 
@@ -108,16 +98,16 @@ public class UserDaoImpl implements UserDao {
                 }
 
             } catch (UserNotFoundException e){
-                logger.error("class=[" + this.getClass().getName() + "] method=[.retrieveUserById()]", e.getMessage());
+                GenericDAO.logger.error("class=[" + this.getClass().getName() + "] method=[.retrieveUserById()]", e.getMessage());
             }
 
         } catch(GenericJDBCException ex) {
-            logger.error("class=[" + this.getClass().getName() + "] method=[.retrieveUserById()]", ex);
+            GenericDAO.logger.error("class=[" + this.getClass().getName() + "] method=[.retrieveUserById()]", ex);
         }
 
         session.close();
 
-        logger.exit();
+        GenericDAO.logger.exit();
 
         return user;
     }
@@ -149,7 +139,7 @@ public class UserDaoImpl implements UserDao {
      */
     @Override
     public void disableUserAccount(String username) {
-        logger.entry(username);
+        GenericDAO.logger.entry(username);
 
         Session session = openSession();
 
@@ -159,18 +149,15 @@ public class UserDaoImpl implements UserDao {
         Query query = session.createQuery("from User where username = :username");
         query.setParameter("username", username);
 
-        // update active field on user object
         User user = (User) query.uniqueResult();
         user.setActive("N");
 
         session.update(user);
 
-        // Commit and close the transaction
         session.getTransaction().commit();
-
         session.close();
 
-        logger.exit();
+        GenericDAO.logger.exit();
     }
 
     /**
@@ -181,7 +168,7 @@ public class UserDaoImpl implements UserDao {
      * @throws UserNotFoundException
      */
     public User findUserByUsername(String username) throws UserNotFoundException {
-        logger.entry(username);
+        GenericDAO.logger.entry(username);
 
         Session session = openSession();
 
@@ -190,11 +177,9 @@ public class UserDaoImpl implements UserDao {
 
             session.beginTransaction();
 
-            // Retrieve a User object from the Database
             Query query = session.createQuery("from User where username = :username");
             query.setParameter("username", username);
 
-            // user is equal to the first user object found
             user = (User) query.uniqueResult();
 
             if(user == null) {
@@ -202,12 +187,12 @@ public class UserDaoImpl implements UserDao {
             }
 
         } catch(GenericJDBCException ex) {
-            logger.error("class=[" + this.getClass().getName() + "] method=[.findUserByUsername()]", ex);
+            GenericDAO.logger.error("class=[" + this.getClass().getName() + "] method=[.findUserByUsername()]", ex);
         }
 
         session.close();
 
-        logger.exit();
+        GenericDAO.logger.exit();
 
         return user;
     }

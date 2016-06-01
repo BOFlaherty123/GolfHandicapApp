@@ -19,7 +19,6 @@ import java.util.List;
 @Component
 public class DisplayScoreStatisticsHelper {
 
-    // TODO - convert to an enum? as per 'effective Java' book
     private static final int MAX_HOLES_OF_GOLF = 18;
 
     @Autowired
@@ -35,10 +34,8 @@ public class DisplayScoreStatisticsHelper {
     public List<HoleScoreType> processScoreCardData(List<HoleScoreType> holeScoreTypeList, ScoreCard scoreCard) {
 
         int holeNo = 0;
-        // extract and process each golf round within a scoreCard
         for(Round golfRound : scoreCard.getGolfRounds()) {
             for(Hole hole : golfRound.getHoles()) {
-                // determine the users score type for each hole played
                 buildStatisticalDataPerHole(holeNo, holeScoreTypeList, hole);
                 holeNo++;
             }
@@ -54,16 +51,9 @@ public class DisplayScoreStatisticsHelper {
      * @param hole
      */
     public void buildStatisticalDataPerHole(int holeNo, List<HoleScoreType> holeScoreTypeList, Hole hole) {
-
-        // retrieve HoleScoreType object for corresponding hole object
         if(holeNo < MAX_HOLES_OF_GOLF) {
-
-            // retrieve holeScoreType object for a given hole
             HoleScoreType holeScoreType = holeScoreTypeList.get(holeNo);
-
-            // create a new object/helper class to determine what type of score the user achieved
             determineTypeOfScore.execute(holeScoreType, hole.getHolePar(), hole.getHoleScore());
-
         }
 
     }
@@ -77,7 +67,6 @@ public class DisplayScoreStatisticsHelper {
 
         List<HoleScoreType> holeScoreTypeList = new ArrayList();
 
-        // create 18 new holeScoreType objects
         for(int i = 1; i <= MAX_HOLES_OF_GOLF; i++) {
             holeScoreTypeList.add(new HoleScoreType.HoleScoreTypeBuilder(i).build());
         }

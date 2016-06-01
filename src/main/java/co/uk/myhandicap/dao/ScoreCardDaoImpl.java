@@ -32,18 +32,12 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
         Session session = openSession();
 
         try {
-            // Create a session transaction (usually within a try block)
             session.beginTransaction();
-
             session.save(scoreCard);
-
-            // Commit and close the transaction
             session.getTransaction().commit();
-
         } catch(GenericJDBCException ex) {
             logger.error("class=[" + this.getClass().getName() + "] method=[.save()]", ex);
         } finally {
-            // Close the session (usually within a finally block)
             session.close();
         }
 
@@ -75,7 +69,6 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
         List<ScoreCard> scoreCardList = new ArrayList<ScoreCard>();
 
         try {
-            // Create a session transaction (usually within a try block)
             session.beginTransaction();
 
             Query query = session.createQuery("from ScoreCard where playerId = :playerId ");
@@ -83,14 +76,11 @@ public class ScoreCardDaoImpl implements ScoreCardDao {
             logger.info("class=[" + this.getClass().getName() + "] method=[.save()] query=[" + query.toString() + "]");
 
             scoreCardList = query.list();
-
-            // Commit and close the transaction
             session.getTransaction().commit();
 
         } catch(GenericJDBCException ex) {
             logger.error("class=[" + this.getClass().getName() + "] method=[.save()]", ex);
         } finally {
-            // Close the session (usually within a finally block)
             session.close();
         }
 

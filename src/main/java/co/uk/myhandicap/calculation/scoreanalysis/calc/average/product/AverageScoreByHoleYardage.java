@@ -24,26 +24,18 @@ public class AverageScoreByHoleYardage extends AbstractCalculateAverage implemen
 
     @Override
     public String execute(User user, String averageRequested) {
-
-        // retrieve a scoreCard(s) for the user;
         List<Hole> holeParList = holeDao.retrieveHoleAverageByHoleYardage(user, averageRequested);
-
         return calculateAverage(holeParList);
     }
 
     @Override
     public String calculateAverage(List holeParList) {
-        // averageRequested equals holePar parameter requested by the user, valid values 3, 4 or 5
         return iterateOverAndProcessQueryResults(holeParList);
     }
 
     private String iterateOverAndProcessQueryResults(List<Hole> holeParList) {
-
-        // Default average value
         BigDecimal total = new BigDecimal(ZERO);
         total = total.add(calculateTotalHoleScoreForGivenYardage(total, holeParList));
-
-        // if total is zero return, else calculate the user's avg score by par
         return (total.signum() == 0) ?
                 ZERO : calculate(total, numberOfHoles(holeParList), 2);
     }

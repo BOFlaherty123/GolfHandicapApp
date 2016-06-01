@@ -1,7 +1,7 @@
 package main.java.co.uk.myhandicap.form;
 
 /**
- * Description Here
+ * Disable User Form Object
  *
  * @author Benjamin O'Flaherty
  * @date Created on: 29/09/2014

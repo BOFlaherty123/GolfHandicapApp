@@ -57,13 +57,9 @@ public class HandicapCalculation {
     public Handicap calculateUserHandicapScore(Long userId) throws UserNotFoundException {
         logger.entry(userId);
 
-        // retrieve all score cards for the current user
         List<ScoreCard> scoreCardList = scoreCardService.retrieveUserScoredCardsById(getUser(userId));
-
-        // retrieve all rounds of golf played by a user
         List<Round> roundsOfGolf = HandicapCalculationHelper.extractRoundsOfGolfFromScoreCard(scoreCardList);
 
-        // calculate the users handicap for this Round of golf
         Handicap playerHandicap = calculateHandicapForRoundOfGolf(roundsOfGolf);
 
         if(playerHandicap == null) {
@@ -86,18 +82,13 @@ public class HandicapCalculation {
     private Handicap calculateHandicapForRoundOfGolf(List<Round> roundsOfGolf) {
         logger.entry(roundsOfGolf);
 
-        // Setup a handicap object with default values
         Handicap playerHandicap = HandicapCalculationHelper.setupDefaultHandicap();
 
         if(!roundsOfGolf.isEmpty()) {
 
-            // calculate adjusted total player score
             BigDecimal adjustedTotal = calculateAdjustedScoreTotal(roundsOfGolf);
-
-            // calculate handicap and return value as a String
             String handicap = HandicapCalculationHelper.calculateHandicap(roundsOfGolf.size(), adjustedTotal);
 
-            // add calculations to the handicap object
             playerHandicap.setHandicapScore(handicap);
             playerHandicap.setNumberOfRounds(String.valueOf(roundsOfGolf.size()));
 
@@ -117,13 +108,9 @@ public class HandicapCalculation {
      */
     private BigDecimal calculateAdjustedScoreTotal(List<Round> roundsOfGolf) {
 
-        // loop through each round of golf on the players scorecard
         List<BigDecimal> adjustedScores = golfRound.processRoundOfGolf(roundsOfGolf, new ArrayList<BigDecimal>());
-
-        // total all adjusted scores for each round of golf played by the user
         BigDecimal adjustedTotal = HandicapCalculationHelper.createBigDecimalDefault();
 
-        // loop through all adjusted scores and add value to total
         for(BigDecimal adjustScore : adjustedScores) {
             adjustedTotal = HandicapCalculationHelper.addValueToTotal(adjustedTotal, adjustScore);
         }

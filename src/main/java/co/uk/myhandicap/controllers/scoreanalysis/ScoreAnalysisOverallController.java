@@ -38,7 +38,6 @@ public class ScoreAnalysisOverallController extends AbstractScoreAnalysisControl
 
         User user = retrieveUser(principal.getName());
 
-        // Overall Hole by Hole Score Analysis for given User
         PlayerScoreType playerScoreType = displayOverallScoreStatistics.execute(user);
         mav.addObject("playerScoreType", playerScoreType);
 
@@ -49,7 +48,6 @@ public class ScoreAnalysisOverallController extends AbstractScoreAnalysisControl
     public ModelAndView averagePar(@PathVariable("parValue") String parValue, ModelAndView mav, Principal principal) {
 
         mav.setViewName(VIEW_NAME);
-        // calculate and add returned average to model
         mav.addObject("avgByHolePar", calculateAverage("avgByHolePar", parValue, principal));
 
         return mav;
@@ -59,7 +57,6 @@ public class ScoreAnalysisOverallController extends AbstractScoreAnalysisControl
     public ModelAndView averageYardage(@PathVariable("yardageValue") String yardageValue, ModelAndView mav, Principal principal) {
 
         mav.setViewName(VIEW_NAME);
-        // calculate and add returned average to model
         mav.addObject("avgByHoleYardage", calculateAverage("avgByHoleYardage", yardageValue, principal));
 
         return mav;

@@ -1,7 +1,7 @@
-package test.java.co.uk.myhandicap.controllers.myHandicap;
+package test.test.java.co.uk.myhandicap.controllers.myHandicap;
 
-import main.java.co.uk.myhandicap.calculation.handicap.HandicapCalculation;
 import main.java.co.uk.myhandicap.calculation.handicap.Handicap;
+import main.java.co.uk.myhandicap.calculation.handicap.HandicapCalculation;
 import main.java.co.uk.myhandicap.model.handicap.ScoreCard;
 import main.java.co.uk.myhandicap.model.user.User;
 import main.java.co.uk.myhandicap.service.ScoreCardService;
@@ -39,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @project MyHandicapApp
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:/test/config/testContext.xml",
+@ContextConfiguration(locations = {"classpath:test/test/config/testContext.xml",
         "classpath:/main/webapp/WEB-INF/MyHandicapApp-servlet.xml"})
 @WebAppConfiguration
 public class MyHandicapControllerTest {

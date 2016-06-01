@@ -39,10 +39,7 @@ public class ScoreAnalysisCourseController extends AbstractScoreAnalysisControll
     @RequestMapping(value="/courseName")
     public ModelAndView handleRequest(ModelAndView mav, Principal principal) {
 
-        // set view name
         mav.setViewName(VIEW_NAME);
-
-        // retrieve golf courses the user has played
         mav.addObject(GOLF_COURSE_NAMES_ATTR, retrieveGolfCourseNamesForUser(principal));
 
         return mav;
@@ -53,16 +50,11 @@ public class ScoreAnalysisCourseController extends AbstractScoreAnalysisControll
                                             ModelAndView mav, Principal principal) {
 
         mav.setViewName(VIEW_NAME);;
-
-        // calculate and add returned average to model
         mav.addObject("avgByCourseName", calculateAverage("avgByCourse", courseName, principal));
-
-        // retrieve golf courses the user has played
         mav.addObject(GOLF_COURSE_NAMES_ATTR, retrieveGolfCourseNamesForUser(principal));
 
         User user = retrieveUser(principal.getName());
 
-        // Hole by Hole Score Analysis (total)
         List<HoleScoreType> holeScoreTypeList = statisticsByCourse.execute(courseName, user);
         mav.addObject("courseStatistics", holeScoreTypeList);
 

@@ -12,9 +12,9 @@ import java.io.Serializable;
  * @date Created on: 10/07/14
  * @project MyHandicapApp
  */
-public interface GenericDao<T, PK extends Serializable> {
+public interface GenericDAO<T, PK extends Serializable> {
 
-    public final XLogger logger = XLoggerFactory.getXLogger(GenericDao.class
+    public final XLogger logger = XLoggerFactory.getXLogger(GenericDAO.class
             .getName());
 
     public void save(T saveObj);

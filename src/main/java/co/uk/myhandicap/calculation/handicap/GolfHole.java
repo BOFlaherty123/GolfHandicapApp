@@ -36,10 +36,8 @@ public class GolfHole {
 
         for(Hole hole : round.getHoles()) {
 
-            // Process CONGU adjustment
             processCONGUAdjustment(hole);
 
-            // add players score for the hole to the round total
             playerScore = HandicapCalculationHelper.addValueToTotal(playerScore,
                     HandicapCalculationHelper.createScore(hole.getHoleScore()));
 

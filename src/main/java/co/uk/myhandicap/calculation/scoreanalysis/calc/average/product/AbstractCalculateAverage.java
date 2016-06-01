@@ -24,7 +24,6 @@ public abstract class AbstractCalculateAverage {
      * @return
      */
     protected String calculate(BigDecimal total, int size, int decimalPlaces) {
-        // divide total of score by number of times played @ averageRequested
         return String.valueOf(total.divide(new BigDecimal(String.valueOf(size)), decimalPlaces, RoundingMode.HALF_UP));
     }
 

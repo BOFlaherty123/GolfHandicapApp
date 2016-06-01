@@ -1,6 +1,6 @@
-package test.java.co.uk.myhandicap.controllers.scoreanalysis;
+package test.test.java.co.uk.myhandicap.controllers.scoreanalysis;
 
-import main.java.co.uk.myhandicap.calculation.scoreanalysis.average.CalculateRequestedAverage;
+import main.java.co.uk.myhandicap.calculation.scoreanalysis.calc.average.CalculateRequestedAverage;
 import main.java.co.uk.myhandicap.dao.ScoreCardDao;
 import main.java.co.uk.myhandicap.exceptions.UserNotFoundException;
 import main.java.co.uk.myhandicap.model.user.User;
@@ -33,8 +33,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @project MyHandicapApp
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:/test/config/testContext.xml",
-        "classpath:/test/config/MyHandicapApp-servlet-test.xml"})
+@ContextConfiguration(locations = {"classpath:test/test/config/testContext.xml",
+        "classpath:test/test/config/MyHandicapApp-servlet-test.xml"})
 @WebAppConfiguration
 public class ScoreAnalysisControllerTest {
 
@@ -42,13 +42,10 @@ public class ScoreAnalysisControllerTest {
 
     @Autowired
     private CalculateRequestedAverage calculateRequestedAverage;
-
     @Autowired
     private WebApplicationContext webApplicationContext;
-
     @Autowired
     private UserService userService;
-
     @Autowired
     private ScoreCardDao scoreCardDao;
 
@@ -85,7 +82,7 @@ public class ScoreAnalysisControllerTest {
         User user = createMockUser();
 
         when(userService.findUserByUsername(principal.getName())).thenReturn(user);
-        when(calculateRequestedAverage.process("avgByCourse", user, "Rivenhall Oaks")).thenReturn("5");
+        when(calculateRequestedAverage.processRequestedAverage("avgByCourse", user, "Rivenhall Oaks")).thenReturn("5");
         when(scoreCardDao.retrieveAllGolfCourseNamesForUserByScoreCard(user)).thenReturn(mockCourseNameList());
 
         mockMvc.perform(get("/scoreAnalysis/averageCourseName/Rivenhall Oaks")
@@ -103,7 +100,7 @@ public class ScoreAnalysisControllerTest {
         User user = createMockUser();
 
         when(userService.findUserByUsername(principal.getName())).thenReturn(user);
-        when(calculateRequestedAverage.process("avgByHolePar", user, "4")).thenReturn("4.25");
+        when(calculateRequestedAverage.processRequestedAverage("avgByHolePar", user, "4")).thenReturn("4.25");
         when(scoreCardDao.retrieveAllGolfCourseNamesForUserByScoreCard(user)).thenReturn(mockCourseNameList());
 
         mockMvc.perform(get("/scoreAnalysis/averagePar/4")
@@ -121,7 +118,7 @@ public class ScoreAnalysisControllerTest {
         User user = createMockUser();
 
         when(userService.findUserByUsername(principal.getName())).thenReturn(user);
-        when(calculateRequestedAverage.process("avgByHoleYardage", user, "250")).thenReturn("4.8");
+        when(calculateRequestedAverage.processRequestedAverage("avgByHoleYardage", user, "250")).thenReturn("4.8");
         when(scoreCardDao.retrieveAllGolfCourseNamesForUserByScoreCard(user)).thenReturn(mockCourseNameList());
 
         mockMvc.perform(get("/scoreAnalysis/averageYardage/250")
